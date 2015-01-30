@@ -1,0 +1,74 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<script type="text/javascript"><!--
+function l(e){
+ var N=getCookie("NAME"),M=getCookie("MAIL"),i;
+ with(document) for(i=0;i<forms.length;i++)if(forms[i].FROM&&forms[i].mail)with(forms[i]){
+  FROM.value=N;
+  mail.value=M;
+ }
+}
+onload=l;
+function getCookie(key, tmp1, tmp2, xx1, xx2, xx3) {
+ tmp1 = " " + document.cookie + ";";
+ while(tmp1.match(/\+/)) {tmp1 = tmp1.replace("+", " ");};
+ xx1 = xx2 = 0;
+ len = tmp1.length;
+ while (xx1 < len) {
+  xx2 = tmp1.indexOf(";", xx1);
+  tmp2 = tmp1.substring(xx1 + 1, xx2);
+  xx3 = tmp2.indexOf("=");
+  if (tmp2.substring(0, xx3) == key) {return(unescape(tmp2.substring(xx3 + 1, xx2 - xx1 - 1)));}
+  xx1 = xx2 + 1;
+ }
+ return("");
+}
+//--></script>
+<style type="text/css"><!--
+img {border:0;}
+--></style>
+<title><BBS_TITLE></title>
+</head>
+<body bgcolor="<BBS_BG_COLOR>" text="<BBS_TEXT_COLOR>" link="<BBS_LINK_COLOR>" alink="<BBS_ALINK_COLOR>" vlink="<BBS_VLINK_COLOR>" background="<BBS_BG_PICTURE>">
+<center><BBS_TITLE_NAME></center>
+<table border="1" cellspacing="7" cellpadding="3" width="95%" bgcolor="<BBS_MENU_COLOR>" align="center">
+ <tr>
+  <td align="center">
+   <table border="0" cellpadding="1" width="100%">
+    <tr>
+     <td nowrap colspan="2"><font size="+1"><b><BBS_TITLE></b></font><br></td>
+     <td nowrap width="5%" align="right" valign="top"><a href="#menu">■</a> <a href="#1">▼</a></td>
+    </tr>
+    <tr>
+     <td colspan="3"><OPTION><br><GUIDE><br></td>
+    </tr>
+   </table>
+  </td>
+ </tr>
+</table>
+<PUTAD>
+<CUT>
+<table border="1" cellspacing="7" cellpadding="3" width="95%" bgcolor="<BBS_MAKETHREAD_COLOR>" align="center">
+ <tr>
+  <td><br>
+   <form method="post" action="../test/bbs.php">
+   <input type="hidden" name="bbs" value="<BBS>">
+   <input type="hidden" name="new" value="thread">
+   <input type="submit" value="新規スレッド作成画面へ" name="submit">
+   </form>
+  </td>
+ </tr>
+</table>
+<center><br><br>
+<b>どのような形の削除依頼であれ公開させていただきます。</b>
+</center>
+<br>
+<a href="../../"><b>ホーム</b></a><VERSION>
+<address>
+<div align="right"><a href="http://script.s16.xrea.com" target="_blank"><small>鏡の国</small></a></div>
+</address>
+</body>
+</html>

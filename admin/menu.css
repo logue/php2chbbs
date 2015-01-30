@@ -1,0 +1,9 @@
+.menu {font-size: 11pt; color: #333300; text-decoration: none}
+.title {font-size: 11pt; color: #CC33CC; text-decoration: none}
+.item {font-size: 10pt; color: #0000FF; text-decoration: none}
+.item:hover {color: #FF0000; text-decoration: underline}
+body {font-family: "‚l‚r ‚oƒSƒVƒbƒN",Osaka; font-size: 10pt; color: #333300; background-color: #CCFF99;}
+hr {border: 1px solid #009900;}
+hr.sub {border-style: dotted;margin-left: 0px ; width: 70%;}
+ul {margin: 0px 0px 0px 15px; padding: 0px;}
+.dir{color: #333300; text-decoration: none; cursor: pointer;}

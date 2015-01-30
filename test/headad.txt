@@ -1,0 +1,1 @@
+<div align="right"> 広告用のテキストです必要ないときは"headad.txt"を空にしてください。</div>

@@ -1,0 +1,20 @@
+ <form method="post" action="../test/bbs.php" enctype="<ENCTYPE>">
+  <input type="hidden" name="bbs" value="<BBS>">
+  <input type="hidden" name="key" value="<KEY>">
+  <input type="hidden" name="time" value="<TIME>">
+  <input type="submit" value="書き込む" name="submit">
+  名前： <input type="text" name="FROM" size="19">
+  E-mail：<input type="text" name="mail" size="19">
+  <ul>
+  <textarea rows="5" cols="64" wrap="off" name="MESSAGE"></textarea><br>
+  <FILE_FORM>
+  <b>
+  <a href="../test/read.php/<BBS>/<KEY>/">全部読む</a>
+  <a href="../test/read.php/<BBS>/<KEY>/l50">最新50</a>
+  <a href="../test/read.php/<BBS>/<KEY>/-100">1-100</a>
+  <a href="#menu">板のトップ</a>
+  <a href="<PATH>">リロード</a>
+  </b>
+  </ul>
+ </form>
+</dl></td></tr></table><br>

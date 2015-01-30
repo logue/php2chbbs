@@ -1,0 +1,13 @@
+.title {font-size: 18pt; color: #CC33CC;}
+.item {font-size: 10pt; color: #0000FF; text-decoration: none}
+.item:hover {color: #FF0000; text-decoration: underline}
+body {font-family: "‚l‚r ‚oƒSƒVƒbƒN",Osaka; font-size: 10pt; color: #333300; background-color: #FFFFCC;}
+h3 {font-size: 12pt; color:#333300; margin: 5px 0px 5px 0px;}
+tr,td {font-size: 10pt; color: #333300;}
+th {text-align: left; font-size:10pt; color: #333300;}
+dt {font-size: 10pt; color: #333300; font-weight: bold; margin: 5px 0px 0px 20px;}
+dt:before {content: "*";}
+dd {font-size: 10pt; color: #333300;}
+hr {color: #aaaaaa;}
+img {border: 0;}
+q {quotes: "<" ">";}

@@ -1,0 +1,1 @@
+<br><center>広告用のテキストです必要ないときは"putad.txt"を空にしてください</center>
