@@ -1,6 +1,6 @@
 <?php
 define('VERSION', '2005/04/23');
-# ‰ß‹ƒƒOƒƒjƒ…[‚ğ‚©[‚­[
+# éå»ãƒ­ã‚°ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’ã‹ãƒ¼ããƒ¼
 $fp = @fopen($SUBFILE, "w");
 if (!$fp) exit;
 fputs($fp, '<html><head><meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS"><meta http-equiv="pragma" content="no-cache"><meta http-equiv="Cache-Control" content="no-cache"></head><body><font size="2">');
@@ -10,14 +10,14 @@ foreach ($PAGEFILE as $tmp) {
 	$dat = str_replace(".dat", "", $tmp);
 	fputs($fp, "<a href=\"../test/read.php/$_REQUEST[bbs]/$dat/l50\">$count: $SUBJECT[$tmp]</a><br>\n");
 }
-fputs($fp, '<div align="right"><a href="./kako/"><b>‰ß‹ƒƒO‘qŒÉ‚Í‚±‚¿‚ç</b></a></font>');
+fputs($fp, '<div align="right"><a href="./kako/"><b>éå»ãƒ­ã‚°å€‰åº«ã¯ã“ã¡ã‚‰</b></a></font>');
 fputs($fp, "</body></html>\n");
 fclose($fp);
 #====================================================
-#@–{‚g‚s‚l‚k“f‚«ˆ—
+#ã€€æœ¬ï¼¨ï¼´ï¼­ï¼¬åãå‡¦ç†
 #====================================================
 $fp = fopen($INDEXFILE, "w");
-#--------ƒwƒbƒ_•ã‚ÌL
+#--------ãƒ˜ãƒƒãƒ€ï¼†ä¸Šã®åºƒå‘Š
 list($header, $footer) = explode('<CUT>', implode('', file("../test/index.txt")));
 $header = str_replace("<BBS_TITLE>", $SETTING['BBS_TITLE'], $header);
 $header = str_replace("<BBS_TEXT_COLOR>", $SETTING['BBS_TEXT_COLOR'], $header);
@@ -41,7 +41,7 @@ if ($headad) {
 	fputs($fp, $headad);
 	fputs($fp, "\n  </td>\n </tr>\n</table><br>\n");
 }
-#--------ƒXƒŒƒbƒhˆê——
+#--------ã‚¹ãƒ¬ãƒƒãƒ‰ä¸€è¦§
 $menu = '<a name="menu"></a>
 <table border="1" cellspacing="7" cellpadding="3" width="95%" bgcolor="'.$SETTING['BBS_MENU_COLOR'].'" align="center">
  <tr>
@@ -52,18 +52,18 @@ $i = 1;
 foreach ($PAGEFILE as $tmp){
 	$tmpkey = str_replace(".dat", "", $tmp);
 	if ($i <= $SETTING['BBS_THREAD_NUMBER']) {
-		fputs($fp, "   <a href=\"../test/read.php/$_REQUEST[bbs]/$tmpkey/l50\" target=\"body\">$i:</a> <a href=\"#$i\">$SUBJECT[$tmp]</a>@\n");
+		fputs($fp, "   <a href=\"../test/read.php/$_REQUEST[bbs]/$tmpkey/l50\" target=\"body\">$i:</a> <a href=\"#$i\">$SUBJECT[$tmp]</a>ã€€\n");
 	}
 	elseif ($i <= $SETTING['BBS_MAX_MENU_THREAD']) {
-		fputs($fp, "   <a href=\"../test/read.php/$_REQUEST[bbs]/$tmpkey/l50\" target=\"body\">$i: $SUBJECT[$tmp]</a>@\n");
+		fputs($fp, "   <a href=\"../test/read.php/$_REQUEST[bbs]/$tmpkey/l50\" target=\"body\">$i: $SUBJECT[$tmp]</a>ã€€\n");
 	}
 	else break;
 	$i++;
 }
 $count_end = --$i;
-fputs($fp, "   <div align=\"right\"><a href=\"subback.html\"><b>ƒXƒŒƒbƒhˆê——‚Í‚±‚¿‚ç</b></a></div>\n  </td>\n </tr>\n</table><br>\n");
-#--------ˆê——‰º‚ÌL
-#--------ƒXƒŒƒbƒh•\¦
+fputs($fp, "   <div align=\"right\"><a href=\"subback.html\"><b>ã‚¹ãƒ¬ãƒƒãƒ‰ä¸€è¦§ã¯ã“ã¡ã‚‰</b></a></div>\n  </td>\n </tr>\n</table><br>\n");
+#--------ä¸€è¦§ä¸‹ã®åºƒå‘Š
+#--------ã‚¹ãƒ¬ãƒƒãƒ‰è¡¨ç¤º
 $i = 1;
 $form_txt = implode('', file("../test/form.txt"));
 $fp2  = fopen($PATH."threadconf.cgi", "r");
@@ -106,27 +106,27 @@ foreach ($PAGEFILE as $tmp){
 	fputs($fp, $form);
 	if (++$i >  $SETTING['BBS_THREAD_NUMBER']) break;
 }
-#--------V‹Kì¬‰æ–Ê•ˆê”Ô‰º‚ÌL•ƒo[ƒWƒ‡ƒ“•\¦
+#--------æ–°è¦ä½œæˆç”»é¢ï¼†ä¸€ç•ªä¸‹ã®åºƒå‘Šï¼†ãƒãƒ¼ã‚¸ãƒ§ãƒ³è¡¨ç¤º
 $footer = str_replace('<BBS_MAKETHREAD_COLOR>', $SETTING['BBS_MAKETHREAD_COLOR'], $footer);
 $footer = str_replace('<BBS>', $_REQUEST['bbs'], $footer);
 $footer = str_replace('<VERSION>', VERSION, $footer);
 fputs($fp, $footer);
 fclose($fp);
-# i-mode—pindex
+# i-modeç”¨index
 $th_titles = file($subjectfile);
 $end = count($th_titles);
-$data = "<html><head><title>$_REQUEST[bbs] ƒXƒŒƒbƒhˆê——</title></head><body>$SETTING[BBS_TITLE]<hr>";
+$data = "<html><head><title>$_REQUEST[bbs] ã‚¹ãƒ¬ãƒƒãƒ‰ä¸€è¦§</title></head><body>$SETTING[BBS_TITLE]<hr>";
 for ($i = 1; $i < 11; $i++) {
 	if(!isset($th_titles[$i-1]) or !$th_titles[$i-1]) break;
 	list($id, $sub) = explode("<>", $th_titles[$i-1]);
 	$id = str_replace(".dat", "", $id);
 	$data .= $i.": <a href=../../test/r.php/$_REQUEST[bbs]/$id/>".rtrim($sub).'</a><br>';
 }
-$data .= "<hr><a href=../../test/p.php/$_REQUEST[bbs]/$i>‘±‚«</a> <a href=../../test/b.php/$_REQUEST[bbs]/>V½Ú</a></body></html>\n";
+$data .= "<hr><a href=../../test/p.php/$_REQUEST[bbs]/$i>ç¶šã</a> <a href=../../test/b.php/$_REQUEST[bbs]/>æ–°ï½½ï¾š</a></body></html>\n";
 $fp = fopen ($IMODEFILE, "w");
 fputs($fp, $data);
 fclose($fp);
-#--------‘‚«‚±‚İI—¹‰æ–Ê
+#--------æ›¸ãã“ã¿çµ‚äº†ç”»é¢
 if(strstr($_SERVER['HTTP_USER_AGENT'], 'DoCoMo') or
 strstr($_SERVER['HTTP_USER_AGENT'], 'J-PHONE') or
 strstr($_SERVER['HTTP_USER_AGENT'], 'UP.Browser')) {
@@ -138,14 +138,14 @@ header("Content-Type: text/html; charset=Shift_JIS");
 ?>
 <html>
 <head>
-<title>‘‚«‚±‚İ‚Ü‚µ‚½B</title>
+<title>æ›¸ãã“ã¿ã¾ã—ãŸã€‚</title>
 <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
 <?=$set_cookie?>
 <meta http-equiv="refresh" content="1;URL=<?=$INDEXFILE?>?">
 </head>
-<body>‘‚«‚±‚İ‚ªI‚í‚è‚Ü‚µ‚½B<br>
+<body>æ›¸ãã“ã¿ãŒçµ‚ã‚ã‚Šã¾ã—ãŸã€‚<br>
 <br>
-‰æ–Ê‚ğØ‚è‘Ö‚¦‚é‚Ü‚Å‚µ‚Î‚ç‚­‚¨‘Ò‚¿‰º‚³‚¢B<br>
+ç”»é¢ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ã¾ã§ã—ã°ã‚‰ããŠå¾…ã¡ä¸‹ã•ã„ã€‚<br>
 <br><br><br>
 </body>
 </html>

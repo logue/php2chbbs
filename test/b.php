@@ -1,17 +1,17 @@
 <?php
-#│@┐X┐▄≈╖┌д≈p┐t┐H│[┐─
+#Ц──Ц┌╧Ц┐╛Г╚▀Ц│╕Г■╗Ц┐∙Ц┌╘Ц┐╪Ц┐═
 $version = "b.php ver1.2 (2004/06/25)";
 #==================================================
-#│@┐┼┐N┐G┐X┐g┴П░м
+#Ц──Ц┐╙Ц┌╞Ц┌╗Ц┌╧Ц┐┬Х╖ёФ·░
 #==================================================
-# PATH INFO┌╘┌Г┐p┐┴┐││[┐^┌П▌Ф┌Х▐o┌╥│B
+# PATH INFOЦ│▀Ц┌┴Ц┐▒Ц┐╘Ц┐║Ц┐╪Ц┌©Ц┌▓Е▐√Ц┌┼Е┤╨Ц│≥Ц─┌
 if(!isset($_SERVER['PATH_INFO']) or !$_SERVER['PATH_INFO']){echo("ERR - $version");exit;}
 $buffer = $_SERVER['PATH_INFO'];
 $pairs = explode('/',$buffer);
 $bbs = $pairs[1];
 if (!is_dir("../$bbs")) { echo("ERR - $version");exit; }
 #==================================================
-#│@┐t┐H│[┐─▐o≈м
+#Ц──Ц┐∙Ц┌╘Ц┐╪Ц┐═Е┤╨Е┼⌡
 #==================================================
 ?>
-<body><form method=POST action="../../bbs.php">ю╡ды<input name=subject>NAME│F<input name=FROM>MAIL│F<input name=mail istyle=3><input type=hidden name=bbs value=<?=$bbs?>><input type=hidden name=time value=<?=time()?>><textarea name=MESSAGE></textarea><input type=submit value="┌╘┌╚┌╠┌ч" name=submit></form><br><?=$version?></body>
+<body><form method=POST action="../../bbs.php">О╬─О╫╡О╬└О╬≥<input name=subject>NAMEО╪ <input name=FROM>MAILО╪ <input name=mail istyle=3><input type=hidden name=bbs value=<?=$bbs?>><input type=hidden name=time value=<?=time()?>><textarea name=MESSAGE></textarea><input type=submit value="Ц│▀Ц│█Ц│⌠Ц┌─" name=submit></form><br><?=$version?></body>

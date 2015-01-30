@@ -1,6 +1,6 @@
 <?php
 #====================================================
-#@ƒtƒ@ƒCƒ‹‘€ìi‚g‚s‚l‚kì¬—pì‹Æƒtƒ@ƒCƒ‹XVj
+#ã€€ãƒ•ã‚¡ã‚¤ãƒ«æ“ä½œï¼ˆï¼¨ï¼´ï¼­ï¼¬ä½œæˆç”¨ä½œæ¥­ãƒ•ã‚¡ã‚¤ãƒ«æ›´æ–°ï¼‰
 #====================================================
 #MakeWorkFile(KEY-NUMBER)
 function MakeWorkFile($bbs, $key, $outdat="") {
@@ -10,7 +10,7 @@ function MakeWorkFile($bbs, $key, $outdat="") {
 	if (is_file($dattemp)) {
 		$logopen = file($dattemp);
 		$lognum = count($logopen);
-		# ÅŒã‚ÌƒŒƒX‚Ì“ú•t—“‚ğæ“¾iƒXƒŒƒXƒgAOver threadƒ`ƒFƒbƒN‚Ì‚½‚ßj
+		# æœ€å¾Œã®ãƒ¬ã‚¹ã®æ—¥ä»˜æ¬„ã‚’å–å¾—ï¼ˆã‚¹ãƒ¬ã‚¹ãƒˆã€Over threadãƒã‚§ãƒƒã‚¯ã®ãŸã‚ï¼‰
 		list(,,$tmp) = explode("<>", end($logopen));
 	}
 	else {
@@ -18,12 +18,12 @@ function MakeWorkFile($bbs, $key, $outdat="") {
 		$lognum = 0;
 		$tmp = '';
 	}
-	# ‘‚İ‹Ö~‚Å–³‚¢ê‡
+	# æ›¸è¾¼ã¿ç¦æ­¢ã§ç„¡ã„å ´åˆ
 	clearstatcache();
 	if (is_writable($dattemp) or !is_file($dattemp)) {
 		$fp = fopen($dattemp, "a");
 		flock($fp, 2);
-		if (!preg_match("/Over \d+ Thread|’â~/", $tmp)) {
+		if (!preg_match("/Over \d+ Thread|åœæ­¢/", $tmp)) {
 			if ($outdat and $lognum < THREAD_RES) {
 				fputs($fp, $outdat);
 				array_push($logopen, $outdat);
@@ -32,13 +32,13 @@ function MakeWorkFile($bbs, $key, $outdat="") {
 			$stop = 0;
 		}
 		else $stop = 1;
-		# ‚P‚O‚O‚O(THREAD_RES)ƒI[ƒo[‚Ì‘‚«‚±‚İ‹Ö~
+		# ï¼‘ï¼ï¼ï¼(THREAD_RES)ã‚ªãƒ¼ãƒãƒ¼ã®æ›¸ãã“ã¿ç¦æ­¢
 		if ($lognum >= THREAD_RES) {
 			if (!$stop) {
-				# ‘SŠp”š‚É•ÏX
+				# å…¨è§’æ•°å­—ã«å¤‰æ›´
 				$maxnum = mb_convert_kana(THREAD_RES, "N", "SJIS");
 				$maxplus = mb_convert_kana(++$lognum, "N", "SJIS");
-				$maxmsg = "‚±‚ÌƒXƒŒƒbƒh‚Í${maxnum}‚ğ’´‚¦‚Ü‚µ‚½B <br> ‚à‚¤‘‚¯‚È‚¢‚Ì‚ÅAV‚µ‚¢ƒXƒŒƒbƒh‚ğ—§‚Ä‚Ä‚­‚¾‚³‚¢‚Å‚·BBB ";
+				$maxmsg = "ã“ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã¯${maxnum}ã‚’è¶…ãˆã¾ã—ãŸã€‚ <br> ã‚‚ã†æ›¸ã‘ãªã„ã®ã§ã€æ–°ã—ã„ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ç«‹ã¦ã¦ãã ã•ã„ã§ã™ã€‚ã€‚ã€‚ ";
 				if (THREAD_MAX_MSG) {
 					$maxmsg = str_replace('<NUM>', $maxnum, THREAD_MAX_MSG);
 				}
@@ -50,38 +50,38 @@ function MakeWorkFile($bbs, $key, $outdat="") {
 		fclose($fp);
 		if ($stop) chmod($dattemp, 0444);
 	}
-	# 1‚³‚ñ‚ğæ‚èo‚µ
+	# 1ã•ã‚“ã‚’å–ã‚Šå‡ºã—
 	$logfirst = array_shift($logopen);
-	# •\¦‚·‚éƒŒƒX”‚¾‚¯æ‚èo‚µ
+	# è¡¨ç¤ºã™ã‚‹ãƒ¬ã‚¹æ•°ã ã‘å–ã‚Šå‡ºã—
 	$logopen = array_slice($logopen, -$SETTING['BBS_CONTENTS_NUMBER']);
-	# 1‚ÌŸ‚É•\¦‚·‚éƒŒƒX”Ô†
+	# 1ã®æ¬¡ã«è¡¨ç¤ºã™ã‚‹ãƒ¬ã‚¹ç•ªå·
 	$topnum = $lognum - count($logopen) + 1;
-	#‚P‚Â–Ú‚Ì—v‘f‚ğ‰ÁH‚·‚é
+	#ï¼‘ã¤ç›®ã®è¦ç´ ã‚’åŠ å·¥ã™ã‚‹
 	$logfirst = rtrim($logfirst);
 	list ($name,$mail,$date,$message,$subject) = explode ("<>", $logfirst);
 	$logsub = $subject;
-	#ƒTƒuƒWƒFƒNƒgƒe[ƒuƒ‹‚ğ“f‚«o‚·i‚±‚±‚Í•K‚¸‚Ps‚É‚Ü‚Æ‚ß‚é‚±‚Æiˆ—Œø—¦jj
-	$logall = '<table border="1" cellspacing="7" cellpadding="3" width="95%" bgcolor="'.$SETTING['BBS_THREAD_COLOR'].'" align="center"><tr><td><dl><a name="$ANCOR"></a><div align="right"><a href="#menu">¡</a><a href="#$FRONT">£</a><a href="#$NEXT">¥</a></div><b>y$ANCOR:'.$lognum.'z<font size="5" color="'.$SETTING['BBS_SUBJECT_COLOR']."\">$subject</font></b>\n";
-	#‚P‚Â–Ú‚ÌƒŠƒ“ƒN‚ğì¬
+	#ã‚µãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ†ãƒ¼ãƒ–ãƒ«ã‚’åãå‡ºã™ï¼ˆã“ã“ã¯å¿…ãšï¼‘è¡Œã«ã¾ã¨ã‚ã‚‹ã“ã¨ï¼ˆå‡¦ç†åŠ¹ç‡ï¼‰ï¼‰
+	$logall = '<table border="1" cellspacing="7" cellpadding="3" width="95%" bgcolor="'.$SETTING['BBS_THREAD_COLOR'].'" align="center"><tr><td><dl><a name="$ANCOR"></a><div align="right"><a href="#menu">â– </a><a href="#$FRONT">â–²</a><a href="#$NEXT">â–¼</a></div><b>ã€$ANCOR:'.$lognum.'ã€‘<font size="5" color="'.$SETTING['BBS_SUBJECT_COLOR']."\">$subject</font></b>\n";
+	#ï¼‘ã¤ç›®ã®ãƒªãƒ³ã‚¯ã‚’ä½œæˆ
 	$message = preg_replace("/(https?):\/\/([\w;\/\?:\@&=\+\$,\-\.!~\*'\(\)%#]+)/", "<a href=\"$1://$2\" target=\"_blank\">$1://$2</a>", $message);
-	#–¼‘O—“‚Ì•ÏŠ·
+	#åå‰æ¬„ã®å¤‰æ›
 	if ($mail) $mailto = "<a href=\"mailto:$mail \"><b>$name </b></a>";
 	else $mailto = "<font color=\"$SETTING[BBS_NAME_COLOR]\"><b>$name </b></font>";
-	#‚P‚Â–Ú‚Ì—v‘f‚ğ“f‚«o‚·
-	$logall .= " <dt>1 –¼‘OF$mailto $date<dd>$message <br><br><br>\n";
-	#c‚è‚ÌƒƒO‚ğ•\¦‚·‚é
+	#ï¼‘ã¤ç›®ã®è¦ç´ ã‚’åãå‡ºã™
+	$logall .= " <dt>1 åå‰ï¼š$mailto $date<dd>$message <br><br><br>\n";
+	#æ®‹ã‚Šã®ãƒ­ã‚°ã‚’è¡¨ç¤ºã™ã‚‹
 	foreach ($logopen as $tmp){
-		#—v‘f‚ğ‰ÁH‚·‚é
+		#è¦ç´ ã‚’åŠ å·¥ã™ã‚‹
 		$tmp = rtrim($tmp);
 		list ($name,$mail,$date,$message,$subject) = explode ("<>", $tmp);
-		#ƒŠƒ“ƒN‚ğì¬
+		#ãƒªãƒ³ã‚¯ã‚’ä½œæˆ
 		$message = preg_replace("/(https?):\/\/([\w;\/\?:\@&=\+\$,\-\.!~\*'\(\)%#]+)/", "<a href=\"$1://$2\" target=\"_blank\">$1://$2</a>", $message);
-		#–¼‘O—“‚Ì•ÏŠ·
+		#åå‰æ¬„ã®å¤‰æ›
 		if ($mail) $mailto = "<a href=\"mailto:$mail \"><b>$name </b></a>";
 		else $mailto = "<font color=\"$SETTING[BBS_NAME_COLOR]\"><b>$name </b></font>";
-		#—v‘f‚ğ“f‚«o‚·
-		$logall .= " <dt>$topnum –¼‘OF$mailto F$date<dd>";
-		// 0thelloƒXƒŒƒbƒh‚Í‘S•”•\¦
+		#è¦ç´ ã‚’åãå‡ºã™
+		$logall .= " <dt>$topnum åå‰ï¼š$mailto ï¼š$date<dd>";
+		// 0thelloã‚¹ãƒ¬ãƒƒãƒ‰ã¯å…¨éƒ¨è¡¨ç¤º
 		if ($GLOBALS['vip'][8]) $logall .= $message;
 		else {
 			$messx = explode ("<br>", $message);
@@ -92,7 +92,7 @@ function MakeWorkFile($bbs, $key, $outdat="") {
 				}
 			}
 			if ($messx) {
-				$logall .= "<font color=\"$SETTING[BBS_NAME_COLOR]\">iÈ—ª‚³‚ê‚Ü‚µ‚½EE‘S‚Ä‚ğ“Ç‚Ş‚É‚Í<a href=\"../test/read.php/$_POST[bbs]/$key/$topnum\" target=\"_blank\">‚±‚±</a>‚ğ‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢j</font><br>";
+				$logall .= "<font color=\"$SETTING[BBS_NAME_COLOR]\">ï¼ˆçœç•¥ã•ã‚Œã¾ã—ãŸãƒ»ãƒ»å…¨ã¦ã‚’èª­ã‚€ã«ã¯<a href=\"../test/read.php/$_POST[bbs]/$key/$topnum\" target=\"_blank\">ã“ã“</a>ã‚’æŠ¼ã—ã¦ãã ã•ã„ï¼‰</font><br>";
 			}
 		}
 		$logall .= "<br>\n";

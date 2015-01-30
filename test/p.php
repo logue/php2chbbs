@@ -1,22 +1,22 @@
 <?php
 $version = "p.php ver1.3 (2005/03/28)";
-$th_count = 5; // 1‰æ–Ê‚É•\¦‚·‚éƒXƒŒƒbƒh‚Ì”B
+$th_count = 5; // 1ç”»é¢ã«è¡¨ç¤ºã™ã‚‹ã‚¹ãƒ¬ãƒƒãƒ‰ã®æ•°ã€‚
 #==================================================
-#@ƒŠƒNƒGƒXƒg‰ğÍ
+#ã€€ãƒªã‚¯ã‚¨ã‚¹ãƒˆè§£æ
 #==================================================
 $url = preg_replace("/(.*)\/test\/.*/", "http://$_SERVER[HTTP_HOST]$1", $_SERVER['SCRIPT_NAME']);
 $bbs = '';
 $st = 1;
 extract($_GET);
-// PATH INFO‚©‚çƒpƒ‰ƒ[ƒ^‚ğæ‚èo‚·B
+// PATH INFOã‹ã‚‰ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’å–ã‚Šå‡ºã™ã€‚
 if(!empty($_SERVER['PATH_INFO'])){
 	$pairs = explode('/',$_SERVER['PATH_INFO']);
 	$bbs = $pairs[1];
-	if(!is_dir("../$bbs")) {echo("‚»‚ñ‚È”Â‚È‚¢‚Å‚·B");exit;}
+	if(!is_dir("../$bbs")) {echo("ãã‚“ãªæ¿ãªã„ã§ã™ã€‚");exit;}
 	$st = $pairs[2];
 	if (!preg_match("/^\d+$/", $st)) {$st = 1;}
 }
-if (!is_file("../".$bbs."/subject.txt")) {echo("‚»‚ñ‚È”Â‚È‚¢‚Å‚·B");exit;}
+if (!is_file("../".$bbs."/subject.txt")) {echo("ãã‚“ãªæ¿ãªã„ã§ã™ã€‚");exit;}
 $th_titles = file("../".$bbs."/subject.txt");
 $end = count($th_titles);
 if ($st > $end) {$st = $end;}
@@ -24,10 +24,10 @@ $mae = $st - $th_count;
 if ($mae <= 0) {$mae = 1;}
 $tugi = $st + $th_count;
 if ($tugi > $end + 1) {$tugi = $end + 1;}
-?><HTML><HEAD><BASE href=<?=$url.'/test/r.php/'.$bbs?>/><TITLE><?=$bbs?> ƒXƒŒƒbƒhˆê——</TITLE></HEAD><BODY><A href=../../p.php/<?=$bbs?>/<?=$mae?>>‘O</A> <A href=../../p.php/<?=$bbs?>/<?=$tugi?>>Ÿ</A><HR><?php
+?><HTML><HEAD><BASE href=<?=$url.'/test/r.php/'.$bbs?>/><TITLE><?=$bbs?> ã‚¹ãƒ¬ãƒƒãƒ‰ä¸€è¦§</TITLE></HEAD><BODY><A href=../../p.php/<?=$bbs?>/<?=$mae?>>å‰</A> <A href=../../p.php/<?=$bbs?>/<?=$tugi?>>æ¬¡</A><HR><?php
 for ($i = $st; $i < $tugi; $i++) {
 	list($id, $sub) = explode("<>", $th_titles[$i-1]);
 	$id = str_replace(".dat", "", $id);
 	echo $i,': <A href=',$id,'/>',$sub,'</A><BR>';
 }
-?><HR><A href=../../p.php/<?=$bbs?>/<?=$mae?>>‘O</A> <A href=../../p.php/<?=$bbs?>/<?=$tugi?>>Ÿ</A><HR><?=$version?></BODY></HTML>
+?><HR><A href=../../p.php/<?=$bbs?>/<?=$mae?>>å‰</A> <A href=../../p.php/<?=$bbs?>/<?=$tugi?>>æ¬¡</A><HR><?=$version?></BODY></HTML>

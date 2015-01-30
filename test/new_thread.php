@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
 <script type="text/javascript">
 <!--
-NameMail = "<input type=text name=FROM size=19 value='" + getCookie("NAME") + "'> E-mailF<input type=text name=mail size=19 value='" + getCookie("MAIL") + "'>";
+NameMail = "<input type=text name=FROM size=19 value='" + getCookie("NAME") + "'> E-mailï¼š<input type=text name=mail size=19 value='" + getCookie("MAIL") + "'>";
 function getCookie(key, tmp1, tmp2, xx1, xx2, xx3) {
 	tmp1 = " " + document.cookie + ";";
 	while(tmp1.match(/\+/)) {
@@ -33,9 +33,9 @@ function getCookie(key, tmp1, tmp2, xx1, xx2, xx3) {
   <table border="0" cellpadding="1" width="100%">
   <tr><td nowrap colspan="3"><font size="+1"><b><?=$SETTING['BBS_TITLE']?></b></font><br></td></tr>
   <tr><td colspan="4"><?php readfile($PATH."head.txt"); ?><br></td></tr>
-  <tr><td nowrap align="right">ƒ^ƒCƒgƒ‹F</td><td><input type="text" name="subject" size="40"></td><td><input type="submit" value="V‹KƒXƒŒƒbƒhì¬" name="submit"></td></tr>
+  <tr><td nowrap align="right">ã‚¿ã‚¤ãƒˆãƒ«ï¼š</td><td><input type="text" name="subject" size="40"></td><td><input type="submit" value="æ–°è¦ã‚¹ãƒ¬ãƒƒãƒ‰ä½œæˆ" name="submit"></td></tr>
   <tr>
-    <td nowrap align="right">–¼‘OF</td>
+    <td nowrap align="right">åå‰ï¼š</td>
     <td nowrap colspan="2">
       <script type="text/javascript">
       <!--
@@ -43,12 +43,12 @@ function getCookie(key, tmp1, tmp2, xx1, xx2, xx3) {
       // -->
       </script>
       <noscript>
-      <input type=text name=FROM size=19> E-mailF<input type=text name=mail size=19>
+      <input type=text name=FROM size=19> E-mailï¼š<input type=text name=mail size=19>
       </noscript>
     </td>
   </tr>
   <tr>
-    <td nowrap align="right" valign="top">“à—eF</td>
+    <td nowrap align="right" valign="top">å†…å®¹ï¼š</td>
     <td colspan="3">
     <textarea rows="5" cols="60" wrap="off" name="MESSAGE"></textarea><br>
     <?=$file_form?>

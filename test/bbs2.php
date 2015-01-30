@@ -59,26 +59,26 @@ while ($vip = fgetcsv($fp, 1024)) {
 fclose($fp);
 $upload = 0;
 if ($vip[6] == 0) {
-	# “™•ƒtƒHƒ“ƒg
+	# ç­‰å¹…ãƒ•ã‚©ãƒ³ãƒˆ
 	if (strstr($_POST['FROM'], '!tt')) {
 		$_POST['FROM'] = str_replace('!tt', '', $_POST['FROM']);
 		$_POST['MESSAGE'] = '<tt>'.$_POST['MESSAGE'].'</tt>';
 	}
-	# –¼–³‚µ•ÏX
+	# åç„¡ã—å¤‰æ›´
 	if ($vip[1]) $SETTING['BBS_NONAME_NAME'] = $vip[1];
-	# ‹­§–¼–³‚µ
+	# å¼·åˆ¶åç„¡ã—
 	if ($vip[2]) $_POST['FROM'] = $vip[2];
-	# ID–³‚µ
+	# IDç„¡ã—
 	if ($vip[3]) $SETTING['BBS_NO_ID'] = "checked";
-	# ‹­§sage
+	# å¼·åˆ¶sage
 	if ($vip[4]) $sage = 1;
-	# ƒLƒƒƒbƒvˆÈŠOƒŒƒX•s‰Â
+	# ã‚­ãƒ£ãƒƒãƒ—ä»¥å¤–ãƒ¬ã‚¹ä¸å¯
 	if ($vip[5]) $stars = 1;
-	# –¼‘O•K{
+	# åå‰å¿…é ˆ
 	if ($vip[7]) $SETTING['NANASHI_CHECK'] = "checked";
-	# ƒ[ƒƒZƒ
+	# ã‚¼ãƒ­ã‚»ãƒ­
 	if ($vip[8]) @include '0thello.php';
-	# ‰æ‘œƒAƒbƒv
+	# ç”»åƒã‚¢ãƒƒãƒ—
 	if ($vip[9]) $upload = 1;
 	$dir = "./omikuji/";
 	if (OMIKUJI) {
@@ -100,7 +100,7 @@ if ($vip[6] == 0) {
 			$count = count($omikuji_array) - 1;
 			if ((strpos($_POST['FROM'], '!omikuji') !== FALSE) and $i++ < 10) {
 				$random = rand(0, $count);
-				$_POST['FROM'] = preg_replace("/!omikuji/", "</b>y".trim($omikuji_array[$random])."z<b>", $_POST['FROM'], 1);
+				$_POST['FROM'] = preg_replace("/!omikuji/", "</b>ã€".trim($omikuji_array[$random])."ã€‘<b>", $_POST['FROM'], 1);
 			}
 		}
 		if (BASEBALL) {
@@ -139,13 +139,13 @@ if ($vip[6] == 0) {
 	}
 }
 #==================================================
-#@ƒAƒbƒvƒ[ƒhˆ—
+#ã€€ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰å‡¦ç†
 #==================================================
 if (isset($_FILES['file']) and $_FILES['file']['name'] and (UPLOAD or $upload)) {
-	if (filesize($_FILES['file']['tmp_name']) > MAX_BYTES) DispError("‚d‚q‚q‚n‚qI","‚d‚q‚q‚n‚qFƒtƒ@ƒCƒ‹‚ª‘å‚«‚·‚¬‚Ü‚·BBB");
-	# ƒAƒ“ƒJ[—p‚ÌƒpƒX
+	if (filesize($_FILES['file']['tmp_name']) > MAX_BYTES) DispError("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼šãƒ•ã‚¡ã‚¤ãƒ«ãŒå¤§ãã™ãã¾ã™ã€‚ã€‚ã€‚");
+	# ã‚¢ãƒ³ã‚«ãƒ¼ç”¨ã®ãƒ‘ã‚¹
 	$a_path = "../$_POST[bbs]/";
-	# GD fuction ‚Ìƒ`ƒFƒbƒN
+	# GD fuction ã®ãƒã‚§ãƒƒã‚¯
 	$gifread = '';
 	if (GD_VERSION == 2) {
 		$imagecreate = "imagecreatetruecolor";
@@ -158,66 +158,66 @@ if (isset($_FILES['file']) and $_FILES['file']['name'] and (UPLOAD or $upload)) 
 	if (function_exists("imagecreatefromgif")) {
 		$gifread = "on";
 	}
-	# ƒAƒbƒvƒ[ƒhƒtƒ@ƒCƒ‹‚ÌŠg’£q‚ğæ“¾
+	# ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«ã®æ‹¡å¼µå­ã‚’å–å¾—
 	$path_parts = pathinfo($_FILES['file']['name']);
 	$tail = '.'.$path_parts['extension'];
-	# ˆê‰"jpeg"‚Æ"jpe"‚à‘Î‰
+	# ä¸€å¿œ"jpeg"ã¨"jpe"ã‚‚å¯¾å¿œ
 	if ($tail == ".jpeg" or $tail == ".jpe") $tail = ".jpg";
-	# ‰æ‘œ—pƒJƒEƒ“ƒ^i=ƒŒƒX”Ô†j‚ğ4Œ…‚É
+	# ç”»åƒç”¨ã‚«ã‚¦ãƒ³ã‚¿ï¼ˆ=ãƒ¬ã‚¹ç•ªå·ï¼‰ã‚’4æ¡ã«
 	$imgnum = sprintf("%04d", $imgnum);
-	# ƒtƒ@ƒCƒ‹–¼i‰æ‘œƒfƒBƒŒƒNƒgƒŠ/ƒXƒŒƒbƒh‚ÌƒL[”Ô†ƒXƒŒƒbƒh“à‚ÌƒŒƒX”Ô†.Šg’£qj
+	# ãƒ•ã‚¡ã‚¤ãƒ«åï¼ˆç”»åƒãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª/ã‚¹ãƒ¬ãƒƒãƒ‰ã®ã‚­ãƒ¼ç•ªå·ã‚¹ãƒ¬ãƒƒãƒ‰å†…ã®ãƒ¬ã‚¹ç•ªå·.æ‹¡å¼µå­ï¼‰
 	$file_name = $IMGPATH.$_POST['key'].$imgnum.$tail;
-	# Šg’£q‚ª‰æ‘œƒtƒ@ƒCƒ‹‚ÅA‰æ‘œ‚ÌƒTƒCƒY‚ªæ“¾‚Å‚«‚éê‡
+	# æ‹¡å¼µå­ãŒç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã§ã€ç”»åƒã®ã‚µã‚¤ã‚ºãŒå–å¾—ã§ãã‚‹å ´åˆ
 	if (($tail == ".jpg" or $tail == ".gif" or $tail == ".png") and $size = getimagesize($_FILES['file']['tmp_name'])) {
-		# ƒAƒbƒvƒ[ƒhƒtƒ@ƒCƒ‹‚ğ‰æ‘œƒfƒBƒŒƒNƒgƒŠ‚ÉˆÚ“®‚·‚é
+		# ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç”»åƒãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«ç§»å‹•ã™ã‚‹
 		move_uploaded_file($_FILES['file']['tmp_name'], $file_name);
 		chmod($file_name, 0644);
-		# ‰æ‘œƒtƒ@ƒCƒ‹‚Ö‚ÌƒAƒ“ƒJ[ƒ^ƒO
+		# ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ã‚¢ãƒ³ã‚«ãƒ¼ã‚¿ã‚°
 		$img_ref = '<a href="'.$a_path.'img/'.$_POST['key'].$imgnum.$tail.'">';
 		$W = $size[0];
 		$H = $size[1];
-		# ‰æ‘œƒTƒCƒY‚ª•\¦İ’è‚æ‚è‘å‚«‚¢ê‡k¬
+		# ç”»åƒã‚µã‚¤ã‚ºãŒè¡¨ç¤ºè¨­å®šã‚ˆã‚Šå¤§ãã„å ´åˆç¸®å°
 		if ($W > MAX_W or $H > MAX_H) {
 			$W2 = MAX_W / $W;
 			$H2 = MAX_H / $H;
 			$ratio = ($W2 < $H2) ? $W2 : $H2;
 			$W = (int)($W * $ratio);
 			$H = (int)($H * $ratio);
-			# GD‚ğg‚Á‚ÄƒTƒ€ƒlƒCƒ‹ì¬iƒTƒ€ƒlƒCƒ‹‚Íjpg‚É“ˆêj
+			# GDã‚’ä½¿ã£ã¦ã‚µãƒ ãƒã‚¤ãƒ«ä½œæˆï¼ˆã‚µãƒ ãƒã‚¤ãƒ«ã¯jpgã«çµ±ä¸€ï¼‰
 			if (GD_VERSION) {
 				$dst_im = $imagecreate($W,$H);
-				# jpg‚Ìê‡
+				# jpgã®å ´åˆ
 				if ($tail == ".jpg") {
 					$src_im = imagecreatefromjpeg($file_name);
 					$imageresize($dst_im,$src_im,0,0,0,0,$W,$H,$size[0],$size[1]);
 					imagejpeg($dst_im, $IMGPATH2.$_POST['key'].$imgnum.".jpg");
 					$img_ref .= '<img src="'.$a_path.'img2/'.$_POST['key'].$imgnum.'.jpg" width="'.$W.'" height="'.$H.'" align=left></a>';
 				}
-				# png‚Ìê‡
+				# pngã®å ´åˆ
 				elseif ($tail == ".png") {
 					$src_im = imagecreatefrompng($file_name);
 					$imageresize($dst_im,$src_im,0,0,0,0,$W,$H,$size[0],$size[1]);
 					imagejpeg($dst_im, $IMGPATH2.$_POST['key'].$imgnum.".jpg");
 					$img_ref .= '<img src="'.$a_path.'img2/'.$_POST['key'].$imgnum.'.jpg" width="'.$W.'" height="'.$H.'" align=left></a>';
 				}
-				# gif‚ªGD‚Å“Ç‚ß‚éê‡
+				# gifãŒGDã§èª­ã‚ã‚‹å ´åˆ
 				elseif ($tail == ".gif" and $gifread == "on") {
 					$src_im = imagecreatefromgif($file_name);
 					$imageresize($dst_im,$src_im,0,0,0,0,$W,$H,$size[0],$size[1]);
 					imagejpeg($dst_im, $IMGPATH2.$_POST['key'].$imgnum.".jpg");
 					$img_ref .= '<img src="'.$a_path.'img2/'.$_POST['key'].$imgnum.'.jpg" width="'.$W.'" height="'.$H.'" align=left></a>';
 				}
-				# gif‚ª“Ç‚ß‚È‚¢ê‡‚ÍƒTƒ€ƒlƒCƒ‹‚È‚µ
+				# gifãŒèª­ã‚ãªã„å ´åˆã¯ã‚µãƒ ãƒã‚¤ãƒ«ãªã—
 				else $img_ref .= '<img src="'.$a_path.'img/'.$_POST['key'].$imgnum.$tail.'" width="'.$W.'" height="'.$H.'" align=left></a>';
 			}
-			# ƒTƒ€ƒlƒCƒ‹‚ğì¬‚µ‚È‚¢ê‡
+			# ã‚µãƒ ãƒã‚¤ãƒ«ã‚’ä½œæˆã—ãªã„å ´åˆ
 			else $img_ref .= '<img src="'.$a_path.'img/'.$_POST['key'].$imgnum.$tail.'" width="'.$W.'" height="'.$H.'" align=left></a>';
 		}
-		# “Še‰æ‘œƒTƒCƒY‚ªİ’èƒTƒCƒY‚æ‚è¬‚³‚¢ê‡‚Í‚»‚Ì‚Ü‚Ü‚ÌƒTƒCƒY‚Å•\¦
+		# æŠ•ç¨¿ç”»åƒã‚µã‚¤ã‚ºãŒè¨­å®šã‚µã‚¤ã‚ºã‚ˆã‚Šå°ã•ã„å ´åˆã¯ãã®ã¾ã¾ã®ã‚µã‚¤ã‚ºã§è¡¨ç¤º
 		else $img_ref .= '<img src="'.$a_path.'img/'.$_POST['key'].$imgnum.$tail.'" '.$size[3].' align=left></a>';
 		$_POST['MESSAGE'] = $img_ref.$_POST['MESSAGE'].'<br clear=all>';
 	}
-	# ‰æ‘œƒtƒ@ƒCƒ‹ˆÈŠO‚ÍƒGƒ‰[
-	else DispError("‚d‚q‚q‚n‚qI","‚d‚q‚q‚n‚qFƒAƒbƒv‚Å‚«‚È‚¢ƒtƒ@ƒCƒ‹‚Å‚·BBB");
+	# ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ä»¥å¤–ã¯ã‚¨ãƒ©ãƒ¼
+	else DispError("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼šã‚¢ãƒƒãƒ—ã§ããªã„ãƒ•ã‚¡ã‚¤ãƒ«ã§ã™ã€‚ã€‚ã€‚");
 }
 ?>

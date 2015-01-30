@@ -6,15 +6,15 @@ $nofirst = '';
 $ls = 0;
 extract ($_GET);
 #==================================================
-#@‚ğİ’è
+#ã€€æ™‚åˆ»ã‚’è¨­å®š
 #==================================================
 $NOW = time();
 $today = getdate(); 
 $JIKAN = $today['hours']; 
 #==================================================
-#@ƒŠƒNƒGƒXƒg‰ğÍ
+#ã€€ãƒªã‚¯ã‚¨ã‚¹ãƒˆè§£æ
 #==================================================
-if ($_SERVER['REQUEST_METHOD'] != 'GET') DispError('‚»‚ñ‚È”ÂorƒXƒŒƒbƒh‚È‚¢‚Å‚·B');
+if ($_SERVER['REQUEST_METHOD'] != 'GET') DispError('ãã‚“ãªæ¿orã‚¹ãƒ¬ãƒƒãƒ‰ãªã„ã§ã™ã€‚');
 if (!empty($_SERVER['PATH_INFO'])) {
 	$pairs = explode('/',$_SERVER['PATH_INFO']);
 	$bbs = $pairs[1];
@@ -39,13 +39,13 @@ if (!empty($_SERVER['PATH_INFO'])) {
 	}
 }
 #==================================================
-#@‰Šúî•ñ‚Ìæ“¾iİ’èƒtƒ@ƒCƒ‹j
+#ã€€åˆæœŸæƒ…å ±ã®å–å¾—ï¼ˆè¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ï¼‰
 #==================================================
 preg_match("/(.*)(\/test\/read\.php)(.*)/", $_SERVER['SCRIPT_NAME'], $match);
 $URL = 'http://'.$_SERVER['HTTP_HOST'].$match[1];
 $SCRIPT = $match[2];
 $BASEURL = "$URL/$bbs/";
-#İ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚Ş
+#è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã‚€
 $set_file = "../$bbs/SETTING.TXT";
 if (is_file($set_file)) {
 	$set_str = file($set_file);
@@ -55,10 +55,10 @@ if (is_file($set_file)) {
 		$SETTING[$name] = $value;
 	}
 }
-if (!is_file("../$bbs/dat/$key.dat")) DispError('‚»‚ñ‚È”ÂorƒXƒŒƒbƒh‚È‚¢‚Å‚·B');
+if (!is_file("../$bbs/dat/$key.dat")) DispError('ãã‚“ãªæ¿orã‚¹ãƒ¬ãƒƒãƒ‰ãªã„ã§ã™ã€‚');
 require "../$bbs/config.php";
 #==================================================
-#@•\¦”ÍˆÍ‚ÌŒˆ’è
+#ã€€è¡¨ç¤ºç¯„å›²ã®æ±ºå®š
 #==================================================
 $LOG = file("../$bbs/dat/$key.dat");
 $LINENUM = count($LOG);
@@ -77,7 +77,7 @@ if ($s > 1) $mae = $s-1;
 $fsize = (int)(filesize("../$bbs/dat/$key.dat") / 1024);
 list(,,$tmp) = explode("<>", $LOG[$LINENUM-1]);
 $stop = 0;
-if (preg_match("/Over \d+ Thread|ƒXƒgƒbƒp|’â~/", $tmp)) $stop = 1;
+if (preg_match("/Over \d+ Thread|ã‚¹ãƒˆãƒƒãƒ‘|åœæ­¢/", $tmp)) $stop = 1;
 list(,,,,$subject) = explode("<>",$LOG[0]);
 $subject = trim($subject);
 header("Content-Type: text/html; charset=Shift_JIS");
@@ -114,10 +114,10 @@ function g(key,tmp1,tmp2,xx1,xx2,xx3,len){
 </head>
 <body bgcolor="<?=$SETTING['BBS_BG_COLOR']?>" text="<?=$SETTING['BBS_TEXT_COLOR']?>" link="<?=$SETTING['BBS_LINK_COLOR']?>" alink="<?=$SETTING['BBS_ALINK_COLOR']?>" vlink="<?=$SETTING['BBS_VLINK_COLOR']?>">
 <? readfile('headad.txt'); ?>
-<a href="./">¡Œf¦”Â‚É–ß‚é¡</a>
+<a href="./">â– æ²ç¤ºæ¿ã«æˆ»ã‚‹â– </a>
 <?php
 if(!JIKAN_KISEI or ($JIKAN > JIKAN_END and $JIKAN < JIKAN_START)) {
-	echo "<a href=\"..$SCRIPT/$bbs/$key/\">‘S•”</a>\n";
+	echo "<a href=\"..$SCRIPT/$bbs/$key/\">å…¨éƒ¨</a>\n";
 }
 for ($iCnt = 1; $iCnt <= $LINENUM; $iCnt += 100){
 	$iTo = $iCnt + 99;
@@ -127,20 +127,20 @@ $red_num = (int)(THREAD_RES*19/20);
 $yellow_num = (int)(THREAD_RES*9/10);
 $alert = '';
 if ($LINENUM >=THREAD_RES) {
-	$alert = '<p><table><tr><td bgcolor=red><br><br><font color=white>ƒŒƒX”‚ª '.THREAD_RES.' ‚ğ’´‚¦‚Ä‚¢‚Ü‚·Bc”O‚È‚ª‚ç‘S•”‚Í•\¦‚µ‚Ü‚¹‚ñB</font></td></tr></table>';
+	$alert = '<p><table><tr><td bgcolor=red><br><br><font color=white>ãƒ¬ã‚¹æ•°ãŒ '.THREAD_RES.' ã‚’è¶…ãˆã¦ã„ã¾ã™ã€‚æ®‹å¿µãªãŒã‚‰å…¨éƒ¨ã¯è¡¨ç¤ºã—ã¾ã›ã‚“ã€‚</font></td></tr></table>';
 	$stop = 1;
 }
 elseif ($LINENUM >= $red_num) {
-	$alert = '<p><table><tr><td bgcolor=red><font color=white>ƒŒƒX”‚ª '.$red_num.' ‚ğ’´‚¦‚Ä‚¢‚Ü‚·B'.THREAD_RES.'‚ğ’´‚¦‚é‚Æ•\¦‚Å‚«‚È‚­‚È‚é‚æB</font></td></tr></table>';
+	$alert = '<p><table><tr><td bgcolor=red><font color=white>ãƒ¬ã‚¹æ•°ãŒ '.$red_num.' ã‚’è¶…ãˆã¦ã„ã¾ã™ã€‚'.THREAD_RES.'ã‚’è¶…ãˆã‚‹ã¨è¡¨ç¤ºã§ããªããªã‚‹ã‚ˆã€‚</font></td></tr></table>';
 }
 elseif ($LINENUM >= $yellow_num) {
-	$alert = '<p><table><tr><td bgcolor=yellow>ƒŒƒX”‚ª '.$yellow_num.' ‚ğ’´‚¦‚Ä‚¢‚Ü‚·B'.THREAD_RES.'‚ğ’´‚¦‚é‚Æ•\¦‚Å‚«‚È‚­‚È‚é‚æB</td></tr></table>';
+	$alert = '<p><table><tr><td bgcolor=yellow>ãƒ¬ã‚¹æ•°ãŒ '.$yellow_num.' ã‚’è¶…ãˆã¦ã„ã¾ã™ã€‚'.THREAD_RES.'ã‚’è¶…ãˆã‚‹ã¨è¡¨ç¤ºã§ããªããªã‚‹ã‚ˆã€‚</td></tr></table>';
 }
 elseif ($fsize >= 480){
-	$alert = '<p><table><tr><td bgcolor=red><font color=white>ƒTƒCƒY‚ª 480KB ‚ğ’´‚¦‚Ä‚¢‚Ü‚·B500KB ‚ğ’´‚¦‚é‚Æ‘‚«‚±‚ß‚È‚­‚È‚é‚æB</font></td></tr></table>';
+	$alert = '<p><table><tr><td bgcolor=red><font color=white>ã‚µã‚¤ã‚ºãŒ 480KB ã‚’è¶…ãˆã¦ã„ã¾ã™ã€‚500KB ã‚’è¶…ãˆã‚‹ã¨æ›¸ãã“ã‚ãªããªã‚‹ã‚ˆã€‚</font></td></tr></table>';
 }
 ?>
-<a href="..<?=$SCRIPT."/".$bbs."/".$key?>/l50">ÅV50</a>
+<a href="..<?=$SCRIPT."/".$bbs."/".$key?>/l50">æœ€æ–°50</a>
 <?=$alert?>
 <p><font size="+1" color="<?=$SETTING['BBS_SUBJECT_COLOR']?>"><?=$subject?></font><dl>
 <?php
@@ -151,12 +151,12 @@ if ($nofirst != "true" or $st == 1) {
 	if (!$message) {
 		$name='';
 		$mail='';
-		$time='[‚±‚±‰ó‚ê‚Ä‚Ü‚·]';
-		$message='[‚±‚±‰ó‚ê‚Ä‚Ü‚·]';
+		$time='[ã“ã“å£Šã‚Œã¦ã¾ã™]';
+		$message='[ã“ã“å£Šã‚Œã¦ã¾ã™]';
 	}
 	$message = preg_replace("/(https?):\/\/([\w;\/\?:\@&=\+\$,\-\.!~\*'\(\)%#]+)/", "<a href=\"$1://$2\" target=\"_blank\">$1://$2</a>", $message);
 	$mailto = $mail ? "<a href=\"mailto:$mail\"><b>$name</b></a>" : "<font color=\"$SETTING[BBS_NAME_COLOR]\"><b>$name</b></font>";
-	echo "<dt>1 F$mailto F $time<br><dd> $message <br><br><br>\n";
+	echo "<dt>1 ï¼š$mailto ï¼š $time<br><dd> $message <br><br><br>\n";
 	if ($s == 1) $s++;
 	if ($st == 1) $i++;
 }
@@ -168,12 +168,12 @@ while ($s <= $END) {
 		if (!$message) {
 			$name='';
 			$mail='';
-			$time='[‚±‚±‰ó‚ê‚Ä‚Ü‚·]';
-			$message='[‚±‚±‰ó‚ê‚Ä‚Ü‚·]';
+			$time='[ã“ã“å£Šã‚Œã¦ã¾ã™]';
+			$message='[ã“ã“å£Šã‚Œã¦ã¾ã™]';
 		}
 		$message = preg_replace("/(https?):\/\/([\w;\/\?:\@&=\+\$,\-\.!~\*'\(\)%#]+)/", "<a href=\"$1://$2\" target=\"_blank\">$1://$2</a>", $message);
 		$mailto = $mail ? "<a href=\"mailto:$mail\"><b>$name</b></a>" : "<font color=\"$SETTING[BBS_NAME_COLOR]\"><b>$name</b></font>";
-		echo "<dt>$s F$mailto F $time<br><dd> $message <br><br><br>\n";
+		echo "<dt>$s ï¼š$mailto ï¼š $time<br><dd> $message <br><br><br>\n";
 		$s++;
 	 }
 	 else {
@@ -181,13 +181,13 @@ while ($s <= $END) {
 			if (!$message) {
 				$name='';
 				$mail='';
-				$time='[‚±‚±‰ó‚ê‚Ä‚Ü‚·]';
-				$message='[‚±‚±‰ó‚ê‚Ä‚Ü‚·]';
+				$time='[ã“ã“å£Šã‚Œã¦ã¾ã™]';
+				$message='[ã“ã“å£Šã‚Œã¦ã¾ã™]';
 			}
 			$message = preg_replace("/(https?|ftp):\/\/([\w;\/\?:\@&=\+\$,\-\.!~\*'\(\)%#]+)/", "<a href=\"$1://$2\" target=\"_blank\">$1://$2</a>", $message);
 			$message = str_replace("../test/read.php/$bbs/$key/",'',$message);
 			$mailto = $mail ? "<a href=\"mailto:$mail\"><b>$name</b></a>" : "<font color=\"$SETTING[BBS_NAME_COLOR]\"><b>$name</b></font>";
-			echo "<dt>$s F$mailto F $time<br><dd> $message <br><br><br>\n";
+			echo "<dt>$s ï¼š$mailto ï¼š $time<br><dd> $message <br><br><br>\n";
 			$s++;
 			$i++;
 		}
@@ -196,20 +196,20 @@ while ($s <= $END) {
 }
 echo "</dl><font color=\"red\" face=\"arial\"><b>$fsize KB</b></font><hr>\n";
 if ($LINENUM <= 1000) {
-	if ($LINENUM >= $s) echo "<center><a href=\"..$SCRIPT/$bbs/$key/$END-\">‘±‚«‚ğ“Ç‚Ş</a></center><hr>\n";
-	else echo "<center><a href=\"..$SCRIPT/$bbs/$key/$LINENUM-\">V’…ƒŒƒX‚Ì•\¦</a></center><hr>\n";
+	if ($LINENUM >= $s) echo "<center><a href=\"..$SCRIPT/$bbs/$key/$END-\">ç¶šãã‚’èª­ã‚€</a></center><hr>\n";
+	else echo "<center><a href=\"..$SCRIPT/$bbs/$key/$LINENUM-\">æ–°ç€ãƒ¬ã‚¹ã®è¡¨ç¤º</a></center><hr>\n";
 }
 $t = $s + 99;
 $u = 1;
-echo "<a href=\"./\">Œf¦”Â‚É–ß‚é</a> <a href=\"..$SCRIPT/$bbs/$key/\">‘S•”</a>\n";
+echo "<a href=\"./\">æ²ç¤ºæ¿ã«æˆ»ã‚‹</a> <a href=\"..$SCRIPT/$bbs/$key/\">å…¨éƒ¨</a>\n";
 if ($mae) {
-	if ($mae == 1) echo "<a href=\"..$SCRIPT/$bbs/$key/1\">‘O100</a>\n";
+	if ($mae == 1) echo "<a href=\"..$SCRIPT/$bbs/$key/1\">å‰100</a>\n";
 	else {
 		if ($mae > 100) $u = $mae-99;
-		echo "<a href=\"..$SCRIPT/$bbs/$key/$u-$mae\">‘O100</a>\n";
+		echo "<a href=\"..$SCRIPT/$bbs/$key/$u-$mae\">å‰100</a>\n";
 	}
 }
-echo "<a href=\"..$SCRIPT/$bbs/$key/$s-$t\">Ÿ100</a> <a href=\"..$SCRIPT/$bbs/$key/l50\">ÅV50</a><br>\n";
+echo "<a href=\"..$SCRIPT/$bbs/$key/$s-$t\">æ¬¡100</a> <a href=\"..$SCRIPT/$bbs/$key/l50\">æœ€æ–°50</a><br>\n";
 if ($stop != 1) {
 	$fp  = fopen("../$bbs/threadconf.cgi", "r");
 	while ($vip = fgetcsv($fp, 1024)) {
@@ -220,9 +220,9 @@ if ($stop != 1) {
 	if (UPLOAD or $vip[9]) {
 		?>
 <form method="post" action="../test/bbs.php" enctype="multipart/form-data">
-<input type="submit" value="‘‚«‚Ş" name="submit">
-–¼‘OF <input name="FROM" size="19">
-E-mail<font size="1"> (È—ª‰Â) </font>: <input name="mail" size="19"><br>
+<input type="submit" value="æ›¸ãè¾¼ã‚€" name="submit">
+åå‰ï¼š <input name="FROM" size="19">
+E-mail<font size="1"> (çœç•¥å¯) </font>: <input name="mail" size="19"><br>
 <textarea rows="5" cols="70" wrap="off" name="MESSAGE"></textarea><br>
 <input type="file" name="file" size="50">
 <input type="hidden" name="bbs" value="<?=$bbs?>">
@@ -234,9 +234,9 @@ E-mail<font size="1"> (È—ª‰Â) </font>: <input name="mail" size="19"><br>
 	else {
 		?>
 <form method="post" action="../test/bbs.php">
-<input type="submit" value="‘‚«‚Ş" name="submit">
-–¼‘OF <input name="FROM" size="19">
-E-mail<font size="1"> (È—ª‰Â) </font>: <input name="mail" size="19"><br>
+<input type="submit" value="æ›¸ãè¾¼ã‚€" name="submit">
+åå‰ï¼š <input name="FROM" size="19">
+E-mail<font size="1"> (çœç•¥å¯) </font>: <input name="mail" size="19"><br>
 <textarea rows="5" cols="70" wrap="off" name="MESSAGE"></textarea><br>
 <input type="hidden" name="bbs" value="<?=$bbs?>">
 <input type="hidden" name="key" value="<?=$key?>">
@@ -249,7 +249,7 @@ echo "<p>".VERSION."\n</body>\n</html>\n";
 if (GZ_FLAG) ob_end_flush();
 exit;
 #===================
-#@ƒGƒ‰[•\¦
+#ã€€ã‚¨ãƒ©ãƒ¼è¡¨ç¤º
 #===================
 function DispError($topic) {
 	global $URL, $bbs, $key;
@@ -266,7 +266,7 @@ TD.Type1 {color: #ffffff;text-align: left;}A.BigLine {color: #000000;text-decora
 <? readfile("headad.txt") ?>
 <b><font size="+1" color="#ff0000"><?=$topic?></font></b><br>
 <dl>
-<dt>1 –¼‘OF<font color="green"><b><?=VERSION?></b></font>“Še“úF2001/04/12(–Ø) 15:11
+<dt>1 åå‰ï¼š<font color="green"><b><?=VERSION?></b></font>æŠ•ç¨¿æ—¥ï¼š2001/04/12(æœ¨) 15:11
 <dd><?=$topic?><br><br><br>
 </dl>
 <hr>
@@ -276,12 +276,12 @@ TD.Type1 {color: #ffffff;text-align: left;}A.BigLine {color: #000000;text-decora
 <?
 	if (is_file("../$bbs/kako/$key.html")) {
 		?>
-‘à’·! ‰ß‹ƒƒO‘qŒÉ‚ÅA<a target="_self" href="<?="$URL/$bbs/kako/$key.html"?>">ƒXƒŒƒbƒh<?=$key?>.html</A> ‚ğ”­Œ©‚µ‚Ü‚µ‚½B
+éšŠé•·! éå»ãƒ­ã‚°å€‰åº«ã§ã€<a target="_self" href="<?="$URL/$bbs/kako/$key.html"?>">ã‚¹ãƒ¬ãƒƒãƒ‰<?=$key?>.html</A> ã‚’ç™ºè¦‹ã—ã¾ã—ãŸã€‚
 <?php
 	}
 	else {
 		?>
-<a target="_self" href="<?="$URL/$bbs/kako/"?>">‰ß‹ƒƒO‘qŒÉ</A>‚É‚à‚ ‚è‚Ü‚¹‚ñ‚Å‚µ‚½B<br>–â‚¢‡‚í‚¹‚Ä‚àŒ©‚Â‚©‚é‰Â”\«‚Í‚Ù‚Æ‚ñ‚Ç‚ ‚è‚Ü‚¹‚ñB
+<a target="_self" href="<?="$URL/$bbs/kako/"?>">éå»ãƒ­ã‚°å€‰åº«</A>ã«ã‚‚ã‚ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚<br>å•ã„åˆã‚ã›ã¦ã‚‚è¦‹ã¤ã‹ã‚‹å¯èƒ½æ€§ã¯ã»ã¨ã‚“ã©ã‚ã‚Šã¾ã›ã‚“ã€‚
 <?php
 	}
 	echo '</body></html>';

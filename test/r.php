@@ -1,27 +1,27 @@
 <?php
 $version = "r.php ver2.5 (2005/03/28)";
-$res_count = 10; // 1‰æ–Ê‚É•\¦‚·‚éƒŒƒX‚Ì”B
+$res_count = 10; // 1ç”»é¢ã«è¡¨ç¤ºã™ã‚‹ãƒ¬ã‚¹ã®æ•°ã€‚
 #==================================================
-#@ƒŠƒNƒGƒXƒg‰ğÍ
+#ã€€ãƒªã‚¯ã‚¨ã‚¹ãƒˆè§£æ
 #==================================================
 $st = $to = 0;
 $nofirst = '';
 $ls = 0;
 extract ($_GET);
-// PATH INFO‚©‚çƒpƒ‰ƒ[ƒ^‚ğæ‚èo‚·B
+// PATH INFOã‹ã‚‰ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’å–ã‚Šå‡ºã™ã€‚
 if (!empty($_SERVER['PATH_INFO'])) {
 	$pairs = explode('/',$_SERVER['PATH_INFO']);
 	$bbs = $pairs[1];
 	$key = $pairs[2];
 }
 if (!file_exists("../$bbs/dat/$key.dat")) {
-	if (file_exists("../$bbs/kako/$key.html")) echo"‰ß‹Û¸Ş‘qŒÉ‚Å‚·B<BR>Œg‘Ñ‚Å‚ÍŒ©‚ç‚ê‚Ü‚¹‚ñB";
-	else echo("½Ú¯ÄŞ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+	if (file_exists("../$bbs/kako/$key.html")) echo"éå»ï¾›ï½¸ï¾å€‰åº«ã§ã™ã€‚<BR>æºå¸¯ã§ã¯è¦‹ã‚‰ã‚Œã¾ã›ã‚“ã€‚";
+	else echo("ï½½ï¾šï½¯ï¾„ï¾ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚");
 	exit;
 }
 $log = file("../$bbs/dat/$key.dat");
 $linenum = count($log);
-if (!empty($pairs[3])) { // ƒŒƒXw’èî•ñ‚ğæ“¾
+if (!empty($pairs[3])) { // ãƒ¬ã‚¹æŒ‡å®šæƒ…å ±ã‚’å–å¾—
 	if (strstr($pairs[3], "n")) {
 		$to = $linenum;
 		$st = $to - $res_count + 1;
@@ -62,14 +62,14 @@ if ($to > $linenum) $to = $linenum;
 list(,,,,$subject) = explode("<>",$log[0]);
 $subject = chop($subject);
 list(,,$tmp) = explode("<>", $log[$linenum-1]);
-if (preg_match("/Over 1000 Thread|ƒXƒgƒbƒp|’â~/", $tmp)) $stop = 1;
+if (preg_match("/Over 1000 Thread|ã‚¹ãƒˆãƒƒãƒ‘|åœæ­¢/", $tmp)) $stop = 1;
 if ($st > 1) {
 	$i = $st - 1;
-	$link = "<a href=-".$i.">‘O</a> ";
+	$link = "<a href=-".$i.">å‰</a> ";
 }
 else $link = '';
 ?>
-<html><head><title><?=$subject?></title></head><body><hr><?=$link?><a href=<?=$to+1?>->Ÿ</a> <a href=n>V10</a> <a href=1->1-</a> <a href=../../../../<?=$bbs?>/i/>”Â</a> <a href=w>¶·ºĞ</a><hr><?php
+<html><head><title><?=$subject?></title></head><body><hr><?=$link?><a href=<?=$to+1?>->æ¬¡</a> <a href=n>æ–°10</a> <a href=1->1-</a> <a href=../../../../<?=$bbs?>/i/>æ¿</a> <a href=w>ï½¶ï½·ï½ºï¾</a><hr><?php
 if ($nofirst != "true" or $st == 1 or strstr($pairs[3], "w")) {
 	if ($st == 1) {$st++;}
 	chop($log[0]);
@@ -77,8 +77,8 @@ if ($nofirst != "true" or $st == 1 or strstr($pairs[3], "w")) {
 	$name = str_replace(array("<b>","</b>"), "", $name);
 	if (!$message) {
 		$name='';
-		$time='[‚±‚±‰ó‚ê‚Ä‚Ü‚·]';
-		$message='[‚±‚±‰ó‚ê‚Ä‚Ü‚·]';
+		$time='[ã“ã“å£Šã‚Œã¦ã¾ã™]';
+		$message='[ã“ã“å£Šã‚Œã¦ã¾ã™]';
 	}
 	$message = preg_replace("/(https?):\/\/(www\d*\.|)([\da-zA-Z\-\.]{1,10})([\x21-\x7E]*|)/i","<a href=$1://$2$3$4>$3</a>",$message);
 	$read = str_replace("r.php", "read.php", $_SERVER['SCRIPT_NAME']);
@@ -88,13 +88,13 @@ if ($nofirst != "true" or $st == 1 or strstr($pairs[3], "w")) {
 	$msgline = substr_count($message, "<br>") + 1;
 	if ($msgline > 6 and $to != 1) {
 		preg_match("/(.*) <br>.*/U", $message, $match);
-		$message = $match[1]."<a href=1><br> È".$msgline."</a>";
+		$message = $match[1]."<a href=1><br> çœ".$msgline."</a>";
 	}
 	echo $subject."[1]$name $time<br>$message<hr>";
 }
 if (strstr($pairs[3], "w")) {
 	?>
-<form method=post action=../../../bbs.php>NAMEF<input name=FROM>MAILF<input name=mail istyle=3><input type=hidden name=bbs value=<?=$bbs?>><input type=hidden name=key value=<?=$key?>><input type=hidden name=time value=<?=time()?>><textarea name=MESSAGE></textarea><input type=submit value="‚©‚«‚±‚Ş" name=submit></form><br><?=$version?></body><?php
+<form method=post action=../../../bbs.php>NAMEï¼š<input name=FROM>MAILï¼š<input name=mail istyle=3><input type=hidden name=bbs value=<?=$bbs?>><input type=hidden name=key value=<?=$key?>><input type=hidden name=time value=<?=time()?>><textarea name=MESSAGE></textarea><input type=submit value="ã‹ãã“ã‚€" name=submit></form><br><?=$version?></body><?php
 	exit;
 }
 for ($s = $st; $s <= $to; $s++){
@@ -103,8 +103,8 @@ for ($s = $st; $s <= $to; $s++){
 	$name = str_replace(array("<b>","</b>"), "", $name);
 	if (!$message) {
 		$name='';
-		$time='[‚±‚±‰ó‚ê‚Ä‚Ü‚·]';
-		$message='[‚±‚±‰ó‚ê‚Ä‚Ü‚·]';
+		$time='[ã“ã“å£Šã‚Œã¦ã¾ã™]';
+		$message='[ã“ã“å£Šã‚Œã¦ã¾ã™]';
 	}
 	$message = preg_replace("/(https?):\/\/(www\d*\.|)([\da-zA-Z\-\.]{1,10})([\x21-\x7E]*|)/i","<a href=$1://$2$3$4>$3</a>",$message);
 	$read = str_replace("r.php", "read.php", $_SERVER['SCRIPT_NAME']);
@@ -114,10 +114,10 @@ for ($s = $st; $s <= $to; $s++){
 	$msgline = substr_count($message, "<br>") + 1;
 	if ($msgline > 6 and $st != $to) {
 		preg_match("/(.*) <br>.*/U", $message, $match);
-		$message = $match[1]."<a href=".$s."><br> È".$msgline."</a>";
+		$message = $match[1]."<a href=".$s."><br> çœ".$msgline."</a>";
 	}
 	print "[$s]$name $time<br>$message<hr>";
 }
 echo $link;
 ?>
-<a href=<?=$to+1?>->Ÿ</a> <a href=w>¶·ºĞ</a><hr><?=$version?></body></html>
+<a href=<?=$to+1?>->æ¬¡</a> <a href=w>ï½¶ï½·ï½ºï¾</a><hr><?=$version?></body></html>

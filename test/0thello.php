@@ -1,47 +1,47 @@
 <?php
-# 0thello ˆ—
+# 0thello å‡¦ç†
 $fp = fopen($PATH.'0thello/'.$_POST['key'].'.dat', "r+");
 flock($fp, LOCK_EX);
 if ($_POST['subject']) {
-	// ƒXƒŒ—§‚Ä‚½l‚ÌƒgƒŠƒbƒv‚ð“o˜^
+	// ã‚¹ãƒ¬ç«‹ã¦ãŸäººã®ãƒˆãƒªãƒƒãƒ—ã‚’ç™»éŒ²
 	if ($trip) fwrite($fp, $trip."\n");
-	// ƒgƒŠƒbƒv•t‚¯–Y‚ê‚È‚çƒf[ƒ^ƒtƒ@ƒCƒ‹íœ
+	// ãƒˆãƒªãƒƒãƒ—ä»˜ã‘å¿˜ã‚Œãªã‚‰ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«å‰Šé™¤
 	else {
 		fclose($fp);
 		unlink($PATH.'0thello/'.$_POST['key'].'.dat');
-		DispError("‚d‚q‚q‚n‚qI", "VIP-0THELLO: ƒgƒŠƒbƒv‚ð‚Â‚¯‚Ä‚­‚¾‚³‚¢ ");
+		DispError("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "VIP-0THELLO: ãƒˆãƒªãƒƒãƒ—ã‚’ã¤ã‘ã¦ãã ã•ã„ ");
 	}
 }
 elseif ($trip and $white = fgets($fp, 1024) and strstr($_POST['FROM'], '!0thello')) {
 	$white = rtrim($white);
 	$game_board = array();
 	$tmp_board = array();
-	// •‚à“o˜^‚³‚ê‚Ä‚¢‚é
+	// é»’ã‚‚ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹
 	$black = rtrim(fgets($fp, 1024));
 	if ($black) {
-		// ŽŸ‚ÌŽè”Ô‚ÌƒgƒŠƒbƒv
+		// æ¬¡ã®æ‰‹ç•ªã®ãƒˆãƒªãƒƒãƒ—
 		list($game_count, $now) = fgetcsv($fp, 1024);
 		if ($trip == $now) {
-			// ”Õ–Êƒf[ƒ^‚Ì“Ç‚Ýž‚Ý
+			// ç›¤é¢ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 			for ($i = 0; $i < 8; $i++) {
-				$game_board[$i] = explode('b', rtrim(fgets($fp, 1024)));
+				$game_board[$i] = explode('ï½œ', rtrim(fgets($fp, 1024)));
 			}
 			$game_count++;
-			if (preg_match("/(.*)!0thello!x(\d+)!y(\d+)<\/b>Ÿ/", $_POST['FROM'], $match)) {
-				if ($match[2] < 1 or $match[2] > 9) DispError("‚d‚q‚q‚n‚qI", "VIP-0THELLO: XŽ²‚ðŽw’è‚µ‚Ä‚­‚¾‚³‚¢ ");
-				if ($match[3] < 1 or $match[3] > 9) DispError("‚d‚q‚q‚n‚qI", "VIP-0THELLO: YŽ²‚ðŽw’è‚µ‚Ä‚­‚¾‚³‚¢ ");
+			if (preg_match("/(.*)!0thello!x(\d+)!y(\d+)<\/b>â—†/", $_POST['FROM'], $match)) {
+				if ($match[2] < 1 or $match[2] > 9) DispError("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "VIP-0THELLO: Xè»¸ã‚’æŒ‡å®šã—ã¦ãã ã•ã„ ");
+				if ($match[3] < 1 or $match[3] > 9) DispError("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "VIP-0THELLO: Yè»¸ã‚’æŒ‡å®šã—ã¦ãã ã•ã„ ");
 				$next = ($trip == $white) ? $black : $white;
 				if ($next == $white) {
-					$p1 = "œ";
-					$p2 = "›";
+					$p1 = "â—";
+					$p2 = "â—‹";
 				}
 				else {
-					$p1 = "›";
-					$p2 = "œ";
+					$p1 = "â—‹";
+					$p2 = "â—";
 				}
 				$x = $match[2] - 1;
 				$y = $match[3] - 1;
-				if ($game_board[$y][$x] != "@") DispError ("‚d‚q‚q‚n‚qI","VIP-0THELLOF‚»‚±‚É‹î‚ð’u‚­‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñ");
+				if ($game_board[$y][$x] != "ã€€") DispError ("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","VIP-0THELLOï¼šãã“ã«é§’ã‚’ç½®ãã“ã¨ã¯ã§ãã¾ã›ã‚“");
 				function reverse(&$board, $board2, $x, $y, $dx, $dy, $p1, $p2) {
 					$count = 0;
 					$temp = $board;
@@ -68,101 +68,101 @@ elseif ($trip and $white = fgets($fp, 1024) and strstr($_POST['FROM'], '!0thello
 				$reverse += reverse($game_board, $tmp_board, $x, $y, 1, -1, $p1, $p2);
 				$reverse += reverse($game_board, $tmp_board, $x, $y, 1, 0, $p1, $p2);
 				$reverse += reverse($game_board, $tmp_board, $x, $y, 1, 1, $p1, $p2);
-				if ($reverse == 0) DispError ("‚d‚q‚q‚n‚qI","VIP-0THELLOF‚»‚±‚É‹î‚ð’u‚­‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñ");
+				if ($reverse == 0) DispError ("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","VIP-0THELLOï¼šãã“ã«é§’ã‚’ç½®ãã“ã¨ã¯ã§ãã¾ã›ã‚“");
 				$game_board[$y][$x] = $p1;
 				fseek($fp, 0, SEEK_SET);
 				fwrite($fp, $white."\n".$black."\n".$game_count.",".$next."\n");
 				for ($i = 0; $i < 8; $i++) {
-					fwrite($fp, implode('b', $game_board[$i])."\n");
+					fwrite($fp, implode('ï½œ', $game_board[$i])."\n");
 				}
 				ftruncate($fp, ftell($fp));
 				$_POST['MESSAGE'] .= '<pre>------------------------------------- <br> ';
-				$_POST['MESSAGE'] .= '@‚W@‚V@‚U@‚T@‚S@‚R@‚Q@‚P <br> ';
-				$_POST['MESSAGE'] .= '„¡\„¦\„¦\„¦\„¦\„¦\„¦\„¦\„¢ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[0])).'bˆê@@›æŽè(Ÿ'.$white.') <br> ';
-				$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[1])).'b“ñ@@œŒãŽè(Ÿ'.$black.') <br> ';
-				$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[2])).'bŽO@@'.$p1.$game_count.": ".$match[2].", ".$match[3].' <br> ';
-				$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[3])).'bŽl@@ŽŸ‚Í'.$p2.'‚Ì”Ô‚Å‚· <br> ';
-				$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[4])).'bŒÜ <br> ';
-				$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[5])).'b˜Z <br> ';
-				$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[6])).'bŽµ <br> ';
-				$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[7])).'b”ª <br> ';
-				$_POST['MESSAGE'] .= '„¤\„¨\„¨\„¨\„¨\„¨\„¨\„¨\„£ </pre> ';
-				$_POST['FROM'] = $match[1]."</b>Ÿ".$trip."<b>";
+				$_POST['MESSAGE'] .= 'ã€€ï¼˜ã€€ï¼—ã€€ï¼–ã€€ï¼•ã€€ï¼”ã€€ï¼“ã€€ï¼’ã€€ï¼‘ <br> ';
+				$_POST['MESSAGE'] .= 'â”Œâ€•â”¬â€•â”¬â€•â”¬â€•â”¬â€•â”¬â€•â”¬â€•â”¬â€•â” <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[0])).'ï½œä¸€ã€€ã€€â—‹å…ˆæ‰‹(â—†'.$white.') <br> ';
+				$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[1])).'ï½œäºŒã€€ã€€â—å¾Œæ‰‹(â—†'.$black.') <br> ';
+				$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[2])).'ï½œä¸‰ã€€ã€€'.$p1.$game_count.": ".$match[2].", ".$match[3].' <br> ';
+				$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[3])).'ï½œå››ã€€ã€€æ¬¡ã¯'.$p2.'ã®ç•ªã§ã™ <br> ';
+				$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[4])).'ï½œäº” <br> ';
+				$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[5])).'ï½œå…­ <br> ';
+				$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[6])).'ï½œä¸ƒ <br> ';
+				$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[7])).'ï½œå…« <br> ';
+				$_POST['MESSAGE'] .= 'â””â€•â”´â€•â”´â€•â”´â€•â”´â€•â”´â€•â”´â€•â”´â€•â”˜ </pre> ';
+				$_POST['FROM'] = $match[1]."</b>â—†".$trip."<b>";
 			}
-			// ƒpƒX
-			elseif (preg_match("/(.*)!0thello!pass<\/b>Ÿ/", $_POST['FROM'], $match)) {
+			// ãƒ‘ã‚¹
+			elseif (preg_match("/(.*)!0thello!pass<\/b>â—†/", $_POST['FROM'], $match)) {
 				fseek($fp, 0, SEEK_SET);
 				fwrite($fp, $white."\n".$black."\n".$game_count.",".$next."\n");
 				for ($i = 0; $i < 8; $i++) {
-					fwrite($fp, implode('b', $game_board[$i])."\n");
+					fwrite($fp, implode('ï½œ', $game_board[$i])."\n");
 				}
 				ftruncate($fp, ftell($fp));
 				$_POST['MESSAGE'] .= '<pre>------------------------------------- <br> ';
-				$_POST['MESSAGE'] .= '@‚W@‚V@‚U@‚T@‚S@‚R@‚Q@‚P <br> ';
-				$_POST['MESSAGE'] .= '„¡\„¦\„¦\„¦\„¦\„¦\„¦\„¦\„¢ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[0])).'bˆê@@›æŽè(Ÿ'.$white.') <br> ';
-				$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[1])).'b“ñ@@œŒãŽè(Ÿ'.$black.') <br> ';
-				$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[2])).'bŽO@@'.$p1.$game_count.': ƒpƒX <br> ';
-				$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[3])).'bŽl@@ŽŸ‚Í'.$p2.'‚Ì”Ô‚Å‚· <br> ';
-				$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[4])).'bŒÜ <br> ';
-				$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[5])).'b˜Z <br> ';
-				$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[6])).'bŽµ <br> ';
-				$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-				$_POST['MESSAGE'] .= 'b'.implode('b', array_reverse($game_board[7])).'b”ª <br> ';
-				$_POST['MESSAGE'] .= '„¤\„¨\„¨\„¨\„¨\„¨\„¨\„¨\„£ </pre> ';
-				$_POST['FROM'] = $match[1]."</b>Ÿ".$trip."<b>";
+				$_POST['MESSAGE'] .= 'ã€€ï¼˜ã€€ï¼—ã€€ï¼–ã€€ï¼•ã€€ï¼”ã€€ï¼“ã€€ï¼’ã€€ï¼‘ <br> ';
+				$_POST['MESSAGE'] .= 'â”Œâ€•â”¬â€•â”¬â€•â”¬â€•â”¬â€•â”¬â€•â”¬â€•â”¬â€•â” <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[0])).'ï½œä¸€ã€€ã€€â—‹å…ˆæ‰‹(â—†'.$white.') <br> ';
+				$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[1])).'ï½œäºŒã€€ã€€â—å¾Œæ‰‹(â—†'.$black.') <br> ';
+				$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[2])).'ï½œä¸‰ã€€ã€€'.$p1.$game_count.': ãƒ‘ã‚¹ <br> ';
+				$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[3])).'ï½œå››ã€€ã€€æ¬¡ã¯'.$p2.'ã®ç•ªã§ã™ <br> ';
+				$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[4])).'ï½œäº” <br> ';
+				$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[5])).'ï½œå…­ <br> ';
+				$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[6])).'ï½œä¸ƒ <br> ';
+				$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+				$_POST['MESSAGE'] .= 'ï½œ'.implode('ï½œ', array_reverse($game_board[7])).'ï½œå…« <br> ';
+				$_POST['MESSAGE'] .= 'â””â€•â”´â€•â”´â€•â”´â€•â”´â€•â”´â€•â”´â€•â”´â€•â”˜ </pre> ';
+				$_POST['FROM'] = $match[1]."</b>â—†".$trip."<b>";
 			}
 		}
 	}
-	// ”’‚Ì‚Ý“o˜^‚Ìê‡•‚Ì“o˜^‚ÆŽŸ‚ÌŽè”Ôi”’j‚ð‘‚«ž‚Ý
+	// ç™½ã®ã¿ç™»éŒ²ã®å ´åˆé»’ã®ç™»éŒ²ã¨æ¬¡ã®æ‰‹ç•ªï¼ˆç™½ï¼‰ã‚’æ›¸ãè¾¼ã¿
 	else {
 		fwrite($fp, $trip."\n"."0,".$white."\n");
-		// ”Õ‚Ì‰Šú‰»
+		// ç›¤ã®åˆæœŸåŒ–
 		for ($i = 0; $i < 8; $i++) {
 			for ($j = 0; $j < 8; $j++) {
-				$game_board[$i][$j] = '@';
+				$game_board[$i][$j] = 'ã€€';
 			}
 		}
-		$game_board[3][3] = "œ";
-		$game_board[4][4] = "œ";
-		$game_board[3][4] = "›";
-		$game_board[4][3] = "›";
+		$game_board[3][3] = "â—";
+		$game_board[4][4] = "â—";
+		$game_board[3][4] = "â—‹";
+		$game_board[4][3] = "â—‹";
 		for ($i = 0; $i < 8; $i++) {
-			fwrite($fp, implode('b', $game_board[$i])."\n");
+			fwrite($fp, implode('ï½œ', $game_board[$i])."\n");
 		}
 		$_POST['MESSAGE'] .= '<pre>------------------------------------- <br> ';
-		$_POST['MESSAGE'] .= '@‚W@‚V@‚U@‚T@‚S@‚R@‚Q@‚P <br> ';
-		$_POST['MESSAGE'] .= '„¡\„¦\„¦\„¦\„¦\„¦\„¦\„¦\„¢ <br> ';
-		$_POST['MESSAGE'] .= 'b@b@b@b@b@b@b@b@bˆê@@›æŽè(Ÿ'.$white.') <br> ';
-		$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-		$_POST['MESSAGE'] .= 'b@b@b@b@b@b@b@b@b“ñ@@œŒãŽè(Ÿ'.$trip.') <br> ';
-		$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-		$_POST['MESSAGE'] .= 'b@b@b@b@b@b@b@b@bŽO@@ŽŸ‚Í›‚Ì”Ô‚Å‚· <br> ';
-		$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-		$_POST['MESSAGE'] .= 'b@b@b@b›bœb@b@b@bŽl@@ <br> ';
-		$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-		$_POST['MESSAGE'] .= 'b@b@b@bœb›b@b@b@bŒÜ <br> ';
-		$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-		$_POST['MESSAGE'] .= 'b@b@b@b@b@b@b@b@b˜Z <br> ';
-		$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-		$_POST['MESSAGE'] .= 'b@b@b@b@b@b@b@b@bŽµ <br> ';
-		$_POST['MESSAGE'] .= '„¥\„©\„©\„©\„©\„©\„©\„©\„§ <br> ';
-		$_POST['MESSAGE'] .= 'b@b@b@b@b@b@b@b@b”ª <br> ';
-		$_POST['MESSAGE'] .= '„¤\„¨\„¨\„¨\„¨\„¨\„¨\„¨\„£ </pre> ';
+		$_POST['MESSAGE'] .= 'ã€€ï¼˜ã€€ï¼—ã€€ï¼–ã€€ï¼•ã€€ï¼”ã€€ï¼“ã€€ï¼’ã€€ï¼‘ <br> ';
+		$_POST['MESSAGE'] .= 'â”Œâ€•â”¬â€•â”¬â€•â”¬â€•â”¬â€•â”¬â€•â”¬â€•â”¬â€•â” <br> ';
+		$_POST['MESSAGE'] .= 'ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œä¸€ã€€ã€€â—‹å…ˆæ‰‹(â—†'.$white.') <br> ';
+		$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+		$_POST['MESSAGE'] .= 'ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œäºŒã€€ã€€â—å¾Œæ‰‹(â—†'.$trip.') <br> ';
+		$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+		$_POST['MESSAGE'] .= 'ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œä¸‰ã€€ã€€æ¬¡ã¯â—‹ã®ç•ªã§ã™ <br> ';
+		$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+		$_POST['MESSAGE'] .= 'ï½œã€€ï½œã€€ï½œã€€ï½œâ—‹ï½œâ—ï½œã€€ï½œã€€ï½œã€€ï½œå››ã€€ã€€ <br> ';
+		$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+		$_POST['MESSAGE'] .= 'ï½œã€€ï½œã€€ï½œã€€ï½œâ—ï½œâ—‹ï½œã€€ï½œã€€ï½œã€€ï½œäº” <br> ';
+		$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+		$_POST['MESSAGE'] .= 'ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œå…­ <br> ';
+		$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+		$_POST['MESSAGE'] .= 'ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œä¸ƒ <br> ';
+		$_POST['MESSAGE'] .= 'â”œâ€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¼â€•â”¤ <br> ';
+		$_POST['MESSAGE'] .= 'ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œã€€ï½œå…« <br> ';
+		$_POST['MESSAGE'] .= 'â””â€•â”´â€•â”´â€•â”´â€•â”´â€•â”´â€•â”´â€•â”´â€•â”˜ </pre> ';
 	}
 }
 fclose($fp);
