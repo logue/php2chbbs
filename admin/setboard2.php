@@ -4,76 +4,74 @@ if (!isset($_POST['mode'])) $_POST['mode'] = '';
 if(get_magic_quotes_gpc()) {
 	$_POST = array_map("stripslashes", $_POST);
 }
-if (!isset($_REQUEST['bbs']) or !$_REQUEST['bbs']) disperror("‚d‚q‚q‚n‚qI","‚d‚q‚q‚n‚qF”Â–¼‚ð‚¢‚ê‚Ä‚¿‚åBBB");
-if (!is_dir("../$_REQUEST[bbs]")) disperror("‚d‚q‚q‚n‚qI","‚d‚q‚q‚n‚qF‚»‚ñ‚È”Â‚È‚¢‚Å‚·B");
+if (!isset($_REQUEST['bbs']) or !$_REQUEST['bbs']) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼šæ¿åã‚’ã„ã‚Œã¦ã¡ã‚‡ã€‚ã€‚ã€‚");
+if (!is_dir("../$_REQUEST[bbs]")) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼šãã‚“ãªæ¿ãªã„ã§ã™ã€‚");
 $set_pass = "../$_REQUEST[bbs]/config.php";
-$comment = '<br>';
+$comment = '<br />';
 #====================================================
-#@Ý’èƒtƒ@ƒCƒ‹‚Ì‘ž‚Ý
+#ã€€è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã®æ›¸è¾¼ã¿
 #====================================================
 if ($_POST['mode'] == 'set') {
-	$_POST['THREAD_MAX_MSG'] = str_replace(array("\r\n", "\r", "\n"), '<br>', $_POST['THREAD_MAX_MSG']);
+	$_POST['THREAD_MAX_MSG'] = str_replace(array("\r\n", "\r", "\n"), '<br />', $_POST['THREAD_MAX_MSG']);
 	$setvalue = <<<EOF
 <?php
-# Ý’èƒtƒ@ƒCƒ‹i"SETTING.TXT"ˆÈŠO‚ÌÝ’è€–Új
-# ƒƒOƒtƒ@ƒCƒ‹•ÛŽ”iƒVƒXƒeƒ€Ý’èj
+# è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆ"SETTING.TXT"ä»¥å¤–ã®è¨­å®šé …ç›®ï¼‰
+# ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ä¿æŒæ•°ï¼ˆã‚·ã‚¹ãƒ†ãƒ è¨­å®šï¼‰
 define('KEEPLOGCOUNT', $_POST[KEEPLOGCOUNT]);
-# 1ƒXƒŒƒbƒh‚É“Še‚Å‚«‚éƒŒƒX”‚ÌãŒÀ
+# 1ã‚¹ãƒ¬ãƒƒãƒ‰ã«æŠ•ç¨¿ã§ãã‚‹ãƒ¬ã‚¹æ•°ã®ä¸Šé™
 define('THREAD_RES', $_POST[THREAD_RES]);
-# ƒŒƒXƒI[ƒo[Žž‚ÌƒƒbƒZ[ƒW
+# ãƒ¬ã‚¹ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 define('THREAD_MAX_MSG', '$_POST[THREAD_MAX_MSG]');
-# 1ƒXƒŒƒbƒh‚ÌãŒÀiƒoƒCƒgj
+# 1ã‚¹ãƒ¬ãƒƒãƒ‰ã®ä¸Šé™ï¼ˆãƒã‚¤ãƒˆï¼‰
 define('THREAD_BYTES', $_POST[THREAD_BYTES]);
-# ƒtƒ@ƒCƒ‹ƒAƒbƒv‹–‰Â
+# ãƒ•ã‚¡ã‚¤ãƒ«ã‚¢ãƒƒãƒ—è¨±å¯
 define('UPLOAD', $_POST[UPLOAD]);
-# GDƒo[ƒWƒ‡ƒ“
-define('GD_VERSION', $_POST[GD_VERSION]);
-# ƒAƒbƒvƒ[ƒhãŒÀiƒoƒCƒgj
+# GDãƒãƒ¼ã‚¸ãƒ§ãƒ³
+defined('GD_VERSION') or define('GD_VERSION', $_POST[GD_VERSION]);
+# ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ä¸Šé™ï¼ˆãƒã‚¤ãƒˆï¼‰
 define('MAX_BYTES', $_POST[MAX_BYTES]);
-# ƒTƒ€ƒlƒCƒ‹‰æ‘œ‚Ì•
+# ã‚µãƒ ãƒã‚¤ãƒ«ç”»åƒã®å¹…
 define('MAX_W', $_POST[MAX_W]);
-# ƒTƒ€ƒlƒCƒ‹‰æ‘œ‚Ì‚‚³
+# ã‚µãƒ ãƒã‚¤ãƒ«ç”»åƒã®é«˜ã•
 define('MAX_H', $_POST[MAX_H]);
-# ‚¨‚Ý‚­‚¶‹@”\
+# ãŠã¿ãã˜æ©Ÿèƒ½
 define('OMIKUJI', $_POST[OMIKUJI]);
-# –ì‹…‹@”\
+# é‡Žçƒæ©Ÿèƒ½
 define('BASEBALL', $_POST[BASEBALL]);
-# ‚Ç‚±’N‰½‹@”\
+# ã©ã“èª°ä½•æ©Ÿèƒ½
 define('WHO_WHERE', $_POST[WHO_WHERE]);
-# ’Ù‹@”\i–¢ŽÀ‘•j
+# å£·æ©Ÿèƒ½ï¼ˆæœªå®Ÿè£…ï¼‰
 define('TUBO', $_POST[TUBO]);
-# “™•ƒtƒHƒ“ƒg‹@”\
+# ç­‰å¹…ãƒ•ã‚©ãƒ³ãƒˆæ©Ÿèƒ½
 define('TELETYPE', $_POST[TELETYPE]);
-# ƒXƒŒƒbƒh“à–¼–³‚µ–¼•ÏX‹@”\
+# ã‚¹ãƒ¬ãƒƒãƒ‰å†…åç„¡ã—åå¤‰æ›´æ©Ÿèƒ½
 define('NAME_774', $_POST[NAME_774]);
-# –¼–³‚µ‚Ö‹­§•ÏX‹@”\
+# åç„¡ã—ã¸å¼·åˆ¶å¤‰æ›´æ©Ÿèƒ½
 define('FORCE_774', $_POST[FORCE_774]);
-# ID‚È‚µ‹@”\
+# IDãªã—æ©Ÿèƒ½
 define('FORCE_NO_ID', $_POST[FORCE_NO_ID]);
-# sage‹­§‹@”\
+# sageå¼·åˆ¶æ©Ÿèƒ½
 define('FORCE_SAGE', $_POST[FORCE_SAGE]);
-# ƒŒƒX—vƒLƒƒƒbƒv‹@”\
+# ãƒ¬ã‚¹è¦ã‚­ãƒ£ãƒƒãƒ—æ©Ÿèƒ½
 define('FORCE_STARS', $_POST[FORCE_STARS]);
-# ƒXƒŒƒbƒh“àVIP‹@”\‰ðœ
+# ã‚¹ãƒ¬ãƒƒãƒ‰å†…VIPæ©Ÿèƒ½è§£é™¤
 define('FORCE_NORMAL', $_POST[FORCE_NORMAL]);
-# –¼‘O“ü—Í‹­§‹@”\
+# åå‰å…¥åŠ›å¼·åˆ¶æ©Ÿèƒ½
 define('FORCE_NAME', $_POST[FORCE_NAME]);
-# 0thelo‹@”\
+# 0theloæ©Ÿèƒ½
 define('ZEROTHELO', $_POST[ZEROTHELO]);
-# ƒAƒbƒvƒ[ƒh‹@”\
+# ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰æ©Ÿèƒ½
 define('FORCE_UP', $_POST[FORCE_UP]);
-?>
-
 EOF;
 	$fp = fopen($set_pass, "w");
 	fputs($fp, $setvalue);
 	fclose($fp);
-	$comment = '<font color="red">Ý’è‚ðXV‚µ‚Ü‚µ‚½B</font><br>';
+	$comment = '<font color="red">è¨­å®šã‚’æ›´æ–°ã—ã¾ã—ãŸã€‚</font><br />';
 }
 #====================================================
-#@‰Šúî•ñ‚ÌŽæ“¾iÝ’èƒtƒ@ƒCƒ‹j
+#ã€€åˆæœŸæƒ…å ±ã®å–å¾—ï¼ˆè¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ï¼‰
 #====================================================
-#Ý’èƒtƒ@ƒCƒ‹‚ð“Ç‚Þ
+#è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã‚€
 if (is_file("../$_REQUEST[bbs]/SETTING.TXT")) {
 	$set_str = file("../$_REQUEST[bbs]/SETTING.TXT");
 	foreach ($set_str as $tmp){
@@ -82,140 +80,140 @@ if (is_file("../$_REQUEST[bbs]/SETTING.TXT")) {
 		$SETTING[$name] = $value;
 	}
 }
-else disperror("‚d‚q‚q‚n‚qI","‚d‚q‚q‚n‚qFƒ†[ƒU[Ý’è‚ªÁŽ¸‚µ‚Ä‚¢‚Ü‚·I");
-#Ý’èƒtƒ@ƒCƒ‹2‚ð“Ç‚Þ
+else disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼šãƒ¦ãƒ¼ã‚¶ãƒ¼è¨­å®šãŒæ¶ˆå¤±ã—ã¦ã„ã¾ã™ï¼");
+#è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«2ã‚’èª­ã‚€
 if (is_file($set_pass)) {
 	require $set_pass;
 }
-else disperror("‚d‚q‚q‚n‚qI","‚d‚q‚q‚n‚qFƒ†[ƒU[Ý’è‚Q‚ªÁŽ¸‚µ‚Ä‚¢‚Ü‚·I");
+else disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼šãƒ¦ãƒ¼ã‚¶ãƒ¼è¨­å®šï¼’ãŒæ¶ˆå¤±ã—ã¦ã„ã¾ã™ï¼");
 if (!is_file("../$_REQUEST[bbs]/index.html")) {
-	$comment = '<font color=red>‚Ü‚¸ŠeÝ’è€–Ú‚ð•ÏXŒã‚É<b>Ý’èXV</b>ƒ{ƒ^ƒ“‚ð‰Ÿ‚µA<a href="admin.php?bbs='.$_REQUEST['bbs'].'" target="_parent">‚±‚±</a>‚©‚çƒƒjƒ…[‚ÌXV‚ð‚µ‚ÄAŽŸ‚Éƒƒjƒ…[‚Ì<b>index.html‚ðì‚è’¼‚·</b>‚ðƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B</font><br>';
+	$comment = '<font color="red">ã¾ãšå„è¨­å®šé …ç›®ã‚’å¤‰æ›´å¾Œã«<b>è¨­å®šæ›´æ–°</b>ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ã€<a href="admin.php?bbs='.$_REQUEST['bbs'].'" target="_parent">ã“ã“</a>ã‹ã‚‰ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æ›´æ–°ã‚’ã—ã¦ã€æ¬¡ã«ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®<b>index.htmlã‚’ä½œã‚Šç›´ã™</b>ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚</font><br />';
 }
-$maxmsg = str_replace('<br>', "\n", THREAD_MAX_MSG);
+$maxmsg = str_replace('<br />', "\n", THREAD_MAX_MSG);
 #====================================================
-#@ŒfŽ¦”Â‚ÌÝ’è
+#ã€€æŽ²ç¤ºæ¿ã®è¨­å®š
 #====================================================
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
-<title>VIPÝ’è•ÏX</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="main.css" type="text/css" />
+<title>VIPè¨­å®šå¤‰æ›´</title>
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>VIPÝ’è•ÏX</h3>
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']?></h1>
+<h3>VIPè¨­å®šå¤‰æ›´</h3>
 <hr>
-<form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
-<?=$comment?>
-<input type="submit" value="Ý’èXV">
-<input type="hidden" name="mode" value="set">
-<input type="hidden" name="bbs" value="<?=$_REQUEST['bbs']?>">
+<form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
+<?php echo $comment?>
+<input type="submit" value="è¨­å®šæ›´æ–°">
+<input type="hidden" name="mode" value="set" />
+<input type="hidden" name="bbs" value="<?php echo $_REQUEST['bbs']?>" />
 <table border="2">
 <tr>
-<th>ƒƒOƒtƒ@ƒCƒ‹•ÛŽ”</th>
-<td><input type="text" size="10" name="KEEPLOGCOUNT" value="<?=KEEPLOGCOUNT?>"></td>
+<th>ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ä¿æŒæ•°</th>
+<td><input type="text" size="10" name="KEEPLOGCOUNT" value="<?php echo KEEPLOGCOUNT?>" /></td>
 </tr>
 <tr>
-<th>1ƒXƒŒƒbƒh‚É“Še‚Å‚«‚éƒŒƒX”‚ÌãŒÀ</th>
-<td><input type="text" size="10" name="THREAD_RES" value="<?=THREAD_RES?>"></td>
+<th>1ã‚¹ãƒ¬ãƒƒãƒ‰ã«æŠ•ç¨¿ã§ãã‚‹ãƒ¬ã‚¹æ•°ã®ä¸Šé™</th>
+<td><input type="text" size="10" name="THREAD_RES" value="<?php echo THREAD_RES?>" /></td>
 </tr>
 <tr>
-<th>ƒŒƒXƒI[ƒo[Žž‚ÌƒƒbƒZ[ƒW<br>ƒŒƒX”‚Ì•\Ž¦•”•ª‚Í<br>&lt;NUM&gt;<br>‚Æ‘‚¢‚Ä‚­‚¾‚³‚¢<br></th>
-<td><textarea cols="60" rows="5" name="THREAD_MAX_MSG"><?=$maxmsg?></textarea></td>
+<th>ãƒ¬ã‚¹ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸<br />ãƒ¬ã‚¹æ•°ã®è¡¨ç¤ºéƒ¨åˆ†ã¯<br />&lt;NUM&gt;<br />ã¨æ›¸ã„ã¦ãã ã•ã„<br /></th>
+<td><textarea cols="60" rows="5" name="THREAD_MAX_MSG"><?php echo $maxmsg?></textarea></td>
 </tr>
 <tr>
-<th>1ƒXƒŒƒbƒh‚ÌãŒÀiƒoƒCƒgj</th>
-<td><input type="text" size="10" name="THREAD_BYTES" value="<?=THREAD_BYTES?>"></td>
+<th>1ã‚¹ãƒ¬ãƒƒãƒ‰ã®ä¸Šé™ï¼ˆãƒã‚¤ãƒˆï¼‰</th>
+<td><input type="text" size="10" name="THREAD_BYTES" value="<?php echo THREAD_BYTES?>" /></td>
 </tr>
 <tr>
-<th>‰æ‘œƒAƒbƒvƒ[ƒh</th>
-<td><input type="radio" name="UPLOAD" value="1"<? if (UPLOAD) echo " checked"?>>‚ ‚è@<input type="radio" name="UPLOAD" value="0"<? if (!UPLOAD) echo " checked"?>>‚È‚µ</td>
+<th>ç”»åƒã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰</th>
+<td><input type="radio" name="UPLOAD" value="1"<?php if (UPLOAD) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="UPLOAD" value="0"<?php if (!UPLOAD) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 <tr>
-<th>ƒTƒ€ƒlƒCƒ‹ì¬</th>
+<th>ã‚µãƒ ãƒã‚¤ãƒ«ä½œæˆ</th>
 <td><font size=2>
-<input type="radio" name="GD_VERSION" value="0"<? if (GD_VERSION == 0) echo " checked"?>>‚È‚µ |
-<input type="radio" name="GD_VERSION" value="1"<? if (GD_VERSION == 1) echo " checked"?>>‚ ‚è(GD Ver.1) |
-<input type="radio" name="GD_VERSION" value="2"<? if (GD_VERSION == 2) echo " checked"?>>‚ ‚è(GD Ver.2)
+<input type="radio" name="GD_VERSION" value="0"<?php if (GD_VERSION == 0) echo ' checked="checked"'; ?> />ãªã— |
+<input type="radio" name="GD_VERSION" value="1"<?php if (GD_VERSION == 1) echo ' checked="checked"'; ?> />ã‚ã‚Š(GD Ver.1) |
+<input type="radio" name="GD_VERSION" value="2"<?php if (GD_VERSION == 2) echo ' checked="checked"'; ?> />ã‚ã‚Š(GD Ver.2)
 </font></td>
 </tr>
 <tr>
-<th>ƒAƒbƒvƒ[ƒhãŒÀiƒoƒCƒgj</th>
-<td><input type="text" size="10" name="MAX_BYTES" value="<?=MAX_BYTES?>">php.ini‚ÌÝ’èi•’Ê2MjˆÈã‚É‚µ‚Ä‚à‚¾‚ß‚Å‚·‚©‚ç</td>
+<th>ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ä¸Šé™ï¼ˆãƒã‚¤ãƒˆï¼‰</th>
+<td><input type="text" size="10" name="MAX_BYTES" value="<?php echo MAX_BYTES?>" />php.iniã®è¨­å®šï¼ˆæ™®é€š2Mï¼‰ä»¥ä¸Šã«ã—ã¦ã‚‚ã ã‚ã§ã™ã‹ã‚‰</td>
 </tr>
 <tr>
-<th>ƒTƒ€ƒlƒCƒ‹‰æ‘œ‚Ì•</th>
-<td><input type="text" size="10" name="MAX_W" value="<?=MAX_W?>"></td>
+<th>ã‚µãƒ ãƒã‚¤ãƒ«ç”»åƒã®å¹…</th>
+<td><input type="text" size="10" name="MAX_W" value="<?php echo MAX_W?>" /></td>
 </tr>
 <tr>
-<th>ƒTƒ€ƒlƒCƒ‹‰æ‘œ‚Ì‚‚³</th>
-<td><input type="text" size="10" name="MAX_H" value="<?=MAX_H?>"></td>
+<th>ã‚µãƒ ãƒã‚¤ãƒ«ç”»åƒã®é«˜ã•</th>
+<td><input type="text" size="10" name="MAX_H" value="<?php echo MAX_H?>" /></td>
 </tr>
 </table>
-VIP‹@”\<br>
+VIPæ©Ÿèƒ½<br />
 <table border="2">
 <tr>
-<th>‚¨‚Ý‚­‚¶‹@”\</th>
-<td><input type="radio" name="OMIKUJI" value="1"<? if (OMIKUJI) echo " checked"?>>‚ ‚è@<input type="radio" name="OMIKUJI" value="0"<? if (!OMIKUJI) echo " checked"?>>‚È‚µ</td>
+<th>ãŠã¿ãã˜æ©Ÿèƒ½</th>
+<td><input type="radio" name="OMIKUJI" value="1"<?php if (OMIKUJI) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="OMIKUJI" value="0"<?php if (!OMIKUJI) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 <tr>
-<th>–ì‹…‹@”\</th>
-<td><input type="radio" name="BASEBALL" value="1"<? if (BASEBALL) echo " checked"?>>‚ ‚è@<input type="radio" name="BASEBALL" value="0"<? if (!BASEBALL) echo " checked"?>>‚È‚µ</td>
+<th>é‡Žçƒæ©Ÿèƒ½</th>
+<td><input type="radio" name="BASEBALL" value="1"<?php if (BASEBALL) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="BASEBALL" value="0"<?php if (!BASEBALL) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 <tr>
-<th>’N‚ª‚Ç‚±‚Å‹@”\</th>
-<td><input type="radio" name="WHO_WHERE" value="1"<? if (WHO_WHERE) echo " checked"?>>‚ ‚è@<input type="radio" name="WHO_WHERE" value="0"<? if (!WHO_WHERE) echo " checked"?>>‚È‚µ</td>
+<th>èª°ãŒã©ã“ã§æ©Ÿèƒ½</th>
+<td><input type="radio" name="WHO_WHERE" value="1"<?php if (WHO_WHERE) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="WHO_WHERE" value="0"<?php if (!WHO_WHERE) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 <tr>
-<th>’Ù‹@”\i‚à‚Á‚Ä‚È‚¢‚Ì‚Å–¢ŽÀ‘•j</th>
-<td><input type="radio" name="TUBO" value="1"<? if (TUBO) echo " checked"?>>‚ ‚è@<input type="radio" name="TUBO" value="0"<? if (!TUBO) echo " checked"?>>‚È‚µ</td>
+<th>å£·æ©Ÿèƒ½ï¼ˆã‚‚ã£ã¦ãªã„ã®ã§æœªå®Ÿè£…ï¼‰</th>
+<td><input type="radio" name="TUBO" value="1"<?php if (TUBO) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="TUBO" value="0"<?php if (!TUBO) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 <tr>
-<th>“™•ƒtƒHƒ“ƒg‹@”\</th>
-<td><input type="radio" name="TELETYPE" value="1"<? if (TELETYPE) echo " checked"?>>‚ ‚è@<input type="radio" name="TELETYPE" value="0"<? if (!TELETYPE) echo " checked"?>>‚È‚µ</td>
+<th>ç­‰å¹…ãƒ•ã‚©ãƒ³ãƒˆæ©Ÿèƒ½</th>
+<td><input type="radio" name="TELETYPE" value="1"<?php if (TELETYPE) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="TELETYPE" value="0"<?php if (!TELETYPE) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 </table>
-ƒXƒŒ—§‚ÄŽž‚É‚Â‚¯‚ç‚ê‚é‹@”\<br>
+ã‚¹ãƒ¬ç«‹ã¦æ™‚ã«ã¤ã‘ã‚‰ã‚Œã‚‹æ©Ÿèƒ½<br />
 <table border="2">
 <tr>
-<th>ƒXƒŒƒbƒh“à–¼–³‚µ–¼•ÏX‹@”\u!774Ši‚³‚ñ!3v</th>
-<td><input type="radio" name="NAME_774" value="1"<? if (NAME_774) echo " checked"?>>‚ ‚è@<input type="radio" name="NAME_774" value="0"<? if (!NAME_774) echo " checked"?>>‚È‚µ</td>
+<th>ã‚¹ãƒ¬ãƒƒãƒ‰å†…åç„¡ã—åå¤‰æ›´æ©Ÿèƒ½ã€Œ!774æ ¼ã•ã‚“!3ã€</th>
+<td><input type="radio" name="NAME_774" value="1"<?php if (NAME_774) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="NAME_774" value="0"<?php if (!NAME_774) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 <tr>
-<th>–¼–³‚µ‚Ö‹­§•ÏŠ·‹@”\u!774!forceŠi‚³‚ñ!3v</th>
-<td><input type="radio" name="FORCE_774" value="1"<? if (FORCE_774) echo " checked"?>>‚ ‚è@<input type="radio" name="FORCE_774" value="0"<? if (!FORCE_774) echo " checked"?>>‚È‚µ</td>
+<th>åç„¡ã—ã¸å¼·åˆ¶å¤‰æ›æ©Ÿèƒ½ã€Œ!774!forceæ ¼ã•ã‚“!3ã€</th>
+<td><input type="radio" name="FORCE_774" value="1"<?php if (FORCE_774) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="FORCE_774" value="0"<?php if (!FORCE_774) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 <tr>
-<th>ID‚È‚µ‹@”\u!774!force!noid!3v</th>
-<td><input type="radio" name="FORCE_NO_ID" value="1"<? if (FORCE_NO_ID) echo " checked"?>>‚ ‚è@<input type="radio" name="FORCE_NO_ID" value="0"<? if (!FORCE_NO_ID) echo " checked"?>>‚È‚µ</td>
+<th>IDãªã—æ©Ÿèƒ½ã€Œ!774!force!noid!3ã€</th>
+<td><input type="radio" name="FORCE_NO_ID" value="1"<?php if (FORCE_NO_ID) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="FORCE_NO_ID" value="0"<?php if (!FORCE_NO_ID) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 <tr>
-<th>‹­§sage‹@”\u!774!force!sage!3v</th>
-<td><input type="radio" name="FORCE_SAGE" value="1"<? if (FORCE_SAGE) echo " checked"?>>‚ ‚è@<input type="radio" name="FORCE_SAGE" value="0"<? if (!FORCE_SAGE) echo " checked"?>>‚È‚µ</td>
+<th>å¼·åˆ¶sageæ©Ÿèƒ½ã€Œ!774!force!sage!3ã€</th>
+<td><input type="radio" name="FORCE_SAGE" value="1"<?php if (FORCE_SAGE) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="FORCE_SAGE" value="0"<?php if (!FORCE_SAGE) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 <tr>
-<th>ƒŒƒXŽžƒLƒƒƒbƒv•K{‹@”\u!774!force!stars!3v</th>
-<td><input type="radio" name="FORCE_STARS" value="1"<? if (FORCE_STARS) echo " checked"?>>‚ ‚è@<input type="radio" name="FORCE_STARS" value="0"<? if (!FORCE_STARS) echo " checked"?>>‚È‚µ</td>
+<th>ãƒ¬ã‚¹æ™‚ã‚­ãƒ£ãƒƒãƒ—å¿…é ˆæ©Ÿèƒ½ã€Œ!774!force!stars!3ã€</th>
+<td><input type="radio" name="FORCE_STARS" value="1"<?php if (FORCE_STARS) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="FORCE_STARS" value="0"<?php if (!FORCE_STARS) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 <tr>
-<th>ƒXƒŒƒbƒh“àVIP‹@”\‰ðœu!774!normal!3v</th>
-<td><input type="radio" name="FORCE_NORMAL" value="1"<? if (FORCE_NORMAL) echo " checked"?>>‚ ‚è@<input type="radio" name="FORCE_NORMAL" value="0"<? if (!FORCE_NORMAL) echo " checked"?>>‚È‚µ</td>
+<th>ã‚¹ãƒ¬ãƒƒãƒ‰å†…VIPæ©Ÿèƒ½è§£é™¤ã€Œ!774!normal!3ã€</th>
+<td><input type="radio" name="FORCE_NORMAL" value="1"<?php if (FORCE_NORMAL) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="FORCE_NORMAL" value="0"<?php if (!FORCE_NORMAL) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 <tr>
-<th>–¼‘O“ü—Í‹­§‹@”\u!774!name!3v</th>
-<td><input type="radio" name="FORCE_NAME" value="1"<? if (FORCE_NAME) echo " checked"?>>‚ ‚è@<input type="radio" name="FORCE_NAME" value="0"<? if (!FORCE_NAME) echo " checked"?>>‚È‚µ</td>
+<th>åå‰å…¥åŠ›å¼·åˆ¶æ©Ÿèƒ½ã€Œ!774!name!3ã€</th>
+<td><input type="radio" name="FORCE_NAME" value="1"<?php if (FORCE_NAME) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="FORCE_NAME" value="0"<?php if (!FORCE_NAME) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 <tr>
-<th>0thelo‹@”\u!774!0thello!3#tripkeyv</th>
-<td><input type="radio" name="ZEROTHELO" value="1"<? if (ZEROTHELO) echo " checked"?>>‚ ‚è@<input type="radio" name="ZEROTHELO" value="0"<? if (!ZEROTHELO) echo " checked"?>>‚È‚µ</td>
+<th>0theloæ©Ÿèƒ½ã€Œ!774!0thello!3#tripkeyã€</th>
+<td><input type="radio" name="ZEROTHELO" value="1"<?php if (ZEROTHELO) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="ZEROTHELO" value="0"<?php if (!ZEROTHELO) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 <tr>
-<th>ƒAƒbƒvƒ[ƒh‹@”\u!774!force!up!3v</th>
-<td><input type="radio" name="FORCE_UP" value="1"<? if (FORCE_UP) echo " checked"?>>‚ ‚è@<input type="radio" name="FORCE_UP" value="0"<? if (!FORCE_UP) echo " checked"?>>‚È‚µ</td>
+<th>ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰æ©Ÿèƒ½ã€Œ!774!force!up!3ã€</th>
+<td><input type="radio" name="FORCE_UP" value="1"<?php if (FORCE_UP) echo ' checked="checked"'; ?> />ã‚ã‚Šã€€<input type="radio" name="FORCE_UP" value="0"<?php if (!FORCE_UP) echo ' checked="checked"'; ?> />ãªã—</td>
 </tr>
 </table>
-<input type="submit" value="Ý’èXV"><br>
+<input type="submit" value="è¨­å®šæ›´æ–°"><br />
 </form>
-<br>
 </body></html>

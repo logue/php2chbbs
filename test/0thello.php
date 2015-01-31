@@ -76,25 +76,25 @@ elseif ($trip and $white = fgets($fp, 1024) and strstr($_POST['FROM'], '!0thello
 					fwrite($fp, implode('｜', $game_board[$i])."\n");
 				}
 				ftruncate($fp, ftell($fp));
-				$_POST['MESSAGE'] .= '<pre>------------------------------------- <br> ';
-				$_POST['MESSAGE'] .= '　８　７　６　５　４　３　２　１ <br> ';
-				$_POST['MESSAGE'] .= '┌―┬―┬―┬―┬―┬―┬―┬―┐ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[0])).'｜一　　○先手(◆'.$white.') <br> ';
-				$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[1])).'｜二　　●後手(◆'.$black.') <br> ';
-				$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[2])).'｜三　　'.$p1.$game_count.": ".$match[2].", ".$match[3].' <br> ';
-				$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[3])).'｜四　　次は'.$p2.'の番です <br> ';
-				$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[4])).'｜五 <br> ';
-				$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[5])).'｜六 <br> ';
-				$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[6])).'｜七 <br> ';
-				$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[7])).'｜八 <br> ';
-				$_POST['MESSAGE'] .= '└―┴―┴―┴―┴―┴―┴―┴―┘ </pre> ';
+				$_POST['MESSAGE'] .= '<pre>------------------------------------- <br /> ';
+				$_POST['MESSAGE'] .= '　８　７　６　５　４　３　２　１ <br /> ';
+				$_POST['MESSAGE'] .= '┌─┬─┬─┬─┬─┬─┬─┬─┐ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[0])).'｜一　　○先手(◆'.$white.') <br /> ';
+				$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[1])).'｜二　　●後手(◆'.$black.') <br /> ';
+				$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[2])).'｜三　　'.$p1.$game_count.": ".$match[2].", ".$match[3].' <br /> ';
+				$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[3])).'｜四　　次は'.$p2.'の番です <br /> ';
+				$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[4])).'｜五 <br /> ';
+				$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[5])).'｜六 <br /> ';
+				$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[6])).'｜七 <br /> ';
+				$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[7])).'｜八 <br /> ';
+				$_POST['MESSAGE'] .= '└─┴─┴─┴─┴─┴─┴─┴─┘ </pre> ';
 				$_POST['FROM'] = $match[1]."</b>◆".$trip."<b>";
 			}
 			// パス
@@ -105,25 +105,25 @@ elseif ($trip and $white = fgets($fp, 1024) and strstr($_POST['FROM'], '!0thello
 					fwrite($fp, implode('｜', $game_board[$i])."\n");
 				}
 				ftruncate($fp, ftell($fp));
-				$_POST['MESSAGE'] .= '<pre>------------------------------------- <br> ';
-				$_POST['MESSAGE'] .= '　８　７　６　５　４　３　２　１ <br> ';
-				$_POST['MESSAGE'] .= '┌―┬―┬―┬―┬―┬―┬―┬―┐ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[0])).'｜一　　○先手(◆'.$white.') <br> ';
-				$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[1])).'｜二　　●後手(◆'.$black.') <br> ';
-				$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[2])).'｜三　　'.$p1.$game_count.': パス <br> ';
-				$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[3])).'｜四　　次は'.$p2.'の番です <br> ';
-				$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[4])).'｜五 <br> ';
-				$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[5])).'｜六 <br> ';
-				$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[6])).'｜七 <br> ';
-				$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[7])).'｜八 <br> ';
-				$_POST['MESSAGE'] .= '└―┴―┴―┴―┴―┴―┴―┴―┘ </pre> ';
+				$_POST['MESSAGE'] .= '<pre>------------------------------------- <br /> ';
+				$_POST['MESSAGE'] .= '　８　７　６　５　４　３　２　１ <br /> ';
+				$_POST['MESSAGE'] .= '┌─┬─┬─┬─┬─┬─┬─┬─┐ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[0])).'｜一　　○先手(◆'.$white.') <br /> ';
+				$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[1])).'｜二　　●後手(◆'.$black.') <br /> ';
+				$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[2])).'｜三　　'.$p1.$game_count.': パス <br /> ';
+				$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[3])).'｜四　　次は'.$p2.'の番です <br /> ';
+				$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[4])).'｜五 <br /> ';
+				$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[5])).'｜六 <br /> ';
+				$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[6])).'｜七 <br /> ';
+				$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+				$_POST['MESSAGE'] .= '｜'.implode('｜', array_reverse($game_board[7])).'｜八 <br /> ';
+				$_POST['MESSAGE'] .= '└─┴─┴─┴─┴─┴─┴─┴─┘ </pre> ';
 				$_POST['FROM'] = $match[1]."</b>◆".$trip."<b>";
 			}
 		}
@@ -144,27 +144,26 @@ elseif ($trip and $white = fgets($fp, 1024) and strstr($_POST['FROM'], '!0thello
 		for ($i = 0; $i < 8; $i++) {
 			fwrite($fp, implode('｜', $game_board[$i])."\n");
 		}
-		$_POST['MESSAGE'] .= '<pre>------------------------------------- <br> ';
-		$_POST['MESSAGE'] .= '　８　７　６　５　４　３　２　１ <br> ';
-		$_POST['MESSAGE'] .= '┌―┬―┬―┬―┬―┬―┬―┬―┐ <br> ';
-		$_POST['MESSAGE'] .= '｜　｜　｜　｜　｜　｜　｜　｜　｜一　　○先手(◆'.$white.') <br> ';
-		$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-		$_POST['MESSAGE'] .= '｜　｜　｜　｜　｜　｜　｜　｜　｜二　　●後手(◆'.$trip.') <br> ';
-		$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-		$_POST['MESSAGE'] .= '｜　｜　｜　｜　｜　｜　｜　｜　｜三　　次は○の番です <br> ';
-		$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-		$_POST['MESSAGE'] .= '｜　｜　｜　｜○｜●｜　｜　｜　｜四　　 <br> ';
-		$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-		$_POST['MESSAGE'] .= '｜　｜　｜　｜●｜○｜　｜　｜　｜五 <br> ';
-		$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-		$_POST['MESSAGE'] .= '｜　｜　｜　｜　｜　｜　｜　｜　｜六 <br> ';
-		$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-		$_POST['MESSAGE'] .= '｜　｜　｜　｜　｜　｜　｜　｜　｜七 <br> ';
-		$_POST['MESSAGE'] .= '├―┼―┼―┼―┼―┼―┼―┼―┤ <br> ';
-		$_POST['MESSAGE'] .= '｜　｜　｜　｜　｜　｜　｜　｜　｜八 <br> ';
-		$_POST['MESSAGE'] .= '└―┴―┴―┴―┴―┴―┴―┴―┘ </pre> ';
+		$_POST['MESSAGE'] .= '<pre>------------------------------------- <br /> ';
+		$_POST['MESSAGE'] .= '　８　７　６　５　４　３　２　１ <br /> ';
+		$_POST['MESSAGE'] .= '┌─┬─┬─┬─┬─┬─┬─┬─┐ <br /> ';
+		$_POST['MESSAGE'] .= '｜　｜　｜　｜　｜　｜　｜　｜　｜一　　○先手(◆'.$white.') <br /> ';
+		$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+		$_POST['MESSAGE'] .= '｜　｜　｜　｜　｜　｜　｜　｜　｜二　　●後手(◆'.$trip.') <br /> ';
+		$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+		$_POST['MESSAGE'] .= '｜　｜　｜　｜　｜　｜　｜　｜　｜三　　次は○の番です <br /> ';
+		$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+		$_POST['MESSAGE'] .= '｜　｜　｜　｜○｜●｜　｜　｜　｜四　　 <br /> ';
+		$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+		$_POST['MESSAGE'] .= '｜　｜　｜　｜●｜○｜　｜　｜　｜五 <br /> ';
+		$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+		$_POST['MESSAGE'] .= '｜　｜　｜　｜　｜　｜　｜　｜　｜六 <br /> ';
+		$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+		$_POST['MESSAGE'] .= '｜　｜　｜　｜　｜　｜　｜　｜　｜七 <br /> ';
+		$_POST['MESSAGE'] .= '├─┼─┼─┼─┼─┼─┼─┼─┤ <br /> ';
+		$_POST['MESSAGE'] .= '｜　｜　｜　｜　｜　｜　｜　｜　｜八 <br /> ';
+		$_POST['MESSAGE'] .= '└─┴─┴─┴─┴─┴─┴─┴─┘ </pre> ';
 	}
 }
 fclose($fp);
-$_POST['FROM'] = str_replace('!0thello', '', $_POST['FROM'])
-?>
+$_POST['FROM'] = str_replace('!0thello', '', $_POST['FROM']);

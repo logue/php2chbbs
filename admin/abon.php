@@ -1,16 +1,16 @@
 <?php
 require("passcheck.php");
 $method = "POST";
-#ˆê“x‚É•\¦‚·‚é
+#ä¸€åº¦ã«è¡¨ç¤ºã™ã‚‹
 $thread = 50;
 $res = 30;
 $comment = '';
-$stopper_array = array('(P[P)ÆÔØ¯','(M¥ƒÖ¥L) ¼¬·°İ','iLEƒÖEMjÓ·­');
-if (!is_dir("../$_REQUEST[bbs]")) disperror("‚d‚q‚q‚n‚qI", "‚»‚ñ‚È”ÂorƒXƒŒƒbƒh‚È‚¢‚Å‚·B");
+$stopper_array = array('(ï¿£ãƒ¼ï¿£)ï¾†ï¾”ï¾˜ï½¯','(ï½€ï½¥Ï‰ï½¥Â´) ï½¼ï½¬ï½·ï½°ï¾','ï¼ˆÂ´ãƒ»Ï‰ãƒ»ï½€ï¼‰ï¾“ï½·ï½­');
+if (!is_dir("../$_REQUEST[bbs]")) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ãã‚“ãªæ¿orã‚¹ãƒ¬ãƒƒãƒ‰ãªã„ã§ã™ã€‚");
 #====================================================
-#@‰Šúî•ñ‚Ìæ“¾iİ’èƒtƒ@ƒCƒ‹j
+#ã€€åˆæœŸæƒ…å ±ã®å–å¾—ï¼ˆè¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ï¼‰
 #====================================================
-#İ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚Ş
+#è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã‚€
 $set_pass = "../$_REQUEST[bbs]/SETTING.TXT";
 if (is_file($set_pass)) {
 	$set_str = file($set_pass);
@@ -20,7 +20,7 @@ if (is_file($set_pass)) {
 		$SETTING[$name] = $value;
 	}
 }
-else disperror("‚d‚q‚q‚n‚qI","‚d‚q‚q‚n‚qFƒ†[ƒU[İ’è‚ªÁ¸‚µ‚Ä‚¢‚Ü‚·I");
+else disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼šãƒ¦ãƒ¼ã‚¶ãƒ¼è¨­å®šãŒæ¶ˆå¤±ã—ã¦ã„ã¾ã™ï¼");
 require("../$_REQUEST[bbs]/config.php");
 if (!empty($_POST['key'])) {
 	$fp  = fopen("../$_POST[bbs]/threadconf.cgi", "r");
@@ -31,32 +31,32 @@ if (!empty($_POST['key'])) {
 	fclose($fp);
 }
 #==================================================
-#@ƒtƒ@ƒCƒ‹‘€ìiƒTƒuƒWƒFƒNƒgƒtƒ@ƒCƒ‹“Ç‚İ‚İj
+#ã€€ãƒ•ã‚¡ã‚¤ãƒ«æ“ä½œï¼ˆã‚µãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ï¼‰
 #==================================================
-#ƒTƒuƒWƒFƒNƒgƒtƒ@ƒCƒ‹XV
-#ƒTƒuƒWƒFƒNƒgƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
+#ã‚µãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ•ã‚¡ã‚¤ãƒ«æ›´æ–°
+#ã‚µãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
 $subfile = "../$_REQUEST[bbs]/subject.txt";
 $SUBJECTLIST = @file($subfile);
-#ƒTƒuƒWƒFƒNƒg“à—e‚ğƒnƒbƒVƒ…‚ÉŠi”[
+#ã‚µãƒ–ã‚¸ã‚§ã‚¯ãƒˆå†…å®¹ã‚’ãƒãƒƒã‚·ãƒ¥ã«æ ¼ç´
 $PAGEFILE = array();
 foreach($SUBJECTLIST as $tmp){
 	$tmp = rtrim($tmp);
 	list($file, $value) = explode("<>", $tmp);
 	$filename = "../$_REQUEST[bbs]/dat/$file";
 	if(is_file($filename)){
-		#dat‚ª‘¶İ‚·‚éê‡‚Ì‚İÅŒã‚É’Ç‰Á
+		#datãŒå­˜åœ¨ã™ã‚‹å ´åˆã®ã¿æœ€å¾Œã«è¿½åŠ 
 		$file = str_replace('.dat', '', $file);;
 		array_push($PAGEFILE,$file);
 		$SUBJECT[$file] = $value;
 	}
 }
 #==================================================
-#@ƒŒƒX‚ ‚Ú[‚ñ
+#ã€€ãƒ¬ã‚¹ã‚ã¼ãƒ¼ã‚“
 #==================================================
 if (isset($_POST['mode']) and $_POST['mode'] == "res_del" and isset($_POST['del'])) {
-	if (!is_file("../$_POST[bbs]/dat/$_POST[key].dat")) disperror("‚d‚q‚q‚n‚qI", "‚»‚ñ‚È”ÂorƒXƒŒƒbƒh‚È‚¢‚Å‚·B");
+	if (!is_file("../$_POST[bbs]/dat/$_POST[key].dat")) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ãã‚“ãªæ¿orã‚¹ãƒ¬ãƒƒãƒ‰ãªã„ã§ã™ã€‚");
 	$datafile = "../$_POST[bbs]/dat/$_POST[key].dat";
-	if (!is_writable($datafile)) disperror("‚d‚q‚q‚n‚qI", "‚±‚ÌƒXƒŒƒbƒh‚É‚Í‘‚«‚ß‚Ü‚¹‚ñI");
+	if (!is_writable($datafile)) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ã“ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã«ã¯æ›¸ãè¾¼ã‚ã¾ã›ã‚“ï¼");
 	$temp = file($datafile);
 	$num = count($temp);
 	function res_num($num, $del) {
@@ -108,13 +108,13 @@ if (isset($_POST['mode']) and $_POST['mode'] == "res_del" and isset($_POST['del'
 		}
 		fclose($fp);
 	}
-	$comment = "ƒŒƒX‚ ‚Ú[‚ñ‚µ‚Ü‚µ‚½Bƒƒjƒ…[‚Ì<b>index.html‚ğì‚è’¼‚·</b>‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B<br>";
+	$comment = "ãƒ¬ã‚¹ã‚ã¼ãƒ¼ã‚“ã—ã¾ã—ãŸã€‚ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®<b>index.htmlã‚’ä½œã‚Šç›´ã™</b>ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚<br>";
 }
 #==================================================
-#@ƒŒƒX•\¦
+#ã€€ãƒ¬ã‚¹è¡¨ç¤º
 #==================================================
 if(isset($_REQUEST['mode']) and ($_REQUEST['mode'] == "view" or $_REQUEST['mode'] == "res_del")) {
-	if (!is_file("../$_REQUEST[bbs]/dat/$_REQUEST[key].dat")) disperror("‚d‚q‚q‚n‚qI", "‚»‚ñ‚È”ÂorƒXƒŒƒbƒh‚È‚¢‚Å‚·B");
+	if (!is_file("../$_REQUEST[bbs]/dat/$_REQUEST[key].dat")) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ãã‚“ãªæ¿orã‚¹ãƒ¬ãƒƒãƒ‰ãªã„ã§ã™ã€‚");
 	$datafile = "../$_REQUEST[bbs]/dat/$_REQUEST[key].dat";
 	$temp = file($datafile);
 	$num = count($temp);
@@ -123,43 +123,43 @@ if(isset($_REQUEST['mode']) and ($_REQUEST['mode'] == "view" or $_REQUEST['mode'
 	$total_page = (int)(($num+$res-1)/$res);
 	list($name,$mail,$date,$message,$subject) = explode("<>",$temp[0]);
 	$subject = trim($subject);
-	?>
+?>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
-<title>‚ ‚Ú[‚ñ</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="main.css" type="text/css" />
+<title>ã‚ã¼ãƒ¼ã‚“</title>
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>‚ ‚Ú[‚ñ</h3>
-<hr>
-ƒXƒŒƒbƒh F <a class="item" href="../test/read.php/<?=$_REQUEST['bbs']?>/<?=$_REQUEST['key']?>/">#<?=$_REQUEST['bbs'].$_REQUEST['key']?></a><br>
-ƒ^ƒCƒgƒ‹ F <font color="red"><b><?=$subject?></b></font><br>
-<br>
-<font color="red"><?=$comment?></font>
-<font size="-1">íœƒƒbƒZ[ƒW‚Í•ÏX‚Å‚«‚Ü‚·B‹ó—“‚É‚·‚é‚Æ“§–¾íœ‚É‚È‚èƒŒƒX‚»‚Ì‚à‚Ì‚ªíœ‚³‚ê‚Ü‚·B<br>
-‚»‚Ìê‡A“¯ˆêƒXƒŒƒbƒh“à‚ÌƒŒƒXƒAƒ“ƒJ[ƒŠƒ“ƒN‚ÍC³‚³‚ê‚Ü‚·‚ª‘¼‚©‚ç‚ÌƒŠƒ“ƒN‚ª‚ ‚Á‚½ê‡ƒŒƒX”Ô†‚ª‚¸‚ê‚é‚±‚Æ‚ª‚ ‚è‚Ü‚·B<br>
-‚Ü‚½‰æ‘œ“Še‚É•s‹ï‡‚ª‹N‚±‚é‰Â”\«‚ª‚ ‚è‚Ü‚·‚Ì‚ÅA‰æ‘œ“Še‹–‰Â‚Ìê‡‚Ío—ˆ‚é‚¾‚¯’Êííœ‚ğ‚¨‚·‚·‚ß‚µ‚Ü‚·B<br>
-íœƒƒbƒZ[ƒW‚Ì‹K’è’l‚Í<b>ŠÇ—ƒƒjƒ…[</b>‚Ì<b>İ’è•ÏX</b>‚Å•ÏX‚Å‚«‚Ü‚·B<br></font>
-<br>
-<table border="0" cellspacing="0" cellpadding="0"><tr><td>
-<form action="<?=$_SERVER['PHP_SELF']?>" method="<?=$method?>">
-<input type=hidden name="bbs" value="<?=$_REQUEST['bbs']?>">
-<input type=hidden name="key" value="<?=$_REQUEST['key']?>">
-<input type=hidden name="mode" value="res_del">
-íœƒƒbƒZ[ƒW@F@<input type=text name="mes" value="<?=$SETTING['BBS_DELETE_NAME']?>">
-<input type=submit value="Às"></td></tr>
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']?></h1>
+<h3>ã‚ã¼ãƒ¼ã‚“</h3>
+<hr />
+ã‚¹ãƒ¬ãƒƒãƒ‰ ï¼š <a class="item" href="../test/read.php/<?php echo $_REQUEST['bbs']?>/<?php echo $_REQUEST['key']?>/">#<?php echo $_REQUEST['bbs'].$_REQUEST['key']?></a><br>
+ã‚¿ã‚¤ãƒˆãƒ« ï¼š <font color="red"><b><?php echo $subject?></b></font><br />
+<br />
+<font color="red"><?php echo $comment?></font>
+<font size="-1">å‰Šé™¤ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯å¤‰æ›´ã§ãã¾ã™ã€‚ç©ºæ¬„ã«ã™ã‚‹ã¨é€æ˜å‰Šé™¤ã«ãªã‚Šãƒ¬ã‚¹ãã®ã‚‚ã®ãŒå‰Šé™¤ã•ã‚Œã¾ã™ã€‚<br />
+ãã®å ´åˆã€åŒä¸€ã‚¹ãƒ¬ãƒƒãƒ‰å†…ã®ãƒ¬ã‚¹ã‚¢ãƒ³ã‚«ãƒ¼ãƒªãƒ³ã‚¯ã¯ä¿®æ­£ã•ã‚Œã¾ã™ãŒä»–ã‹ã‚‰ã®ãƒªãƒ³ã‚¯ãŒã‚ã£ãŸå ´åˆãƒ¬ã‚¹ç•ªå·ãŒãšã‚Œã‚‹ã“ã¨ãŒã‚ã‚Šã¾ã™ã€‚<br />
+ã¾ãŸç”»åƒæŠ•ç¨¿æ™‚ã«ä¸å…·åˆãŒèµ·ã“ã‚‹å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã®ã§ã€ç”»åƒæŠ•ç¨¿è¨±å¯ã®å ´åˆã¯å‡ºæ¥ã‚‹ã ã‘é€šå¸¸å‰Šé™¤ã‚’ãŠã™ã™ã‚ã—ã¾ã™ã€‚<br />
+å‰Šé™¤ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¦å®šå€¤ã¯<b>ç®¡ç†ãƒ¡ãƒ‹ãƒ¥ãƒ¼</b>ã®<b>è¨­å®šå¤‰æ›´</b>ã§å¤‰æ›´ã§ãã¾ã™ã€‚</font><br />
+<br />
+<form action="<?php echo $_SERVER['PHP_SELF']?>" method="<?php echo $method?>" />
+<input type=hidden name="bbs" value="<?php echo $_REQUEST['bbs']?>" />
+<input type=hidden name="key" value="<?php echo $_REQUEST['key']?>" />
+<input type=hidden name="mode" value="res_del" />
+å‰Šé™¤ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã€€ï¼šã€€<input type=text name="mes" value="<?php echo $SETTING['BBS_DELETE_NAME']?>" />
+<input type=submit value="å®Ÿè¡Œ"></td></tr>
 </table>
 <?
-	echo "pageF$_GET[page]<br>\n";
+	echo "pageï¼š$_GET[page]<br>\n";
 	for ($i = 1; $i <= $total_page; $i++) {
 		if ($i == $_GET['page']) echo " $i \n";
 		else echo " <a class=\"item\" href=\"$_SERVER[PHP_SELF]?bbs=$_REQUEST[bbs]&amp;key=$_REQUEST[key]&amp;mode=view&amp;page=$i\">$i</a> \n";
 	}
 	?>
 <table border="1" cellspacing="0" cellpadding="2">
-<tr><td>@</td><td>”Ô†</td><td>–¼‘O</td><td>“Še“ú</td><td>“à—e</td><td>‰æ‘œ</td></tr>
+<tr><td>ã€€</td><td>ç•ªå·</td><td>åå‰</td><td>æŠ•ç¨¿æ—¥</td><td>å†…å®¹</td><td>ç”»åƒ</td></tr>
 <?php
 	$n = $st;
 	for ($i = $st; $i < $st + $res; $i++) {
@@ -171,7 +171,7 @@ if(isset($_REQUEST['mode']) and ($_REQUEST['mode'] == "view" or $_REQUEST['mode'
 		if ($match) {
 			$image = '<a href="'.$match[1].'"><img src="'.$match[2].'" width="'.$match[3].'" height="'.$match[4].'">';
 		}
-		else $image = '‰æ‘œ‚È‚µ';
+		else $image = 'ç”»åƒãªã—';
 		$message = strip_tags($message);
 		$message = substr($message,0,30);
 		$n++;
@@ -186,47 +186,48 @@ if(isset($_REQUEST['mode']) and ($_REQUEST['mode'] == "view" or $_REQUEST['mode'
 	exit;
 }
 #==================================================
-#@ƒXƒŒƒbƒhƒXƒgƒbƒp[
+#ã€€ã‚¹ãƒ¬ãƒƒãƒ‰ã‚¹ãƒˆãƒƒãƒ‘ãƒ¼
 #==================================================
 elseif (isset($_POST['mode']) and $_POST['mode'] == "stop") {
-	if (!is_file("../$_POST[bbs]/dat/$_POST[key].dat")) disperror("‚d‚q‚q‚n‚qI", "‚»‚ñ‚È”ÂorƒXƒŒƒbƒh‚È‚¢‚Å‚·B");
+	if (!is_file("../$_POST[bbs]/dat/$_POST[key].dat")) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ãã‚“ãªæ¿orã‚¹ãƒ¬ãƒƒãƒ‰ãªã„ã§ã™ã€‚");
 	$dattemp = "../$_POST[bbs]/dat/$_POST[key].dat";
 	$workfile = "../$_POST[bbs]/html/$_POST[key].html";
-	if (!is_writable($dattemp)) disperror("‚d‚q‚q‚n‚qI", "‚·‚Å‚É‘‚«‚±‚İo—ˆ‚Ü‚¹‚ñB");
+	if (!is_writable($dattemp)) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ã™ã§ã«æ›¸ãã“ã¿å‡ºæ¥ã¾ã›ã‚“ã€‚");
 	else {
 		$fp = fopen($dattemp, "a");
 		$stopper = $stopper_array[$_POST['stopper']];
-		fputs($fp, "’â~‚µ‚Ü‚µ‚½BBB<>’â~<>’â~<>^EƒXƒŒƒbƒhƒXƒgƒbƒp[BBB$stopper<>\n");
+		fputs($fp, "åœæ­¢ã—ã¾ã—ãŸã€‚ã€‚ã€‚<>åœæ­¢<>åœæ­¢<>çœŸãƒ»ã‚¹ãƒ¬ãƒƒãƒ‰ã‚¹ãƒˆãƒƒãƒ‘ãƒ¼ã€‚ã€‚ã€‚$stopper<>\n");
 		fclose($fp);
 		chmod($dattemp, 0444);
 		require '../test/make_work.php';
 		MakeWorkFile($_POST['bbs'], $_POST['key']);
-		$comment = "ƒXƒŒƒbƒhƒXƒgƒbƒv‚µ‚Ü‚µ‚½Bƒƒjƒ…[‚Ì<b>index.html‚ğì‚è’¼‚·</b>‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B";
+		$comment = "ã‚¹ãƒ¬ãƒƒãƒ‰ã‚¹ãƒˆãƒƒãƒ—ã—ã¾ã—ãŸã€‚ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®<b>index.htmlã‚’ä½œã‚Šç›´ã™</b>ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚";
 	}
 }
 #==================================================
-#@
+#ã€€
 #==================================================
 if (!isset($_GET['page']) or !$_GET['page']) $_GET['page'] = 1;
 $st = ($_GET['page'] - 1) * $thread;
 $total = count($PAGEFILE)+$thread-1;
 $total_page = (int)($total/$thread);
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta charset="UTF-8" />
 <link rel="stylesheet" href="main.css" type="text/css">
-<title>ƒXƒŒƒbƒhƒXƒgƒbƒv</title>
+<title>ã‚¹ãƒ¬ãƒƒãƒ‰ã‚¹ãƒˆãƒƒãƒ—</title>
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>ƒXƒŒƒbƒhƒXƒgƒbƒv</h3>
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']?></h1>
+<h3>ã‚¹ãƒ¬ãƒƒãƒ‰ã‚¹ãƒˆãƒƒãƒ—</h3>
 <hr>
-<font color="red"><?=$comment?></font><br>
-ƒXƒŒƒbƒhƒXƒgƒbƒp[‚Ì<b>ƒXƒgƒbƒv</b>ƒ{ƒ^ƒ“‚ğ‰Ÿ‚·‚Æ‚»‚ÌƒXƒŒƒbƒh‚Í‘‚«‚ß‚È‚­‚È‚è‚Ü‚·B<br>
-ƒŒƒX‚ğíœ‚µ‚½‚¢‚Æ‚«‚ÍA<b>ƒŒƒX•\¦</b>ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚Äíœˆ—‰æ–Ê‚ÉˆÚ“®‚µ‚Ä‚­‚¾‚³‚¢B<br>
-<br>
-pageF<?=$_GET['page']?><br>
+<font color="red"><?php echo $comment?></font><br>
+ã‚¹ãƒ¬ãƒƒãƒ‰ã‚¹ãƒˆãƒƒãƒ‘ãƒ¼ã®<b>ã‚¹ãƒˆãƒƒãƒ—</b>ãƒœã‚¿ãƒ³ã‚’æŠ¼ã™ã¨ãã®ã‚¹ãƒ¬ãƒƒãƒ‰ã¯æ›¸ãè¾¼ã‚ãªããªã‚Šã¾ã™ã€‚<br />
+ãƒ¬ã‚¹ã‚’å‰Šé™¤ã—ãŸã„ã¨ãã¯ã€<b>ãƒ¬ã‚¹è¡¨ç¤º</b>ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ã¦å‰Šé™¤å‡¦ç†ç”»é¢ã«ç§»å‹•ã—ã¦ãã ã•ã„ã€‚<br />
+<br />
+pageï¼š<?php echo $_GET['page']; ?><br />
 <?php
 for ($i = 1; $i <= $total_page; $i++) {
 	if ($i == $_GET['page']) echo " $i \n";
@@ -234,36 +235,36 @@ for ($i = 1; $i <= $total_page; $i++) {
 }
 ?>
 <table border="1" cellspacing="0" cellpadding="2">
-<tr><th>ƒXƒŒƒbƒhƒL[</th><th>ƒ^ƒCƒgƒ‹iƒŒƒX”j</th><th>ƒXƒŒƒbƒhƒXƒgƒbƒp[</th><th>@</th></tr>
+<tr><th>ã‚¹ãƒ¬ãƒƒãƒ‰ã‚­ãƒ¼</th><th>ã‚¿ã‚¤ãƒˆãƒ«ï¼ˆãƒ¬ã‚¹æ•°ï¼‰</th><th>ã‚¹ãƒ¬ãƒƒãƒ‰ã‚¹ãƒˆãƒƒãƒ‘ãƒ¼</th><th>ã€€</th></tr>
 <?php
 for ($i = $st; $i < $st+$thread; $i++) {
 	if (!isset($PAGEFILE[$i])) break;
 	$tmp = $PAGEFILE[$i];
-	?><tr><td> <a class="item" href="../test/read.php/<?=$_REQUEST['bbs']."/".$tmp?>/l50">#<?=$_REQUEST['bbs'].$tmp?></a> </td><td><?=$SUBJECT[$tmp]?></td>
+	?><tr><td> <a class="item" href="../test/read.php/<?php echo $_REQUEST['bbs']."/".$tmp?>/l50">#<?php echo $_REQUEST['bbs'].$tmp?></a> </td><td><?php echo $SUBJECT[$tmp]?></td>
 <td>
 <?php
 clearstatcache();
 if (is_writable("../$_REQUEST[bbs]/dat/$tmp.dat")) {
-?> <form action="<?=$_SERVER['PHP_SELF']?>" method="<?=$method?>">
- <select name="stopper">
-<? foreach($stopper_array as $key=>$stopper) echo ' <option value="'.$key.'">'.$stopper."\n";?>
- </select>‚Å
- <input type="submit" value="ƒXƒgƒbƒv">
- <input type="hidden" name="bbs" value="<?=$_REQUEST['bbs']?>">
- <input type="hidden" name="key" value="<?=$tmp?>">
- <input type="hidden" name="mode" value="stop">
- </form>
+?> <form action="<?php echo $_SERVER['PHP_SELF']?>" method="<?php echo $method?>">
+<select name="stopper">
+<?php foreach($stopper_array as $key=>$stopper){ echo '<option value="' . $key . '">'.$stopper."\n"; } ?>
+</select>ã§
+<input type="submit" value="ã‚¹ãƒˆãƒƒãƒ—" />
+<input type="hidden" name="bbs" value="<?php echo $_REQUEST['bbs']?>" />
+<input type="hidden" name="key" value="<?php echo $tmp?>" />
+<input type="hidden" name="mode" value="stop" />
+</form>
 <?php
 }
-else echo "<s>ƒXƒgƒbƒv</s>";
+else echo "<s>ã‚¹ãƒˆãƒƒãƒ—</s>";
 ?></td>
 <td>
- <form action="<?=$_SERVER['PHP_SELF']?>" method="<?=$method?>">
- <input type="submit" value="ƒŒƒX•\¦">
- <input type="hidden" name="bbs" value="<?=$_REQUEST['bbs']?>">
- <input type="hidden" name="key" value="<?=$tmp?>">
- <input type="hidden" name="mode" value="view">
- </form>
+<form action="<?php echo $_SERVER['PHP_SELF']?>" method="<?php echo $method?>">
+<input type="submit" value="ãƒ¬ã‚¹è¡¨ç¤º" />
+<input type="hidden" name="bbs" value="<?php echo $_REQUEST['bbs']?>" />
+<input type="hidden" name="key" value="<?php echo $tmp?>" />
+<input type="hidden" name="mode" value="view" />
+</form>
 </td>
 </tr>
 <?php
@@ -275,4 +276,3 @@ for ($i = 1; $i <= $total_page; $i++) {
 }
 echo "</body></html>";
 exit;
-?>

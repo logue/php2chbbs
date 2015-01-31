@@ -3,7 +3,8 @@ $HOST = gethostbyaddr($_SERVER['REMOTE_ADDR']);
 #====================================================
 #　日付・時刻を設定
 #====================================================
-$NOWTIME = time();
+$TZ = '9'; #時差
+$NOWTIME = time() - date('Z') + 3600 * ($TZ + date('I'));
 $wday = array('日','月','火','水','木','金','土');
 $today = getdate($NOWTIME);
 $JIKAN = $today['hours'];
@@ -51,17 +52,17 @@ $_POST['subject'] = str_replace("<", "&lt;", $_POST['subject']);
 $_POST['subject'] = str_replace(">", "&gt;", $_POST['subject']);
 $_POST['subject'] = str_replace("'", "&#039;", $_POST['subject']);
 $_POST['subject'] = str_replace(array("\r\n","\r","\n"), " ", $_POST['subject']);
-$_POST['FROM'] = htmlspecialchars($_POST['FROM']);
-$_POST['FROM'] = str_replace(array("\r\n","\r","\n"), " ", $_POST['FROM']);
-$_POST['mail'] = htmlspecialchars($_POST['mail'], ENT_QUOTES);
-$_POST['mail'] = str_replace(array("\r\n","\r","\n"), " ", $_POST['mail']);
-$_POST['bbs'] = str_replace(array(".","/","|"), "", $_POST['bbs']);
-$_POST['key'] = str_replace(array(".","/","|"), "", $_POST['key']);
+$_POST['FROM'] =    htmlspecialchars($_POST['FROM']);
+$_POST['FROM'] =    str_replace(array("\r\n","\r","\n"), " ", $_POST['FROM']);
+$_POST['mail'] =    htmlspecialchars($_POST['mail'], ENT_QUOTES);
+$_POST['mail'] =    str_replace(array("\r\n","\r","\n"), " ", $_POST['mail']);
+$_POST['bbs'] =     str_replace(array(".","/","|"), "", $_POST['bbs']);
+$_POST['key'] =     str_replace(array(".","/","|"), "", $_POST['key']);
 $_POST['MESSAGE'] = rtrim($_POST['MESSAGE']);
 $_POST['MESSAGE'] = str_replace('"', "&quot;", $_POST['MESSAGE']);
 $_POST['MESSAGE'] = str_replace("<", "&lt;", $_POST['MESSAGE']);
 $_POST['MESSAGE'] = str_replace(">", "&gt;", $_POST['MESSAGE']);
-$_POST['MESSAGE'] = str_replace(array("\r\n","\r","\n"), " <br> ", $_POST['MESSAGE']);
+$_POST['MESSAGE'] = str_replace(array("\r\n","\r","\n"), " <br /> ", $_POST['MESSAGE']);
 # ユニコード変換
 if($SETTING['BBS_UNICODE'] == "change"){
 	$_POST['subject'] = preg_replace("/\&\#\d+\;/", "？", $_POST['subject']);
@@ -69,14 +70,14 @@ if($SETTING['BBS_UNICODE'] == "change"){
 }
 $_POST['MESSAGE'] = str_replace("'", "&#039;", $_POST['MESSAGE']);
 # ＮＧワード
-#$_POST['FROM'] = str_replace("管理", '"管理"', $_POST['FROM']);
-#$_POST['FROM'] = str_replace("管直", '"管直"', $_POST['FROM']);
-#$_POST['FROM'] = str_replace("菅直", '"菅直"', $_POST['FROM']);
-#$_POST['FROM'] = str_replace("削除", '"削除"', $_POST['FROM']);
-#$_POST['FROM'] = str_replace("sakujyo", '"sakujyo"', $_POST['FROM']);
+#$_POST['FROM'] =   str_replace("管理", '"管理"', $_POST['FROM']);
+#$_POST['FROM'] =   str_replace("管直", '"管直"', $_POST['FROM']);
+#$_POST['FROM'] =   str_replace("菅直", '"菅直"', $_POST['FROM']);
+#$_POST['FROM'] =   str_replace("削除", '"削除"', $_POST['FROM']);
+#$_POST['FROM'] =   str_replace("sakujyo", '"sakujyo"', $_POST['FROM']);
 # 偽キャップ、偽トリップ変換
 $_POST['FROM'] = str_replace("★", "☆", $_POST['FROM']);
-$_POST['FROM'] = str_replace("◆", "◇", $_POST['FROM']);
+#$_POST['FROM'] = str_replace("◆", "◇", $_POST['FROM']);
 # 全角＃のパス漏れ防止
 #香美バグのためmb_ereg_replaceにしようかとも考えたが中止
 #$_POST['FROM'] = str_replace("＃", "#", $_POST['FROM']);
@@ -126,6 +127,17 @@ if (is_file($PATH."uerror.cgi")){
 		if (stristr($_SERVER['REMOTE_ADDR'], $tmp)) DispError("ＥＲＲＯＲ！","ユーザー設定が異常です！");
 	}
 }
+#NGワード
+$tmp=$PATH."NGWord.cgi"; #NGWord.cgiは板ディレクトリ下に１行１ワードで
+if(is_file($tmp)) {
+	$IN=file($tmp);
+	foreach($IN as $tmp) {
+		$tmp=chop($tmp,"\n\r");
+		if(stripos($_POST['MESSAGE'],$tmp)!==false) DispError("ＥＲＲＯＲ！","ＥＲＲＯＲ：ＮＧワードです。");
+		if(stripos($_POST['FROM'],$tmp)!==false) DispError("ＥＲＲＯＲ！","ＥＲＲＯＲ：ＮＧワードです。");
+		if(stripos($_POST['mail'],$tmp)!==false) DispError("ＥＲＲＯＲ！","ＥＲＲＯＲ：ＮＧワードです。");
+	}
+} 
 #====================================================
 #　新規スレッド画面
 #====================================================
@@ -133,12 +145,15 @@ $enctype = 'application/x-www-form-urlencoded';
 $file_form = '';
 if (UPLOAD) {
 	$enctype = 'multipart/form-data';
-	$file_form = '<input type=file name=file size=50><br>';
+	$file_form = '<input type=file name="file" size="50" /><br />';
 }
-if ($SETTING['BBS_TITLE_PICTURE']) $bbs_title = '<a href="'.$SETTING['BBS_TITLE_LINK'].'"><img src="'.$SETTING['BBS_TITLE_PICTURE'].'" border="0"></a>';
-else $bbs_title = '<h1><font color="'.$SETTING['BBS_TITLE_COLOR'].'">'.$SETTING['BBS_TITLE'].'</font></h1>';
+if ($SETTING['BBS_TITLE_PICTURE']){
+	$bbs_title = '<a href="'.$SETTING['BBS_TITLE_LINK'].'"><img src="'.$SETTING['BBS_TITLE_PICTURE'].'" border="0" /></a>';
+}else{
+	$bbs_title = '<h1><font color="'.$SETTING['BBS_TITLE_COLOR'].'">'.$SETTING['BBS_TITLE'].'</font></h1>';
+}
 if (isset($_POST['new']) and $_POST['new'] == "thread") {
-	header("Content-Type: text/html; charset=Shift_JIS");
+	header("Content-Type: text/html; charset=UTF-8");
 	require('new_thread.php');
 	exit;
 }
@@ -150,7 +165,7 @@ $exptime = 24 * 60 * 60;
 $exptime *= 90;	#有功日数を乗じる
 $exptime += $NOWTIME;
 $exp = date("D, j-M-Y H:i:s ", $exptime).'GMT';
-$set_cookie = '<script type="text/javascript"><!-- 
+$set_cookie = '<script type="text/javascript">/*<![CDATA[*/
 ';
 if ($SETTING['BBS_NAMECOOKIE_CHECK']) {
 	$set_cookie .= 'cookname = escape("'.addslashes($_POST['FROM']).'"); document.cookie = "NAME="+cookname+"; expires='.$exp.'; path=/"; ';
@@ -158,7 +173,7 @@ if ($SETTING['BBS_NAMECOOKIE_CHECK']) {
 if ($SETTING['BBS_MAILCOOKIE_CHECK']) {
 	$set_cookie .= 'cookmail = escape("'.addslashes($_POST['mail']).'"); document.cookie = "MAIL="+cookmail+"; expires='.$exp.'; path=/"; ';
 }
-$set_cookie .= '//--></script>';
+$set_cookie .= '/*]]>*/</script>';
 #====================================================
 #　新規スレッドと普通の書き込みの情報チェック
 #====================================================
@@ -193,7 +208,7 @@ else DispError("ＥＲＲＯＲ！","ＥＲＲＯＲ：サブジェクトが存�
 #====================================================
 if (strlen($_POST['MESSAGE']) == 0) DispError("ＥＲＲＯＲ！","ＥＲＲＯＲ：本文がありません！");
 if (strlen($_POST['mail']) > $SETTING['BBS_MAIL_COUNT']) DispError("ＥＲＲＯＲ！","ＥＲＲＯＲ：メールアドレスが長すぎます！");
-$msg = explode("<br>", $_POST['MESSAGE']);
+$msg = explode("<br />", $_POST['MESSAGE']);
 if (count($msg) > 50) DispError("ＥＲＲＯＲ！","ＥＲＲＯＲ：改行が多すぎます！");
 foreach ($msg as $tmp) {
 	if (strlen($tmp) > 256) DispError("ＥＲＲＯＲ！","ＥＲＲＯＲ：長すぎる行があります！");
@@ -297,21 +312,114 @@ if ($SETTING['timecount'] >= 2) {
 #　キャップ、トリップ
 #==================================================
 # ＩＤを生成する
-$idnum = substr($_SERVER['REMOTE_ADDR'], 8); 
-$idcrypt = substr(crypt($idnum * $idnum, substr($DATE, 8, 2)), -8); 
-$ID = " ID:".$idcrypt;
+#$idnum = substr($_SERVER['REMOTE_ADDR'], 8); 
+#$idcrypt = substr(crypt($idnum * $idnum, substr($DATE, 8, 2)), -8); 
+#$ID = " ID:".$idcrypt;
+if(preg_match('/\.ezweb\.ne\.jp/',$HOST)) { //ezweb
+	$tmp=substr($_SERVER['HTTP_X_UP_SUBNO'],3,4);
+	if(!preg_match('/[0-9]{4}/',$tmp)) {
+		$str=preg_split('/\./',$_SERVER['REMOTE_ADDR']); 
+		$tmp=substr($str[3],-3).substr($str[2],-1).substr($str[1],-1);
+	}
+	if(preg_match('/59\.128\.128\./',$_SERVER['REMOTE_ADDR'])) { 
+		$mode='Q';
+	} elseif(preg_match('/59\.135\.39\./',$_SERVER['REMOTE_ADDR'])) { 
+		$mode='Q';
+	} elseif(preg_match('/118\.152\.214\.16/',$_SERVER['REMOTE_ADDR'])) { 
+		$mode='Q';
+	} elseif(preg_match('/118\.152\.214\.12/',$_SERVER['REMOTE_ADDR'])) { 
+		$mode='Q';
+	} elseif(preg_match('/222\.1\.136\./',$_SERVER['REMOTE_ADDR'])) { 
+		$mode='Q';
+	} elseif(preg_match('/222\.15\.68\./',$_SERVER['REMOTE_ADDR'])) { 
+		$mode='Q';
+	} else {
+		$mode='O';
+	}
+} elseif(preg_match('/\.docomo\.ne\.jp/',$HOST)) { //i-mode
+	$tmp=substr($_SERVER['HTTP_X_DCMGUID'],0,3);
+	if(!preg_match('/[0-9]{3}/',$tmp)) {
+		$str=preg_split('/\./',$_SERVER['REMOTE_ADDR']); 
+		$tmp=substr($str[3],-3).substr($str[2],-1).substr($str[1],-1);
+	}
+	if(preg_match('/210\.153\.87\./',$_SERVER['REMOTE_ADDR'])) { 
+		$mode='Q';
+	} else {
+		$mode='O';
+	}
+} elseif(preg_match('/\.jp-.\.ne\.jp/',$HOST)) { //softbank
+	$mtmp=preg_match('/SN([a-zA-Z0-9]{5})/',$_SERVER['HTTP_USER_AGENT'],$str);
+	$tmp=$str[1];
+	if(!$mtmp) {
+		$str=preg_split('/\./',$_SERVER['REMOTE_ADDR']); 
+		$tmp=substr($str[3],-3).substr($str[2],-1).substr($str[1],-1);
+	}
+	if(preg_match('/123\.108\.237\.2/',$_SERVER['REMOTE_ADDR'])) { 
+		$mode='Q';
+	} elseif(preg_match('/202\.253\.96\./',$_SERVER['REMOTE_ADDR'])) { 
+		if(preg_match('/202\.253\.96\.2/',$_SERVER['REMOTE_ADDR'])) { 
+			$mode='O';
+		} else {
+			$mode='Q';
+		}
+	} else {
+		$mode='O';
+	}
+} else { //others
+	//$str=split('[.]', $_SERVER['REMOTE_ADDR']);
+	$str=preg_split('/\./',$_SERVER['REMOTE_ADDR']); 
+	$tmp=substr($str[3],-3).substr($str[2],-1).substr($str[1],-1);
+	if(preg_match('/\.razil\.jp/',$HOST)) { //p2
+		$mode='P';
+	} elseif(preg_match('/\.prin\.ne\.jp/',$HOST)) { //Willcom
+		$mode='o';
+	} elseif(preg_match('/iPhone/',$_SERVER['HTTP_USER_AGENT'])) { //iPhone
+		if(preg_match('/\.tik\.panda-world\.ne\.jp/',$HOST)) { 
+			$mode='i';
+		} else {
+			$mode='I';
+		}
+	} else {
+		$mode='0';
+	}
+}
+$t=localtime();
+$str=$tmp.substr(crypt($_SERVER['SERVER_NAME'],$t[4]),-5);
+$idcrypt=substr(crypt(crypt($str,$t[5]),$t[3]+31),-8);
+$idcrypt=preg_replace('/\./','+',$idcrypt);
+$ID = " ID:".$idcrypt.$mode;
 # ID強制表示じゃない場合でmail欄に記入があればIDを隠す
-if ($_POST['mail'] and $SETTING['BBS_FORCE_ID'] != "checked") $ID = " ID:???";
+if ($_POST['mail'] and $SETTING['BBS_FORCE_ID'] != "checked") $ID = " ID:???".$mode;
 # キャップ、トリップはクッキー食いチェックが終わってから変換すること
 # トリップ
 # $trip は0thelloに使用
 $trip = '';
 if (preg_match("/([^\#]*)\#(.+)/", $_POST['FROM'], $match)) {
-	$salt = substr($match[2]."H.", 1, 2);
-	$salt = preg_replace("/[^\.-z]/", ".", $salt);
-	$salt = strtr($salt,":;<=>?@[\\]^_`","ABCDEFGabcdef");
-	$trip = substr(crypt($match[2], $salt),-10);
-	$_POST['FROM'] = $match[1]."</b>◆".$trip."<b>";
+	if (strlen($match[2]) >= 12){
+	# 新仕様変換
+		$mark = substr($match[2], 0, 1);
+		if ($mark == '#' || $mark == '$'){
+			if (preg_match('|^#([[:xdigit:]]{16})([./0-9A-Za-z]{0,2})$|',$match[2],$str)){
+				$trip = substr(crypt(pack('H*', $str[1]), "$str[2].."), -10);
+			} else {
+			# 将来の拡張用
+				$trip = '???';
+			}
+		} else {
+//		$trip = substr(base64_encode(pack('H*', sha1($match[2]))), 0, 12);
+		$trip = substr(base64_encode(sha1($match[2],TRUE)),0,12);
+		$trip = str_replace('+','.',$trip);
+		}
+	} else {
+		$salt = substr($match[2]."H.", 1, 2);
+		$salt = preg_replace("/[^\.-z]/", ".", $salt);
+		$salt = strtr($salt,":;<=>?@[\\]^_`","ABCDEFGabcdef");
+		$trip = substr(crypt($match[2], $salt),-10);
+	}
+	$match[1] = str_replace("◆", "◇", $match[1]);
+	$_POST['FROM'] = $match[1]."</b> ◆".$trip."<b>";
+} else {
+	$_POST['FROM'] = str_replace("◆", "◇", $_POST['FROM']);
 }
 # キャップ
 if (preg_match("/([^\#]*)\#(.+)/", $_POST['mail'], $cap)) {
@@ -463,7 +571,7 @@ exit;
 function DispError($title, $topic = "") {
 	global $HOST, $NOWTIME;
 	setcookie("PON", $HOST, $NOWTIME+3600*24*90, "/");
-	header("Content-Type: text/html; charset=Shift_JIS");
+	header("Content-Type: text/html; charset=UTF-8");
 	# $topicが無い場合は書き込み確認画面
 	if (!$topic) {
 		$sbj = $_POST['subject'];
@@ -476,52 +584,68 @@ function DispError($title, $topic = "") {
 		$frm = str_replace (" ", "\x1F", $frm);
 		$mml = str_replace ("&amp;", "&", $mml);
 		$mml = str_replace (" ", "\x1F", $mml);
-		$msg = str_replace (" <br> ", "\n", $msg);
+		$msg = str_replace (" <br /> ", "\n", $msg);
 		$msg = str_replace (" ", "\x1F", $msg);
-		?>
-<html><!-- 2ch_X:cookie --><head><title>■ 書き込み確認 ■</title><meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS"></head><body bgcolor="#EEEEEE">
-<font size="+1" color="#FF0000"><b>書きこみ＆クッキー確認</b></font><ul><br><br><b><?=$_POST['subject']?> </b><br>名前：<?=$_POST['FROM']?> <br>E-mail：<?=$_POST['mail']?> <br>内容：<br><?=$_POST['MESSAGE']?><br><br></ul>
-<b>
-<?=$title?><br>
-・投稿者は、投稿に関して発生する責任が全て投稿者に帰すことを承諾します。<br>
-・投稿者は、話題と無関係な広告の投稿に関して、相応の費用を支払うことを承諾します<br>
-・投稿者は、投稿された内容について、掲示板運営者がコピー、保存、引用、転載等の利用することを許諾します。また、掲示板運営者に対して、著作者人格権を一切行使しないことを承諾します。<br>
-・投稿者は、掲示板運営者が指定する第三者に対して、著作物の利用許諾を一切しないことを承諾します。
-<br>
+?>
+<!DOCTYPE html>
+<html>
+<!-- 2ch_X:cookie -->
+<head>
+<meta chaset="UTF-8" />
+<title>■ 書き込み確認 ■</title>
+</head>
+<body bgcolor="#EEEEEE">
+<font size="+1" color="#FF0000"><b>書きこみ＆クッキー確認</b></font>
+<dl>
+	<dt><?php echo $_POST['subject']; ?></dt>
+	<dt>名前：</dt><dd><?php echo $_POST['FROM']; ?></dd>
+	<dt>E-mail：</dt><dd><?php echo $_POST['mail']; ?></dd>
+	<dt>内容：</dt><dd><?php echo $_POST['MESSAGE']; ?></dd>
+</dl>
+<?php echo $title?>
+<ul>
+<li>投稿者は、投稿に関して発生する責任が全て投稿者に帰すことを承諾します。</li>
+<li>投稿者は、話題と無関係な広告の投稿に関して、相応の費用を支払うことを承諾します</li>
+<li>投稿者は、投稿された内容について、掲示板運営者がコピー、保存、引用、転載等の利用することを許諾します。また、掲示板運営者に対して、著作者人格権を一切行使しないことを承諾します。</li>
+<li>投稿者は、掲示板運営者が指定する第三者に対して、著作物の利用許諾を一切しないことを承諾します。</li>
+</ul>
+  <form method="post" action="../test/bbs.php" enctype="<?php echo $GLOBALS['enctype']; ?>">
+    <input type="hidden" name="subject" value="<?php echo $sbj; ?>" />
+    <input type="hidden" name="FROM"  value="<?php echo $frm; ?>" />
+    <input type="hidden" name="mail"  value="<?php echo $mml; ?>" />
+    <input type="hidden" name="MESSAGE" value="<?php echo $msg; ?>" />
+    <input type="hidden" name="bbs" value="<?php echo $_POST['bbs']; ?>" />
+    <input type="hidden" name="time" value="<?php echo $_POST['time']; ?>" />
+    <input type="hidden" name="key" value="<?php echo $_POST['key']; ?>" />
 
-</b>
-  <form method="post" action="../test/bbs.php" enctype="<?=$GLOBALS['enctype']?>">
-    <input type="hidden" name="subject" value="<?=$sbj?>">
-    <input type="hidden" NAME="FROM"  value="<?=$frm?>">
-    <input type="hidden" NAME="mail"  value="<?=$mml?>">
-    <input type="hidden" name="MESSAGE" value="<?=$msg?>"></ul>
-    <input type="hidden" name="bbs" value="<?=$_POST['bbs']?>">
-    <input type="hidden" name="time" value="<?=$_POST['time']?>">
-    <input type="hidden" name="key" value="<?=$_POST['key']?>">
-
-<br>
-<?
+<br />
+<?php
 if (isset($_FILES['file']['name']) and $_FILES['file']['name']) {
-	echo "もう一度ファイルの指定を行ってください。<br>\n";
-	echo '<input type="file" name="file" size="50"><br>';
+	echo "もう一度ファイルの指定を行ってください。<br />\n";
+	echo '<input type="file" name="file" size="50"><br />';
 }
 ?>
-<input type="submit" value="上記全てを承諾して書き込む" name="submit"><br>
+<input type="submit" value="上記全てを承諾して書き込む" name="submit"><br />
 </form>
-変更する場合は戻るボタンで戻って書き直して下さい。<br><br>
-<font size="-1">(cookieを設定するとこの画面はでなくなります。)</font><br>
+変更する場合は戻るボタンで戻って書き直して下さい。<br /><br />
+<font size="-1">(cookieを設定するとこの画面はでなくなります。)</font><br />
 </body></html>
-<?
+<?php
 	}
 	# $topicがあるときはエラー画面表示
 	else {
 		?>
-<html><head><title><?=$title?></title><meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS"></head><body bgcolor="#FFFFFF">
-<font size="+1" color="#FF0000"><b><?=$topic?></b></font>
-<ul><br>ホスト<b><?=$HOST?></b><br><b><?=$_POST['subject']?> </b><br>名前： <?=$_POST['FROM']?><br>E-mail：<?=$_POST['mail']?> <br>内容：<br><?=$_POST['MESSAGE']?><br><br></ul>
-<center>こちらでリロードしてください。<a href="../<?=$_POST['bbs']?>/"> GO! </a></center></body></html>
-<?
+<!DOCTYPE html><html><head><title><?php echo $title?></title><meta charset="UTF-8" /></head><body bgcolor="#FFFFFF">
+<font size="+1" color="#FF0000"><b><?php echo $topic?></b></font>
+<dl>
+	<dt>ホスト</dt><dd><?php echo $HOST?></dd>
+	<dt><?php echo $_POST['subject']; ?></dt>
+	<dt>名前：</dt><dd><?php echo $_POST['FROM']; ?></dd>
+	<dt>E-mail：</dt><dd><?php echo $_POST['mail']; ?></dd>
+	<dt>内容：</dt><dd><?php echo $_POST['MESSAGE']; ?></dd>
+</dl>
+<center>こちらでリロードしてください。<a href="../<?php echo $_POST['bbs']; ?>/"> GO! </a></center></body></html>
+<?php
 	}
 	exit();
 }
-?>

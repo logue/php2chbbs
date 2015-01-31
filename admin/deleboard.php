@@ -1,12 +1,12 @@
 <?php
 require("passcheck.php");
 #=============================================
-if (!$_GET['bbs']) disperror("�d�q�q�n�q�I","�d�q�q�n�q�F��������Ă���B�B�B");
-if (!is_dir("../$_GET[bbs]")) disperror("�d�q�q�n�q�I","�d�q�q�n�q�F����ȔȂ��ł��B");
+if (!$_GET['bbs']) disperror("ＥＲＲＯＲ！","ＥＲＲＯＲ：板名をいれてちょ。。。");
+if (!is_dir("../$_GET[bbs]")) disperror("ＥＲＲＯＲ！","ＥＲＲＯＲ：そんな板ないです。");
 #====================================================
-#�@�������̎擾�i�ݒ�t�@�C���j
+#　初期情報の取得（設定ファイル）
 #====================================================
-#�ݒ�t�@�C����ǂ�
+#設定ファイルを読む
 $set_pass = "../$_GET[bbs]/SETTING.TXT";
 if (is_file($set_pass)) {
 	$set_str = file($set_pass);
@@ -16,9 +16,9 @@ if (is_file($set_pass)) {
 		$SETTING[$name] = $value;
 	}
 }
-else disperror("�d�q�q�n�q�I","�d�q�q�n�q�F���[�U�[�ݒ肪�������Ă��܂��I");
+else disperror("ＥＲＲＯＲ！","ＥＲＲＯＲ：ユーザー設定が消失しています！");
 #=====================================
-#�@�܂邲�Ƃ��ځ[��
+#　板まるごとあぼーん
 #=====================================
 if(isset($_GET['del']) and $_GET['del'] == 'ok') {
 	$handle = opendir("../$_GET[bbs]");
@@ -38,35 +38,37 @@ if(isset($_GET['del']) and $_GET['del'] == 'ok') {
 	closedir($handle);
 	@rmdir("../$_GET[bbs]");
 	?>
+<!DOCTYPE html>
 <html>
 <head>
-<title>�f����</title>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
+<meta charset="UTF-8" />
+<title>掲示板閉鎖</title>
+<link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>�f����</h3>
-<hr>
-�폜���܂���<br>
-<a class="item" href="admin.php?bbs=<?=$_GET['bbs']?>" target="_parent">����</a>���烁�j���[�̍X�V�����Ă�������<br>
-<br>
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']?></h1>
+<h3>掲示板閉鎖</h3>
+<hr />
+削除しました<br />
+<a class="item" href="admin.php?bbs=<?php echo $_GET['bbs']?>" target="_parent">ここ</a>からメニューの更新をしてください。
 </body>
 </html><?php
 	exit;
 }
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-<title>�f����</title>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
+<meta charset="UTF-8" />
+<title>掲示板閉鎖</title>
+<link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>�f����</h3>
-<hr>
-�f�B���N�g��<q><?=$_GET['bbs']?></q>�ȉ��̃t�@�C����S�č폜���܂��B<br>
-<br>
-<a class="item" href="<?=$_SERVER['PHP_SELF']?>?del=ok&bbs=<?=$_GET['bbs']?>">�폜</a>�@<a class="item" href="admin.php?bbs=<?=$_GET['bbs']?>" target="_parent">��߂�</a><br>
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']?></h1>
+<h3>掲示板閉鎖</h3>
+<hr />
+ディレクトリ<q><?php echo $_GET['bbs']?></q>以下のファイルを全て削除します。<br />
+<br />
+<a class="item" href="<?php echo $_SERVER['PHP_SELF']?>?del=ok&amp;bbs=<?php echo $_GET['bbs']?>">削除</a>
+<a class="item" href="admin.php?bbs=<?php echo $_GET['bbs']?>" target="_parent">やめる</a>
 </body></html>

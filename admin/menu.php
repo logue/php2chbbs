@@ -2,7 +2,7 @@
 require("passcheck.php");
 if (!isset($_GET['bbs'])) $_GET['bbs'] = '';
 #=====================================
-#@ŠÇ—ƒƒjƒ…[
+#ã€€ç®¡ç†ãƒ¡ãƒ‹ãƒ¥ãƒ¼
 #=====================================
 $board = array();
 $handle = opendir('../');
@@ -13,17 +13,16 @@ while (false !== ($file = readdir($handle))) {
 }
 closedir($handle);
 $make_board = '';
-#if (!ini_get("safe_mode")) $make_board = '<a class="menu" href="makeboard.php"><b>Œf¦”Âì¬</b></a><br>'."\n<hr>\n";
+#if (!ini_get("safe_mode")) $make_board = '<a class="menu" href="makeboard.php"><b>æ²ç¤ºæ¿ä½œæˆ</b></a><br>'."\n<hr>\n";
 if (isset($_GET['bbs'])and $_GET['bbs']) $func = "func('$_GET[bbs]');";
 else $func = '';
 ?>
 <html>
 <head>
-<title>ŠÇ—ƒƒjƒ…[</title>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="menu.css" type="text/css">
-<script type="text/javascript">
-<!--
+<meta chaset="UTF-8" />
+<title>ç®¡ç†ãƒ¡ãƒ‹ãƒ¥ãƒ¼</title>
+<link rel="stylesheet" href="menu.css" type="text/css" />
+<script type="text/javascript">/* <![CDATA[ */
 function init() {
   if (!document.getElementsByTagName) { return; }
   var objs = document.getElementsByTagName("div");
@@ -43,26 +42,24 @@ function func(id) {
   }
   return false;
 }
-// -->
-</script>
+/* ]]> */</script>
 <base target="main">
-<!--nobanner-->
 </head>
-<body onload="init();<?=$func?>">
-<div class="menu"><b>ŠÇ—ƒƒjƒ…[</b></div>
-<hr>
-<a class="menu" href="main.php"><b>ƒgƒbƒv</b></a><br>
-<hr>
-<?=$make_board?>
-<a class="menu" href="cap.php"><b>ƒLƒƒƒbƒvŠÇ—</b></a><br>
-<hr>
+<body onload="init();<?php echo $func; ?>">
+<div class="menu"><b>ç®¡ç†ãƒ¡ãƒ‹ãƒ¥ãƒ¼</b></div>
+<hr />
+<a class="menu" href="main.php"><b>ãƒˆãƒƒãƒ—</b></a><br>
+<hr />
+<?php echo $make_board; ?>
+<a class="menu" href="cap.php"><b>ã‚­ãƒ£ãƒƒãƒ—ç®¡ç†</b></a><br>
+<hr />
 <?php
 $i = 0;
 foreach ($board as $dir) {
 	#====================================================
-	#@‰Šúî•ñ‚Ìæ“¾iİ’èƒtƒ@ƒCƒ‹j
+	#ã€€åˆæœŸæƒ…å ±ã®å–å¾—ï¼ˆè¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ï¼‰
 	#====================================================
-	#İ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚Ş
+	#è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã‚€
 	$set_pass = "../$dir/SETTING.TXT";
 	$set_str = file($set_pass);
 	foreach ($set_str as $tmp){
@@ -71,22 +68,22 @@ foreach ($board as $dir) {
 		$SETTING[$name] = $value;
 	}
 	$i++;
-	?>
-<a class="title" href="../<?=$dir?>/"><b><?=$SETTING['BBS_TITLE']?></b></a><br>
-<a class="dir" href="#" target="menu" onclick="return func('<?=$dir?>')">ƒfƒBƒŒƒNƒgƒŠF<?=$dir?></a><br>
-<div class="titem" id="<?=$dir?>">
+?>
+<a class="title" href="../<?php echo $dir; ?>/"><b><?php echo $SETTING['BBS_TITLE']; ?></b></a><br>
+<a class="dir" href="#" target="menu" onclick="return func('<?php echo $dir; ?>')">ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªï¼š<?php echo $dir; ?></a><br>
+<div class="titem" id="<?php echo $dir; ?>">
   <ul>
-    <li><a class="item" href="setboard.php?bbs=<?=$dir?>"> İ’è•ÏX </a></li>
-    <li><a class="item" href="setboard2.php?bbs=<?=$dir?>"> VIPİ’è•ÏX </a></li>
-    <li><a class="item" href="vip.php?bbs=<?=$dir?>"> VIP‹@”\•ÏX </a></li>
-    <li><a class="item" href="abon.php?bbs=<?=$dir?>"> ‚ ‚Ú[‚ñ/ƒXƒŒƒXƒg </a></li>
-    <li><a class="item" href="threadm.php?bbs=<?=$dir?>"> ƒXƒŒƒbƒhíœ/ˆÚ“® </a></li>
-    <li><a class="item" href="deleboard.php?bbs=<?=$dir?>"> Œf¦”Â•Â½ </a></li>
-    <li><a class="item" href="image.php?bbs=<?=$dir?>"> ‰æ‘œíœ </a></li>
-    <li><a class="item" href="hostlog.php?bbs=<?=$dir?>"> ƒzƒXƒgƒƒOŠÇ— </a></li>
-    <li><a class="item" href="deny.php?bbs=<?=$dir?>"> ƒAƒN‹Öˆ— </a></li>
-    <li><a class="item" href="edit.php?bbs=<?=$dir?>"> ƒeƒLƒXƒg•ÒW </a></li>
-    <li><a class="item" href="makeboard.php?mode=remake&bbs=<?=$dir?>">index.html‚ğì‚è’¼‚·</a></li>
+    <li><a class="item" href="setboard.php?bbs=<?php echo $dir; ?>"> è¨­å®šå¤‰æ›´ </a></li>
+    <li><a class="item" href="setboard2.php?bbs=<?php echo $dir; ?>"> VIPè¨­å®šå¤‰æ›´ </a></li>
+    <li><a class="item" href="vip.php?bbs=<?php echo $dir; ?>"> VIPæ©Ÿèƒ½å¤‰æ›´ </a></li>
+    <li><a class="item" href="abon.php?bbs=<?php echo $dir; ?>"> ã‚ã¼ãƒ¼ã‚“/ã‚¹ãƒ¬ã‚¹ãƒˆ </a></li>
+    <li><a class="item" href="threadm.php?bbs=<?php echo $dir; ?>"> ã‚¹ãƒ¬ãƒƒãƒ‰å‰Šé™¤/ç§»å‹• </a></li>
+    <li><a class="item" href="deleboard.php?bbs=<?php echo $dir; ?>"> æ²ç¤ºæ¿é–‰é– </a></li>
+    <li><a class="item" href="image.php?bbs=<?php echo $dir; ?>"> ç”»åƒå‰Šé™¤ </a></li>
+    <li><a class="item" href="hostlog.php?bbs=<?php echo $dir; ?>"> ãƒ›ã‚¹ãƒˆãƒ­ã‚°ç®¡ç† </a></li>
+    <li><a class="item" href="deny.php?bbs=<?php echo $dir; ?>"> ã‚¢ã‚¯ç¦å‡¦ç† </a></li>
+    <li><a class="item" href="edit.php?bbs=<?php echo $dir; ?>"> ãƒ†ã‚­ã‚¹ãƒˆç·¨é›† </a></li>
+    <li><a class="item" href="makeboard.php?mode=remake&bbs=<?php echo $dir; ?>">index.htmlã‚’ä½œã‚Šç›´ã™</a></li>
   </ul>
 </div>
 <hr class="sub">

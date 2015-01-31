@@ -1,10 +1,10 @@
 <?php
 require("passcheck.php");
-if (!is_dir("../$_GET[bbs]")) disperror("‚d‚q‚q‚n‚qI", "‚»‚ñ‚È”ÂorƒXƒŒƒbƒh‚È‚¢‚Å‚·B");
+if (!is_dir("../$_GET[bbs]")) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ãã‚“ãªæ¿orã‚¹ãƒ¬ãƒƒãƒ‰ãªã„ã§ã™ã€‚");
 #====================================================
-#@‰Šúî•ñ‚ÌŽæ“¾iÝ’èƒtƒ@ƒCƒ‹j
+#ã€€åˆæœŸæƒ…å ±ã®å–å¾—ï¼ˆè¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ï¼‰
 #====================================================
-#Ý’èƒtƒ@ƒCƒ‹‚ð“Ç‚Þ
+#è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã‚€
 $set_pass = "../$_GET[bbs]/SETTING.TXT";
 if (is_file($set_pass)) {
 	$set_str = file($set_pass);
@@ -14,12 +14,12 @@ if (is_file($set_pass)) {
 		$SETTING[$name] = $value;
 	}
 }
-else disperror("‚d‚q‚q‚n‚qI","‚d‚q‚q‚n‚qFƒ†[ƒU[Ý’è‚ªÁŽ¸‚µ‚Ä‚¢‚Ü‚·I");
+else disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼šãƒ¦ãƒ¼ã‚¶ãƒ¼è¨­å®šãŒæ¶ˆå¤±ã—ã¦ã„ã¾ã™ï¼");
 #==================================================
-#@ƒAƒNƒZƒX§ŒÀ
+#ã€€ã‚¢ã‚¯ã‚»ã‚¹åˆ¶é™
 #==================================================
 if(isset($_GET['mode']) and $_GET['mode'] == "deny") {
-	$_GET['list'] = str_replace("@", " ", $_GET['list']);
+	$_GET['list'] = str_replace("ã€€", " ", $_GET['list']);
 	$_GET['list'] = preg_replace("/\s+/", " ", $_GET['list']);
 	$_GET['list'] = trim($_GET['list']);
 	$deny_array = explode(' ', $_GET['list']);
@@ -29,12 +29,12 @@ if(isset($_GET['mode']) and $_GET['mode'] == "deny") {
 	}
 	fclose($fp);
 }
-#ƒAƒNƒZƒX§ŒÀƒŠƒXƒg“Ç‚Ýž‚Ý
+#ã‚¢ã‚¯ã‚»ã‚¹åˆ¶é™ãƒªã‚¹ãƒˆèª­ã¿è¾¼ã¿
 if (is_file("../$_GET[bbs]/uerror.cgi")) $deny_array = file("../$_GET[bbs]/uerror.cgi");
 else $deny_array = array();
 $deny_array = array_map("trim", $deny_array);
 #==================================================
-#@ƒAƒNƒZƒX‰ðœ
+#ã€€ã‚¢ã‚¯ã‚»ã‚¹è§£é™¤
 #==================================================
 if(isset($_GET['mode']) and $_GET['mode'] == "allow") {
 	if (!isset($_GET['allow'])) $_GET['allow'] = array();
@@ -44,33 +44,34 @@ if(isset($_GET['mode']) and $_GET['mode'] == "allow") {
 	fclose($fp);
 }
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
-<title>ƒAƒN‹Öˆ—</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="main.css" type="text/css" />
+<title>ã‚¢ã‚¯ç¦å‡¦ç†</title>
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>ƒAƒN‹Öˆ—</h3>
-<hr>
-<font size="-1">ƒAƒNƒZƒX‹ÖŽ~‚·‚éƒzƒXƒg–¼‚Ü‚½‚ÍIPƒAƒhƒŒƒXi‘S•”‚Ü‚½‚Íˆê•”j‚ð‹L“ü‚µ‚Ä‚­‚¾‚³‚¢B<br>
-•¡”Ý’è‚·‚éê‡‚ÍƒXƒy[ƒX‚Å‹æØ‚Á‚Ä‚­‚¾‚³‚¢<br>
-—áF@<b>127.0.0.1@201.105@.go.jp@YahooBB123456789</b><br></font>
-<form name="form1" action="<?=$_SERVER['PHP_SELF']?>" method="GET">
-<input type="hidden" name="bbs" value="<?=$_GET['bbs']?>">
-<input type="hidden" name="mode" value="deny">
-<input type="text" name="list" size="50">
-<input type="submit" value="ƒAƒN‹Ö">
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']?></h1>
+<h3>ã‚¢ã‚¯ç¦å‡¦ç†</h3>
+<hr />
+<p><small>ã‚¢ã‚¯ã‚»ã‚¹ç¦æ­¢ã™ã‚‹ãƒ›ã‚¹ãƒˆåã¾ãŸã¯IPã‚¢ãƒ‰ãƒ¬ã‚¹ï¼ˆå…¨éƒ¨ã¾ãŸã¯ä¸€éƒ¨ï¼‰ã‚’è¨˜å…¥ã—ã¦ãã ã•ã„ã€‚<br />
+è¤‡æ•°è¨­å®šã™ã‚‹å ´åˆã¯ã‚¹ãƒšãƒ¼ã‚¹ã§åŒºåˆ‡ã£ã¦ãã ã•ã„<br />
+ä¾‹ï¼šã€€<b>127.0.0.1ã€€201.105ã€€.go.jpã€€YahooBB123456789</b></small></p>
+<form name="form1" action="<?php echo $_SERVER['PHP_SELF']?>" method="GET">
+	<input type="hidden" name="bbs" value="<?php echo $_GET['bbs']?>" />
+	<input type="hidden" name="mode" value="deny" />
+	<input type="text" name="list" size="50" />
+	<input type="submit" value="ã‚¢ã‚¯ç¦" />
 </form>
-<hr>
-ƒAƒNƒZƒX‹ÖŽ~‚ð‰ðœ‚µ‚½‚¢ê‡‚Íƒ`ƒFƒbƒNƒ{ƒbƒNƒX‚Éƒ`ƒFƒbƒN‚µ‚Ä<b>‰ðœ</b>ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢B
-<form name="form1" action="<?=$_SERVER['PHP_SELF']?>" method="GET">
-<input type="hidden" name="bbs" value="<?=$_GET['bbs']?>">
-<input type="hidden" name="mode" value="allow">
-<input type="submit" value="‰ðœ">
+<hr />
+ã‚¢ã‚¯ã‚»ã‚¹ç¦æ­¢ã‚’è§£é™¤ã—ãŸã„å ´åˆã¯ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹ã«ãƒã‚§ãƒƒã‚¯ã—ã¦<b>è§£é™¤</b>ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ã¦ãã ã•ã„ã€‚
+<form name="form1" action="<?php echo $_SERVER['PHP_SELF']?>" method="GET">
+	<input type="hidden" name="bbs" value="<?php echo $_GET['bbs']?>" />
+	<input type="hidden" name="mode" value="allow" />
+	<input type="submit" value="è§£é™¤" />
 <table border="1" cellspacing="0" cellpadding="2">
-<?
+<?php
 foreach ($deny_array as $deny) {
 	echo '<tr><td><input type="checkbox" name="allow[]" value="'.$deny.'"></td><td>'.$deny."</td></tr>\n";
 }

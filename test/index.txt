@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Cache-Control" content="no-cache">
-<script type="text/javascript"><!--
+<meta chaset="UTF-8" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<script type="text/javascript">/*<![CDATA[*/
 function l(e){
  var N=getCookie("NAME"),M=getCookie("MAIL"),i;
  with(document) for(i=0;i<forms.length;i++)if(forms[i].FROM&&forms[i].mail)with(forms[i]){
@@ -26,21 +27,21 @@ function getCookie(key, tmp1, tmp2, xx1, xx2, xx3) {
  }
  return("");
 }
-//--></script>
-<style type="text/css"><!--
+/*]]>*/</script>
+<style type="text/css">/*<![CDATA[*/
 img {border:0;}
---></style>
+/*]]>*/</style>
 <title><BBS_TITLE></title>
 </head>
 <body bgcolor="<BBS_BG_COLOR>" text="<BBS_TEXT_COLOR>" link="<BBS_LINK_COLOR>" alink="<BBS_ALINK_COLOR>" vlink="<BBS_VLINK_COLOR>" background="<BBS_BG_PICTURE>">
-<center><BBS_TITLE_NAME></center>
+<div style="text-align:center;"><BBS_TITLE_NAME></div>
 <table border="1" cellspacing="7" cellpadding="3" width="95%" bgcolor="<BBS_MENU_COLOR>" align="center">
  <tr>
   <td align="center">
    <table border="0" cellpadding="1" width="100%">
     <tr>
-     <td nowrap colspan="2"><font size="+1"><b><BBS_TITLE></b></font><br></td>
-     <td nowrap width="5%" align="right" valign="top"><a href="#menu">��</a> <a href="#1">��</a></td>
+     <td nowrap colspan="2"><font size="+1"><b><BBS_TITLE></b></font></td>
+     <td nowrap width="5%" align="right" valign="top"><a href="#menu">■</a> <a href="#1">▼</a></td>
     </tr>
     <tr>
      <td colspan="3"><OPTION><br><GUIDE><br></td>
@@ -53,22 +54,19 @@ img {border:0;}
 <CUT>
 <table border="1" cellspacing="7" cellpadding="3" width="95%" bgcolor="<BBS_MAKETHREAD_COLOR>" align="center">
  <tr>
-  <td><br>
+  <td>
    <form method="post" action="../test/bbs.php">
-   <input type="hidden" name="bbs" value="<BBS>">
-   <input type="hidden" name="new" value="thread">
-   <input type="submit" value="�V�K�X���b�h�쐬��ʂ�" name="submit">
+   <input type="hidden" name="bbs" value="<BBS>" />
+   <input type="hidden" name="new" value="thread" />
+   <input type="submit" value="新規スレッド作成画面へ" name="submit" />
    </form>
   </td>
  </tr>
 </table>
-<center><br><br>
-<b>�ǂ̂悤�Ȍ`�̍폜�˗��ł�����J�����Ă��������܂��B</b>
-</center>
-<br>
-<a href="../../"><b>�z�[��</b></a><VERSION>
+<p style="text-aligin:center;"><b>どのような形の削除依頼であれ公開させていただきます。</b></p>
+<p><a href="../../"><b>ホーム</b></a><VERSION></p>
 <address>
-<div align="right"><a href="http://script.s16.xrea.com" target="_blank"><small>���̍�</small></a></div>
+<div align="right"><small><a href="http://script.s16.xrea.com" target="_blank">鏡の国</a> + <a href="http://www.mits-jp.com/2ch/" target="_blank">Mits</a> + <a href="https://logue.be/" target="_blank">Logue◆grDYeooZwg</a></small></div>
 </address>
 </body>
 </html>

@@ -15,7 +15,7 @@ if (!empty($_SERVER['PATH_INFO'])) {
 	$key = $pairs[2];
 }
 if (!file_exists("../$bbs/dat/$key.dat")) {
-	if (file_exists("../$bbs/kako/$key.html")) echo"過去ﾛｸﾞ倉庫です。<BR>携帯では見られません。";
+	if (file_exists("../$bbs/kako/$key.html")) echo"過去ﾛｸﾞ倉庫です。<br />携帯では見られません。";
 	else echo("ｽﾚｯﾄﾞが見つかりません。");
 	exit;
 }
@@ -69,7 +69,21 @@ if ($st > 1) {
 }
 else $link = '';
 ?>
-<html><head><title><?=$subject?></title></head><body><hr><?=$link?><a href=<?=$to+1?>->次</a> <a href=n>新10</a> <a href=1->1-</a> <a href=../../../../<?=$bbs?>/i/>板</a> <a href=w>ｶｷｺﾐ</a><hr><?php
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title><?php echo $subject?></title>
+</head>
+<body>
+<?php echo $link; ?>
+<a href="<?php echo $to+1?>">次</a>
+<a href="n">新10</a>
+<a href="1-">1-</a>
+<a href="../../../../<?php echo $bbs?>/i/">板</a>
+<a href="w">ｶｷｺﾐ</a>
+<hr />
+<?php
 if ($nofirst != "true" or $st == 1 or strstr($pairs[3], "w")) {
 	if ($st == 1) {$st++;}
 	chop($log[0]);
@@ -85,16 +99,24 @@ if ($nofirst != "true" or $st == 1 or strstr($pairs[3], "w")) {
 	$message = str_replace("http://".$_SERVER['HTTP_HOST'].$read, $_SERVER['SCRIPT_NAME'], $message);
 	$message = str_replace("../test/read.php/$bbs/$key/",'',$message);
 	$message = preg_replace("/<a.+<img src=\"(.+\.)(\w+)\"[^>]*>/", "<a href=\"../../../$1$2\"> $2 ", $message);
-	$msgline = substr_count($message, "<br>") + 1;
+	$msgline = substr_count($message, "<br />") + 1;
 	if ($msgline > 6 and $to != 1) {
-		preg_match("/(.*) <br>.*/U", $message, $match);
-		$message = $match[1]."<a href=1><br> 省".$msgline."</a>";
+		preg_match("/(.*) <br />.*/U", $message, $match);
+		$message = $match[1]."<a href=1><br /> 省".$msgline."</a>";
 	}
-	echo $subject."[1]$name $time<br>$message<hr>";
+	echo $subject."[1]$name $time<br />$message<hr />";
 }
 if (strstr($pairs[3], "w")) {
-	?>
-<form method=post action=../../../bbs.php>NAME：<input name=FROM>MAIL：<input name=mail istyle=3><input type=hidden name=bbs value=<?=$bbs?>><input type=hidden name=key value=<?=$key?>><input type=hidden name=time value=<?=time()?>><textarea name=MESSAGE></textarea><input type=submit value="かきこむ" name=submit></form><br><?=$version?></body><?php
+?>
+<form method="post" action="../../../bbs.php">
+<input type="hidden" name="bbs" value="<?php echo $bbs; ?>" />
+<input type="hidden" name="time" value="<?php echo time(); ?>" />
+<input type="hidden" name="key" value="<?php echo $key; ?>" />
+NAME：<input name="FROM">MAIL：<input name="mail" istyle="3" />
+<textarea name="MESSAGE"></textarea>
+<input type="submit" value="かきこむ" name="submit" />
+</form>
+<br /><?php echo $version?></body><?php
 	exit;
 }
 for ($s = $st; $s <= $to; $s++){
@@ -111,13 +133,13 @@ for ($s = $st; $s <= $to; $s++){
 	$message = str_replace("http://".$_SERVER['HTTP_HOST'].$read, $_SERVER['SCRIPT_NAME'], $message);
 	$message = str_replace("../test/read.php/$bbs/$key/",'',$message);
 	$message = preg_replace("/<a.+<img src=\"(.+\.)(\w+)\"[^>]+>/", "<a href=\"../../../$1$2\"> $2 ", $message);
-	$msgline = substr_count($message, "<br>") + 1;
+	$msgline = substr_count($message, "<br />") + 1;
 	if ($msgline > 6 and $st != $to) {
-		preg_match("/(.*) <br>.*/U", $message, $match);
-		$message = $match[1]."<a href=".$s."><br> 省".$msgline."</a>";
+		preg_match("/(.*) <br />.*/U", $message, $match);
+		$message = $match[1]."<a href=".$s."><br /> 省".$msgline."</a>";
 	}
-	print "[$s]$name $time<br>$message<hr>";
+	print "[$s]$name $time<br />$message<hr />";
 }
 echo $link;
 ?>
-<a href=<?=$to+1?>->次</a> <a href=w>ｶｷｺﾐ</a><hr><?=$version?></body></html>
+<a href=<?php echo $to+1?>->次</a> <a href=w>ｶｷｺﾐ</a><hr /><?php echo $version;?></body></html>

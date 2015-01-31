@@ -1,28 +1,29 @@
 <?php
 #=====================================
-#@ƒpƒXƒ[ƒhÝ’è
+#ã€€ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰è¨­å®š
 #=====================================
-#ƒGƒ‰[‰æ–ÊiƒGƒ‰[ˆ—j
+#ã‚¨ãƒ©ãƒ¼ç”»é¢ï¼ˆã‚¨ãƒ©ãƒ¼å‡¦ç†ï¼‰
 #DispError(TITLE,TOPIC);
 function disperror($title, $topic) {
 	?>
+<!DOCTYPE html>
 <html>
 <head>
-<title><?=$title?></title>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
+<meta charset="UTF-8" />
+<title><?php echo $title?></title>
+<link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 <body>
-<font color="red" size="+1"><b><?=$title?></b></font><br>
-<br>
-<div align="left"><b><?=$topic?></b></div><br>
-<br>
+<font color="red" size="+1"><b><?php echo $title?></b></font><br />
+<br />
+<div align="left"><b><?php echo $topic?></b></div><br />
+<br />
 </body>
 </html>
 <?php
 	exit;
 }
-header("Content-Type: text/html; charset=Shift_JIS");
+header("Content-Type: text/html; charset=UTF-8");
 $passfile = "passfile.cgi";
 $admin_array = @file($passfile);
 if (!isset($admin_array[0])) $admin_array[0] = '';
@@ -32,19 +33,20 @@ if (!isset($_POST['adminpass'])) $_POST['adminpass'] = '';
 if ($admin) {
 	if (!$_COOKIE['adminpass'] and !$_POST['adminpass']) {
 		?>
+<!DOCTYPE html>
 <html>
 <head>
-<title>ƒpƒXƒ[ƒh”FØ</title>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
+<meta charset="UTF-8" />
+<title>ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰èªè¨¼</title>
+<link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 <body>
-<br><br>
+<br /><br />
 <div align="center">
-ŠÇ—ƒpƒXƒ[ƒh‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B<br>
-<form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
-<input type="password" name="adminpass" >
-<input type="submit" value="‘—M">
+ç®¡ç†ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚<br />
+<form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
+<input type="password" name="adminpass" />
+<input type="submit" value="é€ä¿¡" />
 </form>
 </div>
 </body></html>
@@ -53,13 +55,13 @@ if ($admin) {
 	}
 	if ($_COOKIE['adminpass']) {
 		if (crypt($_COOKIE['adminpass'], $admin) != $admin) {
-			disperror("‚d‚q‚q‚n‚qI", "ƒpƒXƒ[ƒh‚ªˆá‚¢‚Ü‚·");
+			disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãŒé•ã„ã¾ã™");
 			exit;
 		}
 	}
 	if (!$_COOKIE['adminpass'] and $_POST['adminpass']) {
 		if (crypt($_POST['adminpass'], $admin) != $admin) {
-			disperror("‚d‚q‚q‚n‚qI", "ƒpƒXƒ[ƒh‚ªˆá‚¢‚Ü‚·");
+			disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãŒé•ã„ã¾ã™");
 			exit;
 		}
 		setcookie("adminpass",$_POST['adminpass']);
@@ -68,20 +70,21 @@ if ($admin) {
 else {
 	if(!isset($_POST['setpass']) or !$_POST['setpass']) {
 		?>
+<!DOCTYPE html>
 <html>
 <head>
-<title>ƒpƒXƒ[ƒhÝ’è</title>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
+<meta charset="UTF-8" />
+<title>ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰è¨­å®š</title>
+<link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 <body>
-<br><br>
+<br /><br />
 <div align="center">
-ƒpƒXƒ[ƒh‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB<br>
-V‚µ‚¢ƒpƒXƒ[ƒh‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B<br>
-<form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
-<input type="password" name="setpass" >
-<input type="submit" value="“o˜^">
+ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãŒç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚<br />
+æ–°ã—ã„ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚<br />
+<form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
+<input type="password" name="setpass" />
+<input type="submit" value="ç™»éŒ²" />
 </form>
 </div>
 </body></html>
@@ -90,10 +93,10 @@ else {
 	}
 	else {
 		$admin = crypt($_POST['setpass']);
-		$fp = @fopen($passfile, "w");
+		touch($passfile);
+		$fp = fopen($passfile, "w");
 		fputs($fp, $admin);
 		fclose($fp);
 		setcookie("adminpass",$_POST['setpass']);
 	}
 }
-?>

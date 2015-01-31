@@ -4,12 +4,12 @@ if (!isset($_POST['mode'])) $_POST['mode'] = '';
 if(get_magic_quotes_gpc()) {
 	$_POST = array_map("stripslashes", $_POST);
 }
-if (!isset($_REQUEST['bbs']) or !$_REQUEST['bbs']) disperror("�d�q�q�n�q�I","�d�q�q�n�q�F��������Ă���B�B�B");
-if (!is_dir("../$_REQUEST[bbs]")) disperror("�d�q�q�n�q�I","�d�q�q�n�q�F����ȔȂ��ł��B");
+if (!isset($_REQUEST['bbs']) or !$_REQUEST['bbs']) disperror("ＥＲＲＯＲ！","ＥＲＲＯＲ：板名をいれてちょ。。。");
+if (!is_dir("../$_REQUEST[bbs]")) disperror("ＥＲＲＯＲ！","ＥＲＲＯＲ：そんな板ないです。");
 $set_pass = "../$_REQUEST[bbs]/SETTING.TXT";
 $comment = '<br>';
 #====================================================
-#�@�������̏����݁i�ݒ�t�@�C���j
+#　初期情報の書込み（設定ファイル）
 #====================================================
 if ($_POST['mode'] == 'set') {
 	error_reporting(E_ALL ^ E_NOTICE);
@@ -63,12 +63,12 @@ EOF;
 	$fp = fopen($set_pass, "w");
 	fputs($fp, $setvalue);
 	fclose($fp);
-	$comment = '<font color="red">�ݒ���X�V���܂����B���j���[��<b>index.html����蒼��</b>���N���b�N���Ă��������B</font><br>';
+	$comment = '<font color="red">設定を更新しました。メニューの<b>index.htmlを作り直す</b>をクリックしてください。</font><br>';
 }
 #====================================================
-#�@�������̎擾�i�ݒ�t�@�C���j
+#　初期情報の取得（設定ファイル）
 #====================================================
-#�ݒ�t�@�C����ǂ�
+#設定ファイルを読む
 if (is_file($set_pass)) {
 	$set_str = file($set_pass);
 	foreach ($set_str as $tmp){
@@ -77,183 +77,184 @@ if (is_file($set_pass)) {
 		$SETTING[$name] = $value;
 	}
 }
-else disperror("�d�q�q�n�q�I","�d�q�q�n�q�F���[�U�[�ݒ肪�������Ă��܂��I");
+else disperror("ＥＲＲＯＲ！","ＥＲＲＯＲ：ユーザー設定が消失しています！");
 if (!is_file("../$_REQUEST[bbs]/index.html")) {
-	$comment = '<font color=red>�܂��e�ݒ荀�ڂ�ύX���<b>�ݒ�X�V</b>�{�^���������A<a href="admin.php?bbs='.$_REQUEST['bbs'].'" target="_parent">����</a>���烁�j���[�̍X�V�����āA���Ƀ��j���[��<b>index.html����蒼��</b>���N���b�N���Ă��������B</font><br>';
+	$comment = '<font color=red>まず各設定項目を変更後に<b>設定更新</b>ボタンを押し、<a href="admin.php?bbs='.$_REQUEST['bbs'].'" target="_parent">ここ</a>からメニューの更新をして、次にメニューの<b>index.htmlを作り直す</b>をクリックしてください。</font><br>';
 }
 $sel_pass = $sel_change = "";
 if ($SETTING['BBS_UNICODE'] == "pass") $sel_pass = "selected";
 if ($SETTING['BBS_UNICODE'] == "change") $sel_change = "selected";
 #====================================================
-#�@�f���̐ݒ�
+#　掲示板の設定
 #====================================================
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
-<title>�ݒ�ύX</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="main.css" type="text/css" />
+<title>設定変更</title>
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>�ݒ�ύX</h3>
-<hr>
-<form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
-<?=$comment?>
-<input type="submit" value="�ݒ�X�V">
-<input type="hidden" name="mode" value="set">
-<input type="hidden" name="bbs" value="<?=$_REQUEST['bbs']?>">
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']?></h1>
+<h3>設定変更</h3>
+<hr />
+<form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
+<?php echo $comment?>
+<input type="submit" value="設定更新" />
+<input type="hidden" name="mode" value="set" />
+<input type="hidden" name="bbs" value="<?php echo $_REQUEST['bbs']?>" />
 <table border="2">
 <tr>
-<th>�f���̃^�C�g��</th>
-<td><input type="text" size="30" name="BBS_TITLE" value="<?=$SETTING['BBS_TITLE']?>"></td>
+<th>掲示板のタイトル</th>
+<td><input type="text" size="30" name="BBS_TITLE" value="<?php echo $SETTING['BBS_TITLE']?>" /></td>
 </tr>
 <tr>
-<th>�^�C�g���摜�̃p�X</th>
-<td><input type="text" size="30" name="BBS_TITLE_PICTURE" value="<?=$SETTING['BBS_TITLE_PICTURE']?>"></td>
+<th>タイトル画像のパス</th>
+<td><input type="text" size="30" name="BBS_TITLE_PICTURE" value="<?php echo $SETTING['BBS_TITLE_PICTURE']?>" /></td>
 </tr>
 <tr>
-<th>�^�C�g���̃����NURL</th>
-<td><input type="text" size="30" name="BBS_TITLE_LINK" value="<?=$SETTING['BBS_TITLE_LINK']?>"></td>
+<th>タイトルのリンクURL</th>
+<td><input type="text" size="30" name="BBS_TITLE_LINK" value="<?php echo $SETTING['BBS_TITLE_LINK']?>" /></td>
 </tr>
 <tr>
-<th>�w�i�摜�̃p�X</th>
-<td><input type="text" size="30" name="BBS_BG_PICTURE" value="<?=$SETTING['BBS_BG_PICTURE']?>"></td>
+<th>背景画像のパス</th>
+<td><input type="text" size="30" name="BBS_BG_PICTURE" value="<?php echo $SETTING['BBS_BG_PICTURE']?>" /></td>
 </tr>
 <tr>
-<th>����������̖��O</th>
-<td><input type="text" size="30" name="BBS_NONAME_NAME" value="<?=$SETTING['BBS_NONAME_NAME']?>"></td>
+<th>名無しさんの名前</th>
+<td><input type="text" size="30" name="BBS_NONAME_NAME" value="<?php echo $SETTING['BBS_NONAME_NAME']?>" /></td>
 </tr>
 <tr>
-<th>�폜���b�Z�[�W</th>
-<td><input type="text" size="30" name="BBS_DELETE_NAME" value="<?=$SETTING['BBS_DELETE_NAME']?>"></td>
+<th>削除メッセージ</th>
+<td><input type="text" size="30" name="BBS_DELETE_NAME" value="<?php echo $SETTING['BBS_DELETE_NAME']?>" /></td>
 </tr>
 <tr>
-<th><font color=<?=$SETTING['BBS_TITLE_COLOR']?>>��</font>�^�C�g���̐F</th>
-<td><input type="text" size="30" name="BBS_TITLE_COLOR" value="<?=$SETTING['BBS_TITLE_COLOR']?>"></td>
+<th><font color="<?php echo $SETTING['BBS_TITLE_COLOR']?>">■</font>タイトルの色</th>
+<td><input type="color" size="30" name="BBS_TITLE_COLOR" value="<?php echo $SETTING['BBS_TITLE_COLOR']?>" /></td>
 </tr>
 <tr>
-<th><font color=<?=$SETTING['BBS_BG_COLOR']?>>��</font>�w�i�F</th>
-<td><input type="text" size="30" name="BBS_BG_COLOR" value="<?=$SETTING['BBS_BG_COLOR']?>"></td>
+<th><font color="<?php echo $SETTING['BBS_BG_COLOR']?>">■</font>背景色</th>
+<td><input type="color" size="30" name="BBS_BG_COLOR" value="<?php echo $SETTING['BBS_BG_COLOR']?>" /></td>
 </tr>
 <tr>
-<th><font color=<?=$SETTING['BBS_MAKETHREAD_COLOR']?>>��</font>�X���b�h�V�K�쐬��ʂ̐F</th>
-<td><input type="text" size="30" name="BBS_MAKETHREAD_COLOR" value="<?=$SETTING['BBS_MAKETHREAD_COLOR']?>"></td>
+<th><font color="<?php echo $SETTING['BBS_MAKETHREAD_COLOR']?>">■</font>スレッド新規作成画面の色</th>
+<td><input type="color" size="30" name="BBS_MAKETHREAD_COLOR" value="<?php echo $SETTING['BBS_MAKETHREAD_COLOR']?>" /></td>
 </tr>
 <tr>
-<th><font color=<?=$SETTING['BBS_MENU_COLOR']?>>��</font>�X�����j���[�\�����̔w�i�F</th>
-<td><input type="text" size="30" name="BBS_MENU_COLOR" value="<?=$SETTING['BBS_MENU_COLOR']?>"></td>
+<th><font color="<?php echo $SETTING['BBS_MENU_COLOR']?>">■</font>スレメニュー表示部の背景色</th>
+<td><input type="color" size="30" name="BBS_MENU_COLOR" value="<?php echo $SETTING['BBS_MENU_COLOR']?>" /></td>
 </tr>
 <tr>
-<th><font color=<?=$SETTING['BBS_THREAD_COLOR']?>>��</font>�X���b�h�\�����̔w�i�F</th>
-<td><input type="text" size="30" name="BBS_THREAD_COLOR" value="<?=$SETTING['BBS_THREAD_COLOR']?>"></td>
+<th><font color="<?php echo $SETTING['BBS_THREAD_COLOR']?>">■</font>スレッド表示部の背景色</th>
+<td><input type="color" size="30" name="BBS_THREAD_COLOR" value="<?php echo $SETTING['BBS_THREAD_COLOR']?>" /></td>
 </tr>
 <tr>
-<th><font color=<?=$SETTING['BBS_SUBJECT_COLOR']?>>��</font>�X���^�C�g���̐F</th>
-<td><input type="text" size="30" name="BBS_SUBJECT_COLOR" value="<?=$SETTING['BBS_SUBJECT_COLOR']?>"></td>
+<th><font color="<?php echo $SETTING['BBS_SUBJECT_COLOR']?>">■</font>スレタイトルの色</th>
+<td><input type="color" size="30" name="BBS_SUBJECT_COLOR" value="<?php echo $SETTING['BBS_SUBJECT_COLOR']?>" /></td>
 </tr>
 <tr>
-<th><font color=<?=$SETTING['BBS_TEXT_COLOR']?>>��</font>���e���̐F</th>
-<td><input type="text" size="30" name="BBS_TEXT_COLOR" value="<?=$SETTING['BBS_TEXT_COLOR']?>"></td>
+<th><font color="<?php echo $SETTING['BBS_TEXT_COLOR']?>">■</font>投稿文の色</th>
+<td><input type="color" size="30" name="BBS_TEXT_COLOR" value="<?php echo $SETTING['BBS_TEXT_COLOR']?>" /></td>
 </tr>
 <tr>
-<th><font color=<?=$SETTING['BBS_NAME_COLOR']?>>��</font>���O�̐F</th>
-<td><input type="text" size="30" name="BBS_NAME_COLOR" value="<?=$SETTING['BBS_NAME_COLOR']?>"></td>
+<th><font color="<?php echo $SETTING['BBS_NAME_COLOR']?>">■</font>名前の色</th>
+<td><input type="color" size="30" name="BBS_NAME_COLOR" value="<?php echo $SETTING['BBS_NAME_COLOR']?>" /></td>
 </tr>
 <tr>
-<th><font color=<?=$SETTING['BBS_LINK_COLOR']?>>��</font>LINK�̐F</th>
-<td><input type="text" size="30" name="BBS_LINK_COLOR" value="<?=$SETTING['BBS_LINK_COLOR']?>"></td>
+<th><font color="<?php echo $SETTING['BBS_LINK_COLOR']?>">■</font>LINKの色</th>
+<td><input type="color" size="30" name="BBS_LINK_COLOR" value="<?php echo $SETTING['BBS_LINK_COLOR']?>" /></td>
 </tr>
 <tr>
-<th><font color=<?=$SETTING['BBS_ALINK_COLOR']?>>��</font>ALINK�̐F</th>
-<td><input type="text" size="30" name="BBS_ALINK_COLOR" value="<?=$SETTING['BBS_ALINK_COLOR']?>"></td>
+<th><font color="<?php echo $SETTING['BBS_ALINK_COLOR']?>">■</font>ALINKの色</th>
+<td><input type="color" size="30" name="BBS_ALINK_COLOR" value="<?php echo $SETTING['BBS_ALINK_COLOR']?>" /></td>
 </tr>
 <tr>
-<th><font color=<?=$SETTING['BBS_VLINK_COLOR']?>>��</font>VLINK�̐F</th>
-<td><input type="text" size="30" name="BBS_VLINK_COLOR" value="<?=$SETTING['BBS_VLINK_COLOR']?>"></td>
+<th><font color="<?php echo $SETTING['BBS_VLINK_COLOR']?>">■</font>VLINKの色</th>
+<td><input type="color" size="30" name="BBS_VLINK_COLOR" value="<?php echo $SETTING['BBS_VLINK_COLOR']?>" /></td>
 </tr>
 <tr>
-<th>index.html �ɕ\������X���b�h��</th>
-<td><input type="text" size="30" name="BBS_THREAD_NUMBER" value="<?=$SETTING['BBS_THREAD_NUMBER']?>"></td>
+<th>index.html に表示するスレッド数</th>
+<td><input type="text" size="30" name="BBS_THREAD_NUMBER" value="<?php echo $SETTING['BBS_THREAD_NUMBER']?>" /></td>
 </tr>
 <tr>
-<th>1�X���b�h�ɕ\�����郌�X��</th>
-<td><input type="text" size="30" name="BBS_CONTENTS_NUMBER" value="<?=$SETTING['BBS_CONTENTS_NUMBER']?>"></td>
+<th>1スレッドに表示するレス数</th>
+<td><input type="text" size="30" name="BBS_CONTENTS_NUMBER" value="<?php echo $SETTING['BBS_CONTENTS_NUMBER']?>" /></td>
 </tr>
 <tr>
-<th>1���X�ɕ\������s��</th>
-<td><input type="text" size="30" name="BBS_LINE_NUMBER" value="<?=$SETTING['BBS_LINE_NUMBER']?>"></td>
+<th>1レスに表示する行数</th>
+<td><input type="text" size="30" name="BBS_LINE_NUMBER" value="<?php echo $SETTING['BBS_LINE_NUMBER']?>" /></td>
 </tr>
 <tr>
-<th>���j���[�ɕ\������X���b�h��</th>
-<td><input type="text" size="30" name="BBS_MAX_MENU_THREAD" value="<?=$SETTING['BBS_MAX_MENU_THREAD']?>"></td>
+<th>メニューに表示するスレッド数</th>
+<td><input type="text" size="30" name="BBS_MAX_MENU_THREAD" value="<?php echo $SETTING['BBS_MAX_MENU_THREAD']?>" /></td>
 </tr>
 <tr>
-<th>�X���^�C�g���̍ő啶�����i�o�C�g�j</th>
-<td><input type="text" size="30" name="BBS_SUBJECT_COUNT" value="<?=$SETTING['BBS_SUBJECT_COUNT']?>"></td>
+<th>スレタイトルの最大文字数（バイト）</th>
+<td><input type="text" size="30" name="BBS_SUBJECT_COUNT" value="<?php echo $SETTING['BBS_SUBJECT_COUNT']?>" /></td>
 </tr>
 <tr>
-<th>���O�̍ő啶�����i�o�C�g�j</th>
-<td><input type="text" size="30" name="BBS_NAME_COUNT" value="<?=$SETTING['BBS_NAME_COUNT']?>"></td>
+<th>名前の最大文字数（バイト）</th>
+<td><input type="text" size="30" name="BBS_NAME_COUNT" value="<?php echo $SETTING['BBS_NAME_COUNT']?>" /></td>
 </tr>
 <tr>
-<th>���[���̍ő啶�����i�o�C�g�j</th>
-<td><input type="text" size="30" name="BBS_MAIL_COUNT" value="<?=$SETTING['BBS_MAIL_COUNT']?>"></td>
+<th>メールの最大文字数（バイト）</th>
+<td><input type="text" size="30" name="BBS_MAIL_COUNT" value="<?php echo $SETTING['BBS_MAIL_COUNT']?>" /></td>
 </tr>
 <tr>
-<th>�{���̍ő啶�����i�o�C�g�j</th>
-<td><input type="text" size="30" name="BBS_MESSAGE_COUNT" value="<?=$SETTING['BBS_MESSAGE_COUNT']?>"></td>
+<th>本文の最大文字数（バイト）</th>
+<td><input type="text" size="30" name="BBS_MESSAGE_COUNT" value="<?php echo $SETTING['BBS_MESSAGE_COUNT']?>" /></td>
 </tr>
 <tr>
-<th>UNICODE����</th>
-<td><select name="BBS_UNICODE"><option value="pass" <?=$sel_pass?>>pass<option value="change" <?=$sel_change?>>change</select></td>
+<th>UNICODE処理</th>
+<td><select name="BBS_UNICODE"><option value="pass" <?php echo $sel_pass?>>pass<option value="change" <?php echo $sel_change?>>change</select></td>
 </tr>
 <tr>
-<th>�z�X�g���\��</th>
-<td>����<input type="checkbox" name="BBS_DISP_IP" value="checked" <?=$SETTING['BBS_DISP_IP']?>></td>
+<th>ホスト名表示</th>
+<td>する<input type="checkbox" name="BBS_DISP_IP" value="checked" <?php echo $SETTING['BBS_DISP_IP']?> /></td>
 </tr>
 <tr>
-<th>ID�\��</th>
-<td>���Ȃ�<input type="checkbox" name="BBS_NO_ID" value="checked" <?=$SETTING['BBS_NO_ID']?>></td>
+<th>ID表示</th>
+<td>しない<input type="checkbox" name="BBS_NO_ID" value="checked" <?php echo $SETTING['BBS_NO_ID']?> /></td>
 </tr>
 <tr>
-<th>ID�����\��</th>
-<td>����<input type="checkbox" name="BBS_FORCE_ID" value="checked" <?=$SETTING['BBS_FORCE_ID']?>>��ID�\�����Ȃ����`�F�b�N����Ă���Ƃ����炪�D�悳��܂�</td>
+<th>ID強制表示</th>
+<td>する<input type="checkbox" name="BBS_FORCE_ID" value="checked" <?php echo $SETTING['BBS_FORCE_ID']?> />↑ID表示しないがチェックされているとそちらが優先されます</td>
 </tr>
 <tr>
-<th>���O���͕K�{</th>
-<td>����<input type="checkbox" name="NANASHI_CHECK" value="checked" <?=$SETTING['NANASHI_CHECK']?>></td>
+<th>名前入力必須</th>
+<td>する<input type="checkbox" name="NANASHI_CHECK" value="checked" <?php echo $SETTING['NANASHI_CHECK']?> /></td>
 </tr>
 <tr>
-<th>�X���b�h���Ă���</th>
-<td><input type="text" size="3" name="BBS_THREAD_TATESUGI" value="<?=$SETTING['BBS_THREAD_TATESUGI']?>"> �Ԋu</td>
+<th>スレッド立てすぎ</th>
+<td><input type="text" size="3" name="BBS_THREAD_TATESUGI" value="<?php echo $SETTING['BBS_THREAD_TATESUGI']?>" /> 個間隔</td>
 </tr>
 <tr>
-<th>�A�����e����</th>
-<td><input type="text" size="3" name="timecount" value="<?=$SETTING['timecount']?>">��<input type="text" size="3" name="timeclose" value="<?=$SETTING['timeclose']?>">��Ő���</td>
+<th>連続投稿制限</th>
+<td><input type="text" size="3" name="timecount" value="<?php echo $SETTING['timecount']?>" />回中<input type="text" size="3" name="timeclose" value="<?php echo $SETTING['timeclose']?>" />回で制限</td>
 </tr>
 <tr>
-<th>Cookie(NAME)�쐬</th>
-<td>����<input type="checkbox" name="BBS_NAMECOOKIE_CHECK" value="checked" <?=$SETTING['BBS_NAMECOOKIE_CHECK']?>></td>
+<th>Cookie(NAME)作成</th>
+<td>する<input type="checkbox" name="BBS_NAMECOOKIE_CHECK" value="checked" <?php echo $SETTING['BBS_NAMECOOKIE_CHECK']?> /></td>
 </tr>
 <tr>
-<th>Cookie(MAIL)�쐬</th>
-<td>����<input type="checkbox" name="BBS_MAILCOOKIE_CHECK" value="checked" <?=$SETTING['BBS_MAILCOOKIE_CHECK']?>></td>
+<th>Cookie(MAIL)作成</th>
+<td>する<input type="checkbox" name="BBS_MAILCOOKIE_CHECK" value="checked" <?php echo $SETTING['BBS_MAILCOOKIE_CHECK']?> /></td>
 </tr>
 <tr>
-<th>PROXY����</th>
-<td>����<input type="checkbox" name="BBS_PROXY_CHECK" value="checked" <?=$SETTING['BBS_PROXY_CHECK']?>>���ϐ��Ŕ��f����̂œ���PROXY�͐����ł��܂���</td>
+<th>PROXY制限</th>
+<td>する<input type="checkbox" name="BBS_PROXY_CHECK" value="checked" <?php echo $SETTING['BBS_PROXY_CHECK']?> />環境変数で判断するので匿名PROXYは制限できません</td>
 </tr>
 <tr>
-<th>�C�OPROXY����</th>
-<td>����<input type="checkbox" name="BBS_OVERSEA_PROXY" value="checked" <?=$SETTING['BBS_OVERSEA_PROXY']?>></td>
+<th>海外PROXY制限</th>
+<td>する<input type="checkbox" name="BBS_OVERSEA_PROXY" value="checked" <?php echo $SETTING['BBS_OVERSEA_PROXY']?> /></td>
 </tr>
 <tr>
-<th>.JP�h���C���ȊO����̃X�����ċ���</th>
-<td>����<input type="checkbox" name="BBS_OVERSEA_THREAD" value="checked" <?=$SETTING['BBS_OVERSEA_THREAD']?>>bbtec.net(YahooBB)�͋��ۂ���܂���</td>
+<th>.JPドメイン以外からのスレ立て拒否</th>
+<td>する<input type="checkbox" name="BBS_OVERSEA_THREAD" value="checked" <?php echo $SETTING['BBS_OVERSEA_THREAD']?> />bbtec.net(YahooBB)は拒否されません</td>
 </tr>
 </table>
-<input type="submit" value="�ݒ�X�V"><br>
+<input type="submit" value="設定更新"><br>
 </form>
 <br>
 </body></html>
