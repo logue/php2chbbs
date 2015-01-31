@@ -1,12 +1,12 @@
 <?php
-#ˆê“x‚É•\¦‚·‚éƒŠƒXƒg
+#ä¸€åº¦ã«è¡¨ç¤ºã™ã‚‹ãƒªã‚¹ãƒˆ
 $inum = 10;
 require("passcheck.php");
-if (!is_dir("../$_GET[bbs]")) disperror("‚d‚q‚q‚n‚qI", "‚»‚ñ‚È”ÂorƒXƒŒƒbƒh‚È‚¢‚Å‚·B");
+if (!is_dir("../$_GET[bbs]")) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ãã‚“ãªæ¿orã‚¹ãƒ¬ãƒƒãƒ‰ãªã„ã§ã™ã€‚");
 #====================================================
-#@‰Šúî•ñ‚Ìæ“¾iİ’èƒtƒ@ƒCƒ‹j
+#ã€€åˆæœŸæƒ…å ±ã®å–å¾—ï¼ˆè¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ï¼‰
 #====================================================
-#İ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚Ş
+#è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã‚€
 $set_pass = "../$_GET[bbs]/SETTING.TXT";
 if (is_file($set_pass)) {
 	$set_str = file($set_pass);
@@ -16,16 +16,16 @@ if (is_file($set_pass)) {
 		$SETTING[$name] = $value;
 	}
 }
-else disperror("‚d‚q‚q‚n‚qI","‚d‚q‚q‚n‚qFƒ†[ƒU[İ’è‚ªÁ¸‚µ‚Ä‚¢‚Ü‚·I");
+else disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼šãƒ¦ãƒ¼ã‚¶ãƒ¼è¨­å®šãŒæ¶ˆå¤±ã—ã¦ã„ã¾ã™ï¼");
 #==================================================
-#@ƒtƒ@ƒCƒ‹‘€ìiƒzƒXƒgƒtƒ@ƒCƒ‹–¼“Ç‚İ‚İj
+#ã€€ãƒ•ã‚¡ã‚¤ãƒ«æ“ä½œï¼ˆãƒ›ã‚¹ãƒˆãƒ•ã‚¡ã‚¤ãƒ«åèª­ã¿è¾¼ã¿ï¼‰
 #==================================================
 $log_file = "../$_GET[bbs]/hostlog.cgi";
-if (!is_file($log_file)) disperror("‚d‚q‚q‚n‚qI","‚d‚q‚q‚n‚qF$log_file ‚ª‚ ‚è‚Ü‚¹‚ñ");
-if (!is_writable($log_file)) disperror("‚d‚q‚q‚n‚qI","‚d‚q‚q‚n‚qF$log_file ‚É‘‚«‚İ‘®«‚ª‚ ‚è‚Ü‚¹‚ñ");
+if (!is_file($log_file)) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼š$log_file ãŒã‚ã‚Šã¾ã›ã‚“");
+if (!is_writable($log_file)) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼š$log_file ã«æ›¸ãè¾¼ã¿å±æ€§ãŒã‚ã‚Šã¾ã›ã‚“");
 $host_log = file($log_file);
 #==================================================
-#@ƒAƒNƒZƒX§ŒÀ
+#ã€€ã‚¢ã‚¯ã‚»ã‚¹åˆ¶é™
 #==================================================
 if(isset($_GET['mode']) and $_GET['mode'] == "ban") {
 	list(,,,,,,$ipaddr) = explode('<>', $host_log[$_GET['id']]);
@@ -33,11 +33,11 @@ if(isset($_GET['mode']) and $_GET['mode'] == "ban") {
 	fputs($fp, $ipaddr."\n");
 	fclose($fp);
 }
-#ƒAƒNƒZƒX§ŒÀƒŠƒXƒg“Ç‚İ‚İ
+#ã‚¢ã‚¯ã‚»ã‚¹åˆ¶é™ãƒªã‚¹ãƒˆèª­ã¿è¾¼ã¿
 if (is_file("../$_GET[bbs]/uerror.cgi")) $deny_array = file("../$_GET[bbs]/uerror.cgi");
 else $deny_array = array();
 #==================================================
-#@ƒƒOíœ
+#ã€€ãƒ­ã‚°å‰Šé™¤
 #==================================================
 if(isset($_GET['mode']) and $_GET['mode'] == "log_del") {
 	if (isset($_GET['del']) and $_GET['del']) {
@@ -49,30 +49,31 @@ if(isset($_GET['mode']) and $_GET['mode'] == "log_del") {
 	$host_log = file($log_file);
 }
 #==================================================
-#@ƒƒO•\¦
+#ã€€ãƒ­ã‚°è¡¨ç¤º
 #==================================================
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
-<title>ƒzƒXƒgƒƒOŠÇ—</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="main.css" type="text/css" />
+<title>ãƒ›ã‚¹ãƒˆãƒ­ã‚°ç®¡ç†</title>
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>ƒzƒXƒgƒƒOŠÇ—</h3>
-<hr>
-ƒƒO‚ğíœ‚·‚éê‡‚ÍAíœ‚µ‚½‚¢ƒƒO‚Ìƒ`ƒFƒbƒNƒ{ƒbƒNƒX‚ğƒ`ƒFƒbƒN‚µ‚Ä<b>íœ</b>ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢B<br>
-<b>ƒAƒN‹Ö</b>‚ğƒNƒŠƒbƒN‚·‚é‚Æ‚»‚Ì“ŠeÒ‚ÌIPƒAƒhƒŒƒX‚ª“Še‹‘”ÛƒŠƒXƒg‚É’Ç‰Á‚³‚ê‚Ü‚·B<br>
-ƒAƒN‹Ö‚ğ‰ğœ‚·‚éê‡‚ÍIPƒAƒhƒŒƒX‚ğŠm”F‚µ‚Äƒƒjƒ…[‚Ì<b>ƒAƒN‹Öˆ—</b>‚©‚ç‰ğœ‚µ‚Ä‚­‚¾‚³‚¢B<br>
-<br>
-<form name="form1" action="<?=$_SERVER['PHP_SELF']?>" method="GET">
-<input type="hidden" name="bbs" value="<?=$_GET['bbs']?>">
-<input type="hidden" name="mode" value="log_del">
-<input type="submit" value="íœ">
-<?
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']?></h1>
+<h3>ãƒ›ã‚¹ãƒˆãƒ­ã‚°ç®¡ç†</h3>
+<hr />
+<p>ãƒ­ã‚°ã‚’å‰Šé™¤ã™ã‚‹å ´åˆã¯ã€å‰Šé™¤ã—ãŸã„ãƒ­ã‚°ã®ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹ã‚’ãƒã‚§ãƒƒã‚¯ã—ã¦<b>å‰Šé™¤</b>ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ã¦ãã ã•ã„ã€‚<br />
+<b>ã‚¢ã‚¯ç¦</b>ã‚’ã‚¯ãƒªãƒƒã‚¯ã™ã‚‹ã¨ãã®æŠ•ç¨¿è€…ã®IPã‚¢ãƒ‰ãƒ¬ã‚¹ãŒæŠ•ç¨¿æ‹’å¦ãƒªã‚¹ãƒˆã«è¿½åŠ ã•ã‚Œã¾ã™ã€‚<br />
+ã‚¢ã‚¯ç¦ã‚’è§£é™¤ã™ã‚‹å ´åˆã¯IPã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’ç¢ºèªã—ã¦ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®<b>ã‚¢ã‚¯ç¦å‡¦ç†</b>ã‹ã‚‰è§£é™¤ã—ã¦ãã ã•ã„ã€‚<br />
+</p>
+<form name="form1" action="<?php echo $_SERVER['PHP_SELF']?>" method="GET">
+<input type="hidden" name="bbs" value="<?php echo $_GET['bbs']?>" />
+<input type="hidden" name="mode" value="log_del" />
+<input type="submit" value="å‰Šé™¤" />
+<?php
 if (!isset($_GET['page']) or !$_GET['page']) $_GET['page'] = 1;
-echo "pageF$_GET[page]<br>\n";
+echo "pageï¼š$_GET[page]<br />\n";
 $st = ($_GET['page'] - 1) * $inum;
 $num = count($host_log);
 $total_page = (int)(($num+$inum-1)/$inum);
@@ -89,42 +90,49 @@ for ($i = $st; $i < $st + $inum; $i++) {
 	if (!$mail) $mail = '&nbsp;';
 	if (!$subject) $subject = '&nbsp;';
 	$comment = htmlspecialchars($comment);
-	$deny_flag = '<a class="item" href="'.$_SERVER['PHP_SELF'].'?bbs='.$_GET['bbs'].'&amp;page='.$_GET['page'].'&amp;mode=ban&amp;id='.$i.'">ƒAƒN‹Ö</a>';
+	$deny_flag = '<a class="item" href="'.$_SERVER['PHP_SELF'].'?bbs='.$_GET['bbs'].'&amp;page='.$_GET['page'].'&amp;mode=ban&amp;id='.$i.'">ã‚¢ã‚¯ç¦</a>';
 	foreach ($deny_array as $deny) {
 		$deny = trim($deny);
 		if (stristr($host, $deny)) {
 			$host = str_replace($deny, '<font color="red"><b>'.$deny.'</b></font>', $host);
-			$deny_flag = 'ƒAƒN‹ÖÏ';
+			$deny_flag = 'ã‚¢ã‚¯ç¦æ¸ˆ';
 			break;
 		}
 		if (stristr($ipaddr, $deny)) {
 			$ipaddr = str_replace($deny, '<font color="red"><b>'.$deny.'</b></font>', $ipaddr);
-			$deny_flag = 'ƒAƒN‹ÖÏ';
+			$deny_flag = 'ã‚¢ã‚¯ç¦æ¸ˆ';
 			break;
 		}
 	}
 	?>
 <tr>
-<td rowspan="2"><input type="checkbox" name="del[]" value="<?=$i++?>"></td>
-<td rowspan="2" align="center"><?=$i--?></td>
-<td colspan="2"><font color="<?=$SETTING['BBS_NAME_COLOR']?>"><b><?=$name?></b></font> [<?=$mail?>] (<?=$date?>)@<font color="<?=$SETTING['BBS_SUBJECT_COLOR']?>"><?=$subject?></font></td><td rowspan="2"><?=$deny_flag?></td></tr>
-<tr>
-<td><?=$comment?> </td><td><?=$host?> (<?=$ipaddr?>)</td>
+	<td rowspan="2"><input type="checkbox" name="del[]" value="<?php echo $i++?>" /></td>
+	<td rowspan="2" align="center"><?php echo $i--?></td>
+	<td colspan="2">
+		<font color="<?php echo $SETTING['BBS_NAME_COLOR']?>"><b><?php echo $name?></b></font>
+		[<?php echo $mail?>] (<?php echo $date?>)ã€€
+		<font color="<?php echo $SETTING['BBS_SUBJECT_COLOR']?>"><?php echo $subject?></font>
+	</td>
+	<td rowspan="2"><?php echo $deny_flag?></td>
 </tr>
-<?
+<tr>
+	<td><?php echo $comment?> </td>
+	<td><?php echo $host?> (<?php echo $ipaddr?>)</td>
+</tr>
+<?php
 }
 ?>
 </table>
 <?php
 for ($i = 1; $i <= $total_page; $i++) {
 	if ($i == $_GET['page']) echo " $i \n";
-	else echo " <a class=\"item\" href=\"$_SERVER[PHP_SELF]?bbs=$_GET[bbs]&amp;page=$i\">$i</a> \n";
+	else echo '<a class="item" href="' . $_SERVER[PHP_SELF] . '?bbs=' . $_GET[bbs] . '&amp;page=' . $i . '">$i</a>' . "\n";
 }
 ?>
-<br>
-<input type="submit" value="íœ">
+<br />
+<input type="submit" value="å‰Šé™¤" />
 </form>
 </body></html>
-<?
+<?php
 exit;
 ?>

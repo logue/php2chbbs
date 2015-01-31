@@ -1,11 +1,11 @@
 <?php
 $thread=20;
 require("passcheck.php");
-$comment = '<br>';
+$comment = '<br />';
 #====================================================
-#@‰Šúî•ñ‚Ìæ“¾iİ’èƒtƒ@ƒCƒ‹j
+#ã€€åˆæœŸæƒ…å ±ã®å–å¾—ï¼ˆè¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ï¼‰
 #====================================================
-#İ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚Ş
+#è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã‚€
 $set_pass = "../$_REQUEST[bbs]/SETTING.TXT";
 if (is_file($set_pass)) {
 	$set_str = file ($set_pass);
@@ -15,20 +15,20 @@ if (is_file($set_pass)) {
 		$SETTING[$name] = $value;
 	}
 }
-else disperror("‚d‚q‚q‚n‚qI","‚d‚q‚q‚n‚qFƒ†[ƒU[İ’è‚ªÁ¸‚µ‚Ä‚¢‚Ü‚·I");
+else disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼šãƒ¦ãƒ¼ã‚¶ãƒ¼è¨­å®šãŒæ¶ˆå¤±ã—ã¦ã„ã¾ã™ï¼");
 $threadconf = array();
 $fp = fopen("../$_REQUEST[bbs]/threadconf.cgi", "r");
 while ($list = fgetcsv($fp, 1024)) {
 	$threadconf[$list[0]] = $list;
 }
 #==================================================
-#@ƒtƒ@ƒCƒ‹‘€ìiƒTƒuƒWƒFƒNƒgƒtƒ@ƒCƒ‹“Ç‚İ‚İj
+#ã€€ãƒ•ã‚¡ã‚¤ãƒ«æ“ä½œï¼ˆã‚µãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ï¼‰
 #==================================================
-#ƒTƒuƒWƒFƒNƒgƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
+#ã‚µãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
 $subfile = "../$_REQUEST[bbs]/subject.txt";
-#ƒTƒuƒWƒFƒNƒgƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
+#ã‚µãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
 $SUBJECTLIST = @file($subfile);
-#ƒTƒuƒWƒFƒNƒg“à—e‚ğƒnƒbƒVƒ…‚ÉŠi”[
+#ã‚µãƒ–ã‚¸ã‚§ã‚¯ãƒˆå†…å®¹ã‚’ãƒãƒƒã‚·ãƒ¥ã«æ ¼ç´
 $PAGEFILE = array();
 if ($SUBJECTLIST) {
 	foreach ($SUBJECTLIST as $tmp) {
@@ -36,7 +36,7 @@ if ($SUBJECTLIST) {
 		list($file, $value) = explode("<>", $tmp);
 		$filename = "../$_REQUEST[bbs]/dat/$file";
 		if (is_file($filename)) {
-			#dat‚ª‘¶İ‚·‚éê‡‚Ì‚İÅŒã‚É’Ç‰Á
+			#datãŒå­˜åœ¨ã™ã‚‹å ´åˆã®ã¿æœ€å¾Œã«è¿½åŠ 
 			preg_match("/(\d+)/", $file, $match);
 			$file = $match[1];
 			array_push($PAGEFILE,$file);
@@ -45,11 +45,11 @@ if ($SUBJECTLIST) {
 	}
 }
 #==================================================
-#@İ’è•ÏX
+#ã€€è¨­å®šå¤‰æ›´
 #==================================================
 if (isset($_POST['mode']) and $_POST['mode'] == "set") {
 	$target = "../$_POST[bbs]/dat/$_POST[key].dat";
-	if (!is_file($target)) disperror("‚d‚q‚q‚n‚qI", "‚»‚ñ‚È”ÂorƒXƒŒƒbƒh‚È‚¢‚Å‚·B");
+	if (!is_file($target)) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ãã‚“ãªæ¿orã‚¹ãƒ¬ãƒƒãƒ‰ãªã„ã§ã™ã€‚");
 	if (!isset($_POST['name_774'])) $_POST['name_774'] = '';
 	if (!isset($_POST['force_774'])) $_POST['force_774'] = '';
 	if (!isset($_POST['no_id'])) $_POST['no_id'] = 0;
@@ -76,28 +76,29 @@ if (isset($_POST['mode']) and $_POST['mode'] == "set") {
 		fwrite($fp, implode(',', $tmp)."\n");
 	}
 	fclose($fp);
-	$comment = '<font color="red">VIP‹@”\‚ğ•ÏX‚µ‚Ü‚µ‚½B</font><br>';
+	$comment = '<font color="red">VIPæ©Ÿèƒ½ã‚’å¤‰æ›´ã—ã¾ã—ãŸã€‚</font><br />';
 }
 #==================================================
-#@ƒƒjƒ…[
+#ã€€ãƒ¡ãƒ‹ãƒ¥ãƒ¼
 #==================================================
 if (!isset($_GET['page']) or !$_GET['page']) $_GET['page'] = 1;
 $st = ($_GET['page'] - 1) * $thread;
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
-<title>VIP‹@”\•ÏX</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="main.css" type="text/css" />
+<title>VIPæ©Ÿèƒ½å¤‰æ›´</title>
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>VIP‹@”\•ÏX</h3>
-<hr>
-<?=$comment?>
-<br>
-pageF<?=$_GET['page']?><br>
-<?
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']; ?></h1>
+<h3>VIPæ©Ÿèƒ½å¤‰æ›´</h3>
+<hr />
+<?php echo $comment?>
+<br />
+pageï¼š<?php echo $_GET['page']; ?><br />
+<?php
 $total = count($PAGEFILE) + $thread - 1;
 $total_page = (int)($total/$thread);
 for ($i = 1; $i <= $total_page; $i++) {
@@ -106,31 +107,31 @@ for ($i = 1; $i <= $total_page; $i++) {
 }
 ?>
 <table border="1" cellspacing="0" cellpadding="2">
-<tr><th>ƒXƒŒƒbƒhƒL[</th><th>ƒ^ƒCƒgƒ‹</th><th>–¼–³‚µ•ÏX</th><th>‹­§–¼–³‚µ</th><th>ID‚È‚µ</th><th>‹­§sage</th><th>ƒLƒƒƒbƒv‚Ì‚İƒŒƒX‰Â</th><th>VIP‹@”\–³Œø</th><th>–¼‘O•K{</th><th>ƒ[ƒƒZƒ</th><th>ƒAƒbƒvƒ[ƒh</th><th>@</th></tr>
+<tr /><th>ã‚¹ãƒ¬ãƒƒãƒ‰ã‚­ãƒ¼</th><th>ã‚¿ã‚¤ãƒˆãƒ«</th><th>åç„¡ã—å¤‰æ›´</th><th>å¼·åˆ¶åç„¡ã—</th><th>IDãªã—</th><th>å¼·åˆ¶sage</th><th>ã‚­ãƒ£ãƒƒãƒ—ã®ã¿ãƒ¬ã‚¹å¯</th><th>VIPæ©Ÿèƒ½ç„¡åŠ¹</th><th>åå‰å¿…é ˆ</th><th>ã‚¼ãƒ­ã‚»ãƒ­</th><th>ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰</th><th>ã€€</th></tr />
 <?php
 for ($i = $st; $i < $st+$thread; $i++) {
 	if (!isset($PAGEFILE[$i])) break;
 	$tmp = $PAGEFILE[$i];
 	if (!isset($threadconf[$tmp])) $threadconf[$tmp] = array($tmp,'','',0,0,0,0,0,0,0);
 	?>
-<tr>
-<form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
-<td> <a class="item" href="../test/read.php/<?=$_REQUEST['bbs']."/".$tmp?>/l50">#<?=$_REQUEST['bbs'].$tmp?></a> </td>
-<td><?=$SUBJECT[$tmp]?></td>
-<td><input type="text" size="10" name="name_774" value="<?=$threadconf[$tmp][1]?>"></td>
-<td><input type="text" size="10" name="force_774" value="<?=$threadconf[$tmp][2]?>"></td>
-<td><input type="checkbox" name="no_id"<? if ($threadconf[$tmp][3]) echo " checked"; ?> value="1"></td>
-<td><input type="checkbox" name="sage"<? if ($threadconf[$tmp][4]) echo " checked"; ?> value="1"></td>
-<td><input type="checkbox" name="stars"<? if ($threadconf[$tmp][5]) echo " checked"; ?> value="1"></td>
-<td><input type="checkbox" name="normal"<? if ($threadconf[$tmp][6]) echo " checked"; ?> value="1"></td>
-<td><input type="checkbox" name="name"<? if ($threadconf[$tmp][7]) echo " checked"; ?> value="1"></td>
-<td><input type="checkbox" name="zerothello"<? if ($threadconf[$tmp][8]) echo " checked"; ?> value="1"></td>
-<td><input type="checkbox" name="up"<? if ($threadconf[$tmp][9]) echo " checked"; ?> value="1"></td>
+<tr />
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+<td> <a class="item" href="../test/read.php/<?php echo $_REQUEST['bbs']."/".$tmp?>/l50">#<?php echo $_REQUEST['bbs'].$tmp?></a> </td>
+<td><?php echo $SUBJECT[$tmp]; ?></td>
+<td><input type="text" size="10" name="name_774" value="<?php echo $threadconf[$tmp][1]; ?>" /></td>
+<td><input type="text" size="10" name="force_774" value="<?php echo $threadconf[$tmp][2]; ?>" /></td>
+<td><input type="checkbox" name="no_id"<?php    if ($threadconf[$tmp][3]) echo " checked"; ?> value="1" /></td>
+<td><input type="checkbox" name="sage"<?php     if ($threadconf[$tmp][4]) echo " checked"; ?> value="1" /></td>
+<td><input type="checkbox" name="stars"<?php    if ($threadconf[$tmp][5]) echo " checked"; ?> value="1" /></td>
+<td><input type="checkbox" name="normal"<?php   if ($threadconf[$tmp][6]) echo " checked"; ?> value="1" /></td>
+<td><input type="checkbox" name="name"<?php     if ($threadconf[$tmp][7]) echo " checked"; ?> value="1" /></td>
+<td><input type="checkbox" name="zerothello"<?php if ($threadconf[$tmp][8]) echo " checked"; ?> value="1" /></td>
+<td><input type="checkbox" name="up"<?php if ($threadconf[$tmp][9]) echo " checked"; ?> value="1"></td>
 <td>
- <input type="hidden" name="bbs" value="<?=$_REQUEST['bbs']?>">
- <input type="hidden" name="key" value="<?=$tmp?>">
- <input type="hidden" name="mode" value="set">
- <input type="submit" value="İ’è•ÏX">
+ <input type="hidden" name="bbs" value="<?php echo $_REQUEST['bbs']; ?>" />
+ <input type="hidden" name="key" value="<?php echo $tmp?>" />
+ <input type="hidden" name="mode" value="set" />
+ <input type="submit" value="è¨­å®šå¤‰æ›´" />
 </td>
 </form>
 </tr>

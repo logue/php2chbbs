@@ -3,9 +3,9 @@ $thread=20;
 require("passcheck.php");
 $comment = '';
 #====================================================
-#�@�������̎擾�i�ݒ�t�@�C���j
+#　初期情報の取得（設定ファイル）
 #====================================================
-#�ݒ�t�@�C����ǂ�
+#設定ファイルを読む
 $set_pass = "../$_REQUEST[bbs]/SETTING.TXT";
 if (is_file($set_pass)) {
 	$set_str = file ($set_pass);
@@ -15,15 +15,15 @@ if (is_file($set_pass)) {
 		$SETTING[$name] = $value;
 	}
 }
-else disperror("�d�q�q�n�q�I","�d�q�q�n�q�F���[�U�[�ݒ肪�������Ă��܂��I");
+else disperror("ＥＲＲＯＲ！","ＥＲＲＯＲ：ユーザー設定が消失しています！");
 #==================================================
-#�@�t�@�C������i�T�u�W�F�N�g�t�@�C���ǂݍ��݁j
+#　ファイル操作（サブジェクトファイル読み込み）
 #==================================================
-#�T�u�W�F�N�g�t�@�C����ǂݍ���
+#サブジェクトファイルを読み込む
 $subfile = "../$_REQUEST[bbs]/subject.txt";
-#�T�u�W�F�N�g�t�@�C����ǂݍ���
+#サブジェクトファイルを読み込む
 $SUBJECTLIST = @file($subfile);
-#�T�u�W�F�N�g���e���n�b�V���Ɋi�[
+#サブジェクト内容をハッシュに格納
 $PAGEFILE = array();
 if ($SUBJECTLIST) {
 	foreach ($SUBJECTLIST as $tmp) {
@@ -31,7 +31,7 @@ if ($SUBJECTLIST) {
 		list($file, $value) = explode("<>", $tmp);
 		$filename = "../$_REQUEST[bbs]/dat/$file";
 		if (is_file($filename)) {
-			#dat�����݂���ꍇ�̂ݍŌ�ɒǉ�
+			#datが存在する場合のみ最後に追加
 			preg_match("/(\d+)/", $file, $match);
 			$file = $match[1];
 			array_push($PAGEFILE,$file);
@@ -40,37 +40,38 @@ if ($SUBJECTLIST) {
 	}
 }
 #==================================================
-#�@�X���b�h�폜
+#　スレッド削除
 #==================================================
 if (isset($_POST['mode']) and $_POST['mode'] == "del") {
-	if (!is_file("../$_POST[bbs]/dat/$_POST[key].dat")) disperror("�d�q�q�n�q�I", "����Ȕ�or�X���b�h�Ȃ��ł��B");
+	if (!is_file("../$_POST[bbs]/dat/$_POST[key].dat")) disperror("ＥＲＲＯＲ！", "そんな板orスレッドないです。");
 	if (!isset($_POST['chk']) or $_POST['chk'] != "ok") {
 		preg_match("/(.*)(\(\d+\))$/", $SUBJECT[$_POST['key']], $match);
-		?>
+?>
+<!DOCTYPE html>
 <html>
 <head>
-<title>�X���b�h�폜</title>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
+<meta charset="UTF-8" *>
+<title>スレッド削除</title>
+<link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>�X���b�h�폜</h3>
-<hr>
-�X���b�h�F<a class="item" href="../test/read.php/<?=$_POST['bbs']."/".$_POST['key']?>/l50">#<?=$_POST['bbs'].$_POST['key']?></a><br>
-�^�C�g���F<font color="<?=$SETTING['BBS_SUBJECT_COLOR']?>"><b><?=$match[1]?></b></font><br>
-���X���F<?=$match[2]?><br><br><br>
-���̃X���b�h���폜���܂��B<br><br>
-<form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
- <input type=hidden name="bbs" value="<?=$_POST['bbs']?>">
- <input type=hidden name="key" value="<?=$_POST['key']?>">
- <input type=hidden name="mode" value="del">
- <input type=hidden name="chk" value="ok">
- <input type=submit value="�������Ⴆ�I">
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']; ?></h1>
+<h3>スレッド削除</h3>
+<hr />
+スレッド：<a class="item" href="../test/read.php/<?php echo $_POST['bbs']."/".$_POST['key']; ?>/l50">#<?php echo $_POST['bbs'].$_POST['key']; ?></a><br />
+タイトル：<font color="<?php echo $SETTING['BBS_SUBJECT_COLOR']; ?>"><b><?php echo $match[1]; ?></b></font><br />
+レス数：<?php echo $match[2]; ?><br /><br /><br />
+このスレッドを削除します。<br /><br />
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+ <input type=hidden name="bbs" value="<?php echo $_POST['bbs']; ?>" />
+ <input type=hidden name="key" value="<?php echo $_POST['key']; ?>" />
+ <input type=hidden name="mode" value="del" />
+ <input type=hidden name="chk" value="ok" />
+ <input type=submit value="消しちゃえ！" />
 </form>
-<form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
- <input type=hidden name="bbs" value="<?=$_POST['bbs']?>">
- <input type=submit value="���b�p��߂�">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+ <input type=hidden name="bbs" value="<?php echo $_POST['bbs']; ?>" />
+ <input type=submit value="ヤッパやめる" />
 </form>
 </body></html>
 <?php
@@ -81,7 +82,7 @@ if (isset($_POST['mode']) and $_POST['mode'] == "del") {
 		@chmod($delfile, 0644);
 		unlink($delfile);
 		@unlink("../$_POST[bbs]/html/$_POST[key].html");
-		#�T�u�W�F�N�g���e���X�V
+		#サブジェクト内容を更新
 		$PAGEFILE = array();
 		$new = '';
 		if ($SUBJECTLIST) {
@@ -91,7 +92,7 @@ if (isset($_POST['mode']) and $_POST['mode'] == "del") {
 				if ("$_POST[key].dat" != $file) $new .= $tmp."\n";
 				$filename = "../$_POST[bbs]/dat/$file";
 				if (is_file($filename)) {
-					#dat�����݂���ꍇ�̂ݍŌ�ɒǉ�
+					#datが存在する場合のみ最後に追加
 					if (preg_match("/(\d+)\.dat$/", $file, $match)) {
 						array_push($PAGEFILE,$match[1]);
 						$SUBJECT[$match[1]] = $value;
@@ -105,7 +106,7 @@ if (isset($_POST['mode']) and $_POST['mode'] == "del") {
 		$dir = opendir("../$_POST[bbs]/img");
 		while (false !== ($file = readdir($dir))) {
 			if ($file != "." and $file != "..") {
-				// �g���q���Œ�łȂ��̂ŃL�[�őI��
+				// 拡張子が固定でないのでキーで選択
 				if (strstr($file, $_POST['key'])) {
 					unlink ("../$_POST[bbs]/img/$file");
 				}
@@ -121,72 +122,74 @@ if (isset($_POST['mode']) and $_POST['mode'] == "del") {
 			}
 		}
 		closedir($dir);
-		#0thello �t�@�C���폜
+		#0thello ファイル削除
 		@unlink("../$_POST[bbs]/0thello/$_POST[key].dat");
-		#threadconf ���O�폜
+		#threadconf ログ削除
 		$threadconf = file("../$_POST[bbs]/threadconf.cgi");
 		$fp = fopen("../$_POST[bbs]/threadconf.cgi", "w");
 		foreach($threadconf as $key=>$val) {
 			if (!strstr($val, $_POST['key'])) fwrite($fp, $val);
 		}
 		fclose($fp);
-		$comment = '<font color="red">�X���b�h���폜���܂����B���j���[��<b>index.html����蒼��</b>���N���b�N���Ă��������B</font><br>';
+		$comment = '<font color="red">スレッドを削除しました。メニューの<b>index.htmlを作り直す</b>をクリックしてください。</font><br />';
 	}
 }
 #==================================================
-#�@�X���b�h�ړ�
+#　スレッド移動
 #==================================================
 if (isset($_POST['mode']) and $_POST['mode'] == "mov") {
-	if (!is_file("../$_POST[bbs]/dat/$_POST[key].dat")) disperror("�d�q�q�n�q�I", "����Ȕ�or�X���b�h�Ȃ��ł��B");
+	if (!is_file("../$_POST[bbs]/dat/$_POST[key].dat")) disperror("ＥＲＲＯＲ！", "そんな板orスレッドないです。");
 	if (!isset($_POST['chk']) or $_POST['chk'] != "html") {
 		preg_match("/(.*)(\(\d+\))$/", $SUBJECT[$_POST['key']], $match);
-		?>
+?>
+<!DOCTYPE html>
 <html>
 <head>
-<title>�X���b�h�ړ�</title>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
+<meta charset="UTF-8" />
+<title>スレッド移動</title>
+<link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>�X���b�h�ړ�</h3>
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']; ?></h1>
+<h3>スレッド移動</h3>
 <hr>
-�X���b�h�F<a class="item" href="../test/read.php/<?=$_POST['bbs']."/".$_POST['key']?>/l50">#<?=$_POST['bbs'].$_POST['key']?></a><br>
-�^�C�g���F<font color="<?=$SETTING['BBS_SUBJECT_COLOR']?>"><b><?=$match[1]?></b></font><br>
-���X���F<?=$match[2]?><br><br><br>
-���̃X���b�h���ړ����܂��B<br><br>
-<form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
- <input type=hidden name="bbs" value="<?=$_POST['bbs']?>">
- <input type=hidden name="key" value="<?=$_POST['key']?>">
- <input type=hidden name="mode" value="mov">
- <input type=hidden name="chk" value="html">
- <input type=submit value="HTML�����ĉߋ����O�q�ɂ�">
+スレッド：<a class="item" href="../test/read.php/<?php echo $_POST['bbs']."/".$_POST['key']; ?>/l50">#<?php echo $_POST['bbs'].$_POST['key']; ?></a><br />
+タイトル：<font color="<?php echo $SETTING['BBS_SUBJECT_COLOR']; ?>"><b><?php echo $match[1]; ?></b></font><br />
+レス数：<?php echo $match[2]; ?><br /><br /><br />
+このスレッドを移動します。<br /><br />
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+ <input type=hidden name="bbs" value="<?php echo $_POST['bbs']; ?>" />
+ <input type=hidden name="key" value="<?php echo $_POST['key']; ?>" />
+ <input type=hidden name="mode" value="mov" />
+ <input type=hidden name="chk" value="html" />
+ <input type=submit value="HTML化して過去ログ倉庫へ" />
 </form>
-<form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
- <input type=hidden name="bbs" value="<?=$_POST['bbs']?>">
- <input type=submit value="���b�p��߂�">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+ <input type=hidden name="bbs" value="<?php echo $_POST['bbs']; ?>" />
+ <input type=submit value="ヤッパやめる" />
 </form>
 </body></html>
 <?php
 		exit;
 	#=========================
-	#�@�ߋ����O�q��
+	#　過去ログ倉庫
 	#=========================
 	}
 	else {
 		$log = file("../$_POST[bbs]/dat/$_POST[key].dat");
 		list(,,,,$subject) = explode("<>", $log[0]);
 		$html = <<<EOF
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta charset="UTF-8" />
 <title>$subject</title>
-<style type=text/css><!--
+<style type="text/css">/* <![CDATA[ */
 img {border:0;}
---></style>
+/* ]]> */</style>
 </head>
 <body text="$SETTING[BBS_TEXT_COLOR]" bgcolor="$SETTING[BBS_THREAD_COLOR]" link="$SETTING[BBS_LINK_COLOR]" alink="$SETTING[BBS_ALINK_COLOR]" vlink="$SETTING[BBS_VLINK_COLOR]">
-<a href="../">���f���ɖ߂遡</a>
+<a href="../">■掲示板に戻る■</a>
 <dl>
 <font size=+1 color="$SETTING[BBS_SUBJECT_COLOR]">$subject</font></b>
 EOF;
@@ -199,14 +202,14 @@ EOF;
 			if (!$message) {
 				$name='';
 				$mail='';
-				$time='[�������Ă܂�]';
-				$message='[�������Ă܂�]';
+				$time='[ここ壊れてます]';
+				$message='[ここ壊れてます]';
 			}
 			$message = preg_replace("/(https?|ftp):\/\/([\x21-\x7E]+)/",'<a href="$1://$2" target="_blank">$1://$2</a>',$message);
 			$message = str_replace("../test/read.php/$_POST[bbs]/$_POST[key]/",'#', $message);
 			$message = preg_replace("|<([^>]+\"\.\./)$_POST[bbs]/|", "<$1", $message);
 			$mailto = $mail ? "<a href=\"mailto:$mail\"><b> $name </b></a>" : "<font color=\"$SETTING[BBS_NAME_COLOR]\"><b>$name</b></font>";
-			fputs($fp, "<dt><a name=\"$s\">$s</a> ���O�F $mailto ���e���F $time<br><dd> $message <br><br><br>\n");
+			fputs($fp, "<dt><a name=\"$s\">$s</a> 名前： $mailto 投稿日： $time<br /><dd> $message <br /><br /><br />\n");
 			$s++;
 		}
 		fputs($fp, "</dl>\n<p>\n<hr>\n</body>\n</html>");
@@ -215,9 +218,9 @@ EOF;
 		unlink("../$_POST[bbs]/dat/$_POST[key].dat");
 		@unlink("../$_POST[bbs]/html/$_POST[key].html");
 		$fp = fopen("../$_POST[bbs]/kako/kako.txt", "a");
-		fputs($fp, "$_POST[key] �� <a href=\"$_POST[key].html\">".$SUBJECT[$_POST['key']]."</a><br>\n");
+		fputs($fp, "$_POST[key] ※ <a href=\"$_POST[key].html\">".$SUBJECT[$_POST['key']]."</a><br />\n");
 		fclose($fp);
-		#�T�u�W�F�N�g���e���X�V
+		#サブジェクト内容を更新
 		$PAGEFILE = array();
 		$new = '';
 		if ($SUBJECTLIST) {
@@ -227,7 +230,7 @@ EOF;
 				if ("$_POST[key].dat" != $file) $new .= $tmp."\n";
 				$filename = "../$_POST[bbs]/dat/$file";
 				if (is_file($filename)) {
-					#dat�����݂���ꍇ�̂ݍŌ�ɒǉ�
+					#datが存在する場合のみ最後に追加
 					if (preg_match("/(\d+)\.dat$/", $file, $match)) {
 						array_push($PAGEFILE,$match[1]);
 						$SUBJECT[$match[1]] = $value;
@@ -235,11 +238,11 @@ EOF;
 				}
 			}
 		}
-		#�T�u�W�F�N�g�t�@�C���X�V
+		#サブジェクトファイル更新
 		$fp = fopen($subfile, "w");
 		fputs($fp, $new);
 		fclose($fp);
-		#0thello �t�@�C���폜
+		#0thello ファイル削除
 		@unlink("../$_POST[bbs]/0thello/$_POST[key].dat");
 		$threadconf = file("../$_POST[bbs]/threadconf.cgi");
 		foreach($threadconf as $key=>$val) {
@@ -248,31 +251,32 @@ EOF;
 		$fp = fopen("../$_POST[bbs]/threadconf.cgi", "w");
 		fwrite($fp, implode("\n", $threadconf));
 		fclose($fp);
-		$comment = '<font color="red">�X���b�h���ړ����܂����B���j���[��<b>index.html����蒼��</b>���N���b�N���Ă��������B</font><br>';
+		$comment = '<font color="red">スレッドを移動しました。メニューの<b>index.htmlを作り直す</b>をクリックしてください。</font><br />';
 	}
 }
 #==================================================
-#�@���j���[
+#　メニュー
 #==================================================
 if (!isset($_GET['page']) or !$_GET['page']) $_GET['page'] = 1;
 $st = ($_GET['page'] - 1) * $thread;
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
-<title>�X���b�h�폜/�ړ�</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="main.css" type="text/css" />
+<title>スレッド削除/移動</title>
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>�X���b�h�폜/�ړ�</h3>
-<hr>
-<?=$comment?>
-<b>�X���b�h�폜</b>�͂��̃X���b�h��S�č폜���܂��B<br>
-<b>�X���b�h�ړ�</b>�̓X���b�h��HTML�����ĉߋ����O�f�B���N�g���Ɉړ����܂��B<br>
-<br>
-page�F<?=$_GET['page']?><br>
-<?
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']; ?></h1>
+<h3>スレッド削除/移動</h3>
+<hr />
+<?php echo $comment?>
+<b>スレッド削除</b>はそのスレッドを全て削除します。<br />
+<b>スレッド移動</b>はスレッドをHTML化して過去ログディレクトリに移動します。<br />
+<br />
+page：<?php echo $_GET['page']; ?><br />
+<?php
 $total = count($PAGEFILE) + $thread - 1;
 $total_page = (int)($total/$thread);
 for ($i = 1; $i <= $total_page; $i++) {
@@ -281,27 +285,27 @@ for ($i = 1; $i <= $total_page; $i++) {
 }
 ?>
 <table border="1" cellspacing="0" cellpadding="2">
-<tr><th>�X���b�h�L�[</th><th>�^�C�g��</th><th>�@</th><th>�@</th></tr>
+<tr><th>スレッドキー</th><th>タイトル</th><th>　</th><th>　</th></tr>
 <?php
 for ($i = $st; $i < $st+$thread; $i++) {
 	if (!isset($PAGEFILE[$i])) break;
 	$tmp = $PAGEFILE[$i];
 	?>
-<tr><td> <a class="item" href="../test/read.php/<?=$_REQUEST['bbs']."/".$tmp?>/l50">#<?=$_REQUEST['bbs'].$tmp?></a> </td><td><?=$SUBJECT[$tmp]?></td>
+<tr><td> <a class="item" href="../test/read.php/<?php echo $_REQUEST['bbs']."/".$tmp?>/l50">#<?php echo $_REQUEST['bbs'].$tmp?></a> </td><td><?php echo $SUBJECT[$tmp]; ?></td>
 <td>
- <form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
- <input type=hidden name="bbs" value="<?=$_REQUEST['bbs']?>">
- <input type=hidden name="key" value="<?=$tmp?>">
- <input type=hidden name="mode" value="del">
- <input type=submit value="�X���b�h�폜">
+ <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+ <input type=hidden name="bbs" value="<?php echo $_REQUEST['bbs']; ?>" />
+ <input type=hidden name="key" value="<?php echo $tmp; ?>" />
+ <input type=hidden name="mode" value="del" />
+ <input type=submit value="スレッド削除" />
  </form>
 </td>
 <td>
  <form action="threadm.php" method="POST">
- <input type=hidden name="bbs" value="<?=$_REQUEST['bbs']?>">
- <input type=hidden name="key" value="<?=$tmp?>">
- <input type=hidden name="mode" value="mov">
- <input type=submit value="�X���b�h�ړ�">
+ <input type=hidden name="bbs" value="<?php echo $_REQUEST['bbs']; ?>" />
+ <input type=hidden name="key" value="<?php echo $tmp; ?>" />
+ <input type=hidden name="mode" value="mov" />
+ <input type=submit value="スレッド移動" />
  </form>
 </td>
 <?php
@@ -313,4 +317,3 @@ for ($i = 1; $i <= $total_page; $i++) {
 }
 echo "</body></html>";
 exit;
-?>

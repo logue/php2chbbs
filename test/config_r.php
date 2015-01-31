@@ -8,4 +8,3 @@ define('JIKAN_KISEI', FALSE);
 define('JIKAN_START', 22);
 # 規制終了時間（0-23）
 define('JIKAN_END', 2);
-?>

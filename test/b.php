@@ -14,4 +14,15 @@ if (!is_dir("../$bbs")) { echo("ERR - $version");exit; }
 #　フォーム出力
 #==================================================
 ?>
-<body><form method=POST action="../../bbs.php">ﾀｲﾄﾙ<input name=subject>NAME：<input name=FROM>MAIL：<input name=mail istyle=3><input type=hidden name=bbs value=<?=$bbs?>><input type=hidden name=time value=<?=time()?>><textarea name=MESSAGE></textarea><input type=submit value="かきこむ" name=submit></form><br><?=$version?></body>
+<body>
+<form method="POST" action="../../bbs.php">
+<input type="hidden" name="bbs" value="<?php echo $bbs?>" />
+<input type="hidden" name="time" value="<?php echo time()?>" />
+ﾀｲﾄﾙ：<input name="subject" />
+NAME：<input name="FROM" />
+MAIL：<input name="mail" istyle="3" />
+<textarea name="MESSAGE"></textarea>
+<input type="submit" value="かきこむ" name="submit" />
+</form>
+<?php echo $version?>
+</body>

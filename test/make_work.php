@@ -38,7 +38,7 @@ function MakeWorkFile($bbs, $key, $outdat="") {
 				# 全角数字に変更
 				$maxnum = mb_convert_kana(THREAD_RES, "N", "SJIS");
 				$maxplus = mb_convert_kana(++$lognum, "N", "SJIS");
-				$maxmsg = "このスレッドは${maxnum}を超えました。 <br> もう書けないので、新しいスレッドを立ててくださいです。。。 ";
+				$maxmsg = "このスレッドは${maxnum}を超えました。 <br /> もう書けないので、新しいスレッドを立ててくださいです。。。 ";
 				if (THREAD_MAX_MSG) {
 					$maxmsg = str_replace('<NUM>', $maxnum, THREAD_MAX_MSG);
 				}
@@ -68,7 +68,7 @@ function MakeWorkFile($bbs, $key, $outdat="") {
 	if ($mail) $mailto = "<a href=\"mailto:$mail \"><b>$name </b></a>";
 	else $mailto = "<font color=\"$SETTING[BBS_NAME_COLOR]\"><b>$name </b></font>";
 	#１つ目の要素を吐き出す
-	$logall .= " <dt>1 名前：$mailto $date<dd>$message <br><br><br>\n";
+	$logall .= " <dt>1 名前：$mailto $date<dd>$message <br /><br /><br />\n";
 	#残りのログを表示する
 	foreach ($logopen as $tmp){
 		#要素を加工する
@@ -84,18 +84,18 @@ function MakeWorkFile($bbs, $key, $outdat="") {
 		// 0thelloスレッドは全部表示
 		if ($GLOBALS['vip'][8]) $logall .= $message;
 		else {
-			$messx = explode ("<br>", $message);
+			$messx = explode ("<br />", $message);
 			for ($i = 1; $i <= $SETTING['BBS_LINE_NUMBER']; $i++) {
 				if ($messx) {
 					$logall .= array_shift($messx);
-					$logall .= "<br>";
+					$logall .= "<br />";
 				}
 			}
 			if ($messx) {
-				$logall .= "<font color=\"$SETTING[BBS_NAME_COLOR]\">（省略されました・・全てを読むには<a href=\"../test/read.php/$_POST[bbs]/$key/$topnum\" target=\"_blank\">ここ</a>を押してください）</font><br>";
+				$logall .= '<p style="color:' . $SETTING[BBS_NAME_COLOR] . '">（省略されました・・全てを読むには<a href="../test/read.php/' . $_POST['bbs'] . '/' . $key . '/' . $topnum . '" target="_blank">ここ</a>を押してください）</p>';
 			}
 		}
-		$logall .= "<br>\n";
+		$logall .= "<br />\n";
 		$topnum++;
 	}
 	$fp = fopen($workfile, "w");

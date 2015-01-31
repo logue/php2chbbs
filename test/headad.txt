@@ -1,1 +1,1 @@
-<div align="right"> �L���p�̃e�L�X�g�ł��K�v�Ȃ��Ƃ���"headad.txt"����ɂ��Ă��������B</div>
+<div align="right"> 広告用のテキストです必要ないときは"headad.txt"を空にしてください。</div>

@@ -1,12 +1,12 @@
 <?php
 require 'passcheck.php';
-#��x�ɕ\�����郊�X�g
+#一度に表示するリスト
 $inum = 10;
-if(!is_dir("../$_GET[bbs]")) disperror("�d�q�q�n�q�I", "����Ȕ�or�X���b�h�Ȃ��ł��B");
+if(!is_dir("../$_GET[bbs]")) disperror("ＥＲＲＯＲ！", "そんな板orスレッドないです。");
 #====================================================
-#�@�������̎擾�i�ݒ�t�@�C���j
+#　初期情報の取得（設定ファイル）
 #====================================================
-#�ݒ�t�@�C����ǂ�
+#設定ファイルを読む
 $set_pass = "../$_GET[bbs]/SETTING.TXT";
 if (is_file($set_pass)) {
 	$set_str = file($set_pass);
@@ -16,10 +16,10 @@ if (is_file($set_pass)) {
 		$SETTING[$name] = $value;
 	}
 }
-else disperror("�d�q�q�n�q�I","�d�q�q�n�q�F���[�U�[�ݒ肪�������Ă��܂��I");
+else disperror("ＥＲＲＯＲ！","ＥＲＲＯＲ：ユーザー設定が消失しています！");
 require "../$_GET[bbs]/config.php";
 #==================================================
-#�@�t�@�C������i�摜�t�@�C�����ǂݍ��݁j
+#　ファイル操作（画像ファイル名読み込み）
 #==================================================
 $img_dir = "../$_GET[bbs]/img";
 if ($dir = opendir($img_dir)) {
@@ -31,7 +31,7 @@ if ($dir = opendir($img_dir)) {
 @sort($img_list);
 @reset($img_list);
 #==================================================
-#�@�摜�폜
+#　画像削除
 #==================================================
 if(isset($_GET['mode']) and $_GET['mode'] == "img_del") {
 	if (isset($_GET['del']) and $_GET['del']) {
@@ -58,38 +58,38 @@ if(isset($_GET['mode']) and $_GET['mode'] == "img_del") {
 	@reset($img_list);
 }
 #==================================================
-#�@�t�@�C�����\��
+#　ファイル名表示
 #==================================================
 if (!isset($_GET['page']) or !$_GET['page']) $_GET['page'] = 1;
 $st = ($_GET['page'] - 1) * $inum;
 $num = count($img_list);
 $total_page = (int)(($num+$inum-1)/$inum);
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
-<title>�摜�폜</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="main.css" type="text/css" />
+<title>画像削除</title>
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>�摜�폜</h3>
-<hr>
-�폜�������摜�̃`�F�b�N�{�b�N�X���`�F�b�N����<b>�폜</b>�{�^���������Ă��������B<br>
-<br>
-<form action="<?=$_SERVER['PHP_SELF']?>" method="GET">
-<input type="hidden" name="bbs" value="<?=$_GET['bbs']?>">
-<input type="hidden" name="mode" value="img_del">
-<input type="submit" value="�폜">
-page�F<?=$_GET['page']?><br>
-<?
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']?></h1>
+<h3>画像削除</h3>
+<hr />
+<p>削除したい画像のチェックボックスをチェックして<b>削除</b>ボタンを押してください。</p>
+<form action="<?php echo $_SERVER['PHP_SELF']?>" method="GET">
+<input type="hidden" name="bbs" value="<?php echo $_GET['bbs']; ?>" />
+<input type="hidden" name="mode" value="img_del" />
+<input type="submit" value="削除" />
+page：<?php echo $_GET['page']; ?><br />
+<?php
 for ($i = 1; $i <= $total_page; $i++) {
 	if ($i == $_GET['page']) echo " $i \n";
-	else echo " <a class=\"item\" href=\"$_SERVER[PHP_SELF]?bbs=$_GET[bbs]&amp;page=$i\">$i</a> \n";
+	else echo '<a class="item" href="' . $_SERVER[PHP_SELF] . '?bbs=' . $_GET[bbs] . '&amp;page=' . $i . '">$i</a>' . "\n";
 }
 ?>
 <table border="1" cellspacing="0" cellpadding="2">
-<tr><td>�@</td><td>�ԍ�</td><td>�t�@�C����</td><td>�摜</td></tr>
+<tr><td>　</td><td>番号</td><td>ファイル名</td><td>画像</td></tr>
 <?php
 for ($i = $st; $i < $st + $inum; $i++) {
 	if (!isset($img_list[$i])) break;
@@ -110,20 +110,25 @@ for ($i = $st; $i < $st + $inum; $i++) {
 		}
 		$size = 'width="'.$width.'" height="'.$height.'"';
 	}
-	echo '<tr><td><input type="checkbox" name="del[]" value="'.$i++.'"></td><td align="center">'.$i--."</td><td><a class=\"item\" href=\"../$_GET[bbs]/img/$img_list[$i]\">$img_list[$i]</a></td><td><img src=\"$src\" $size></td></tr>\n";
+	// オイオイ
+	echo '<tr>
+	<td><input type="checkbox" name="del[]" value="' . $i++ . '" /></td>
+	<td align="center">' . $i-- . '</td>
+	<td><a class="item" href="../' . $_GET['bbs'] . '/img/' . $img_list[$i] . '">' . $img_list[$i] . '</a></td>
+	<td><img src="' . $src . '" ' . $size . '></td>
+</tr>';
 }
 ?>
 </table>
 <?php
 for ($i = 1; $i <= $total_page; $i++) {
 	if ($i == $_GET['page']) echo " $i \n";
-	else echo " <a class=\"item\" href=\"$_SERVER[PHP_SELF]?bbs=$_GET[bbs]&amp;page=$i\">$i</a> \n";
+	else echo '<a class="item" href="' . $_SERVER[PHP_SELF] . '?bbs=' . $_GET[bbs] . '&amp;page=' . $i . '">' . $i . '</a>' . "\n";
 }
 ?>
 <br>
-<input type="submit" value="�폜">
+<input type="submit" value="削除" />
 </form>
 </body></html>
-<?
+<?php
 exit;
-?>

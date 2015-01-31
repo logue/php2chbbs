@@ -1,13 +1,13 @@
 <?php
 require("passcheck.php");
 #=====================================
-#@ƒeƒLƒXƒg•ÒW
+#ã€€ãƒ†ã‚­ã‚¹ãƒˆç·¨é›†
 #=====================================
-if (!is_dir("../$_REQUEST[bbs]")) disperror("‚d‚q‚q‚n‚qI", "‚»‚ñ‚È”ÂorƒXƒŒƒbƒh‚È‚¢‚Å‚·B");
+if (!is_dir("../$_REQUEST[bbs]")) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ãã‚“ãªæ¿orã‚¹ãƒ¬ãƒƒãƒ‰ãªã„ã§ã™ã€‚");
 #====================================================
-#@‰Šúî•ñ‚Ìæ“¾iİ’èƒtƒ@ƒCƒ‹j
+#ã€€åˆæœŸæƒ…å ±ã®å–å¾—ï¼ˆè¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ï¼‰
 #====================================================
-#İ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚Ş
+#è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã‚€
 $set_pass = "../$_REQUEST[bbs]/SETTING.TXT";
 if (is_file($set_pass)) {
 	$set_str = file($set_pass);
@@ -17,33 +17,33 @@ if (is_file($set_pass)) {
 		$SETTING[$name] = $value;
 	}
 }
-else disperror("‚d‚q‚q‚n‚qI","‚d‚q‚q‚n‚qFƒ†[ƒU[İ’è‚ªÁ¸‚µ‚Ä‚¢‚Ü‚·I");
-# index.txt‚Ì“Ç‚İ‚İ
-list($header,) = explode('<CUT>', implode('', file("../test/index.txt")));
-$header = str_replace("<BBS_TITLE>", $SETTING['BBS_TITLE'], $header);
-$header = str_replace("<BBS_TEXT_COLOR>", $SETTING['BBS_TEXT_COLOR'], $header);
-$header = str_replace("<BBS_MENU_COLOR>", $SETTING['BBS_MENU_COLOR'], $header);
-$header = str_replace("<BBS_LINK_COLOR>", $SETTING['BBS_LINK_COLOR'], $header);
-$header = str_replace("<BBS_ALINK_COLOR>", $SETTING['BBS_ALINK_COLOR'], $header);
-$header = str_replace("<BBS_VLINK_COLOR>", $SETTING['BBS_VLINK_COLOR'], $header);
-$header = str_replace("<BBS_BG_COLOR>", $SETTING['BBS_BG_COLOR'], $header);
-$header = str_replace("<BBS_BG_PICTURE>", $SETTING['BBS_BG_PICTURE'], $header);
-$header = str_replace("<BBS_TITLE_NAME>", '<h1 class="title">'.$SETTING['BBS_TITLE'].'</h1>
-<h3>ƒeƒLƒXƒg•ÒW</h3>', $header);
-$headad = implode('', file("../test/headad.txt"));
+else disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼","ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼šãƒ¦ãƒ¼ã‚¶ãƒ¼è¨­å®šãŒæ¶ˆå¤±ã—ã¦ã„ã¾ã™ï¼");
+# index.txtã®èª­ã¿è¾¼ã¿
+list($header,) = explode('<CUT>', join('', file("../test/index.txt")));
+$header = str_replace("<BBS_TITLE>",        $SETTING['BBS_TITLE'], $header);
+$header = str_replace("<BBS_TEXT_COLOR>",   $SETTING['BBS_TEXT_COLOR'], $header);
+$header = str_replace("<BBS_MENU_COLOR>",   $SETTING['BBS_MENU_COLOR'], $header);
+$header = str_replace("<BBS_LINK_COLOR>",   $SETTING['BBS_LINK_COLOR'], $header);
+$header = str_replace("<BBS_ALINK_COLOR>",  $SETTING['BBS_ALINK_COLOR'], $header);
+$header = str_replace("<BBS_VLINK_COLOR>",  $SETTING['BBS_VLINK_COLOR'], $header);
+$header = str_replace("<BBS_BG_COLOR>",     $SETTING['BBS_BG_COLOR'], $header);
+$header = str_replace("<BBS_BG_PICTURE>",   $SETTING['BBS_BG_PICTURE'], $header);
+$header = str_replace("<BBS_TITLE_NAME>",   '<h1 class="title">'.$SETTING['BBS_TITLE'].'</h1>
+<h3>ãƒ†ã‚­ã‚¹ãƒˆç·¨é›†</h3>', $header);
+$headad = join('', file("../test/headad.txt"));
 if (isset($_REQUEST['mode']) and $_REQUEST['mode'] == 'view') {
-	$head = implode('', file("../$_REQUEST[bbs]/head.txt"));
+	$head   = join('', file("../$_REQUEST[bbs]/head.txt"));
 	$header = str_replace("<GUIDE>", $head, $header);
-	$option = implode('', file("../test/option.txt"));
+	$option = join('', file("../test/option.txt"));
 	$header = str_replace("<OPTION>", $option, $header);
-	$putad = implode('', file("../test/putad.txt"));
+	$putad  = join('', file("../test/putad.txt"));
 	$header = str_replace("<PUTAD>", $putad, $header);
 	echo $header;
-	$headad = implode('', file("../test/headad.txt"));
+	$headad = join('', file("../test/headad.txt"));
 	if ($headad) {
-		echo '<table border="1" cellspacing="7" cellpadding="3" width="95%" bgcolor="'.$SETTING['BBS_MENU_COLOR']."\" align=\"center\">\n <tr>\n  <td>\n";
-		echo $headad;
-		echo "\n  </td>\n </tr>\n</table><br>\n";
+		echo '<table border="1" cellspacing="7" cellpadding="3" width="95%" bgcolor="' . $SETTING['BBS_MENU_COLOR'] . '">' . "\n" . '<tr>' . "\n" . '<td>' . "\n";
+		echo $headad . "\n";
+		echo '</td>' . "\n" . '</tr>' . "\n" . '</table>' . "\n" . '<br />' . "\n";
 	}
 	exit;
 }
@@ -51,66 +51,69 @@ if (isset($_REQUEST['file'])) {
 	if ($_REQUEST['file'] == 'option' or $_REQUEST['file'] == 'putad' or $_REQUEST['file'] == 'headad')
 			$file_name = "../test/$_REQUEST[file].txt";
 	elseif ($_REQUEST['file'] == 'head') $file_name = "../$_REQUEST[bbs]/head.txt";
-	else disperror("‚d‚q‚q‚n‚qI", "ƒtƒ@ƒCƒ‹–¼‚ª•s³‚Å‚·B");
-	if (!is_file($file_name)) disperror("‚d‚q‚q‚n‚qI", "ƒtƒ@ƒCƒ‹i".$file_name."j‚ª‚ ‚è‚Ü‚¹‚ñBƒtƒ@ƒCƒ‹‚ğƒAƒbƒvƒ[ƒh‚µ‚Ä‚­‚¾‚³‚¢B");
-	if (!is_writable($file_name)) disperror("‚d‚q‚q‚n‚qI", "ƒtƒ@ƒCƒ‹i".$file_name."j‚É‘‚«‚İ‘®«‚ª‚ ‚è‚Ü‚¹‚ñBƒp[ƒ~ƒbƒVƒ‡ƒ“‚ğ606‚©666‚É‚µ‚Ä‚­‚¾‚³‚¢B");
+	else disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ãƒ•ã‚¡ã‚¤ãƒ«åãŒä¸æ­£ã§ã™ã€‚");
+	if (!is_file($file_name)) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆ".$file_name."ï¼‰ãŒã‚ã‚Šã¾ã›ã‚“ã€‚ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã—ã¦ãã ã•ã„ã€‚");
+	if (!is_writable($file_name)) disperror("ï¼¥ï¼²ï¼²ï¼¯ï¼²ï¼", "ãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆ".$file_name."ï¼‰ã«æ›¸ãè¾¼ã¿å±æ€§ãŒã‚ã‚Šã¾ã›ã‚“ã€‚ãƒ‘ãƒ¼ãƒŸãƒƒã‚·ãƒ§ãƒ³ã‚’606ã‹666ã«ã—ã¦ãã ã•ã„ã€‚");
 	$comment = '';
 	if (isset($_POST['text']) and $_POST['mode'] == 'write') {
 		if (get_magic_quotes_gpc()) $_POST['text'] = stripslashes($_POST['text']);
 		$fp = fopen($file_name, "w");
 		fputs($fp, $_POST['text']);
 		fclose($fp);
-		$comment = "ƒtƒ@ƒCƒ‹‚ğ‘‚«Š·‚¦‚Ü‚µ‚½Bƒƒjƒ…[‚Ì<b>index.html‚ğì‚è’¼‚·</b>‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢";
+		$comment = "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ›¸ãæ›ãˆã¾ã—ãŸã€‚ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®<b>index.htmlã‚’ä½œã‚Šç›´ã™</b>ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„";
 	}
-	$text = implode('', file($file_name));
+	$text = join('', file($file_name));
 	?>
+<!DOCTYPE html>
 <html>
 <head>
-<title>ƒeƒLƒXƒg•ÒW</title>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
+	<meta charset="UTF-8" />
+	<title>ãƒ†ã‚­ã‚¹ãƒˆç·¨é›†</title>
+	<link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>ƒeƒLƒXƒg•ÒW</h3>
-<hr>
-<font color="red"><?=$comment?></font><br>
-<b><?=$file_name?></b>‚ğ•ÒW‚µ‚Ä‚¢‚Ü‚·@@@@@
-<a class="item" href="edit.php?bbs=<?=$_REQUEST['bbs']?>">•ÒWƒƒjƒ…[</a>@@@@@<a class="item" href="edit.php?mode=view&amp;bbs=<?=$_REQUEST['bbs']?>" target="_blank">Šm”F</a><br>
-<br>
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']?></h1>
+<h3>ãƒ†ã‚­ã‚¹ãƒˆç·¨é›†</h3>
+<hr />
+<font color="red"><?php echo $comment?></font><br />
+<b><?php echo $file_name?></b>ã‚’ç·¨é›†ã—ã¦ã„ã¾ã™ã€€ã€€ã€€ã€€ã€€
+<a class="item" href="edit.php?bbs=<?php echo $_REQUEST['bbs']?>">ç·¨é›†ãƒ¡ãƒ‹ãƒ¥ãƒ¼</a>ã€€ã€€ã€€ã€€ã€€
+<a class="item" href="edit.php?mode=view&amp;bbs=<?php echo $_REQUEST['bbs']?>" target="_blank">ç¢ºèª</a><br />
+<br />
 <form action="./edit.php" method="post">
-<input type="hidden" name="mode" value="write">
-<input type="hidden" name="bbs" value="<?=$_REQUEST['bbs']?>">
-<input type="hidden" name="file" value="<?=$_REQUEST['file']?>">
-<input type="submit" name="submit" value="•ÏX">
-<input type="reset" name="reset" value="ƒŠƒZƒbƒg"><br>
-<textarea rows="30" cols="80" name="text"><?=$text?></textarea>
+	<input type="hidden" name="mode" value="write" />
+	<input type="hidden" name="bbs" value="<?php echo $_REQUEST['bbs']; ?>" />
+	<input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>" />
+	<input type="submit" name="submit" value="å¤‰æ›´" />
+	<input type="reset" name="reset" value="ãƒªã‚»ãƒƒãƒˆ"><br />
+	<textarea rows="30" cols="80" name="text"><?php echo $text; ?></textarea>
 </form>
 </body>
 </html>
 <?php
 	exit;
 }
-$form = '<form action="edit.php" method="post"><input type="hidden" name="bbs" value="'.$_REQUEST['bbs'].'"><input type="hidden" name="file" value="head"><input type="submit" value="head.txt‚ğ•ÒW‚·‚é"></form>';
-$header = str_replace("<GUIDE>", $form, $header);
-$form = '<form action="edit.php" method="post"><input type="hidden" name="bbs" value="'.$_REQUEST['bbs'].'"><input type="hidden" name="file" value="option"><input type="submit" value="option.txt‚ğ•ÒW‚·‚é"></form>';
-$header = str_replace("<OPTION>", $form, $header);
-$form = '<form action="edit.php" method="post"><input type="hidden" name="bbs" value="'.$_REQUEST['bbs'].'"><input type="hidden" name="file" value="putad">@@@@<input type="submit" value="putad.txt‚ğ•ÒW‚·‚é"></form>';
-$header = str_replace("<PUTAD>", $form, $header);
-$css = '<link rel="stylesheet" href="main.css" type="text/css">
+$header = str_replace("<GUIDE>",    '<form action="edit.php" method="post"><input type="hidden" name="bbs" value="'.$_REQUEST['bbs'].'" /><input type="hidden" name="file" value="head" /><input type="submit" value="head.txtã‚’ç·¨é›†ã™ã‚‹" /></form>', $header);
+$header = str_replace("<OPTION>",   '<form action="edit.php" method="post"><input type="hidden" name="bbs" value="'.$_REQUEST['bbs'].'" /><input type="hidden" name="file" value="option" /><input type="submit" value="option.txtã‚’ç·¨é›†ã™ã‚‹" /></form>', $header);
+$header = str_replace("<PUTAD>",    '<form action="edit.php" method="post"><input type="hidden" name="bbs" value="'.$_REQUEST['bbs'].'" /><input type="hidden" name="file" value="putad" />ã€€ã€€ã€€ã€€<input type="submit" value="putad.txtã‚’ç·¨é›†ã™ã‚‹" /></form>', $header);
+$css = '<link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 ';
 $header = str_replace("</head>", $css, $header);
 echo $header;
 ?>
-<table border="1" cellspacing="7" cellpadding="3" width="95%" bgcolor="<?=$SETTING['BBS_MENU_COLOR']?>" align="center">
- <tr>
-  <td>
-<form action="edit.php" method="post"><input type="hidden" name="bbs" value="<?=$_REQUEST['bbs']?>"><input type="hidden" name="file" value="headad"><input type="submit" value="headad.txt‚ğ•ÒW‚·‚é"></form>
-  </td>
- </tr>
-</table><br>
-Œf¦”Â‚ğ•¡”İ’u‚µ‚Ä‚¢‚éê‡option.txt,putad.txt,headad.txt‚Í‘S‚Ä‚ÌŒf¦”Â‚Å“¯‚¶‚à‚Ì‚ªg—p‚³‚ê‚Ü‚·B<br>
-head.txt‚Ì‚İ‚ªŒf¦”Â‚²‚Æ‚É•ÏX‚Å‚«‚Ü‚·B<br>
-<a class="item" href="edit.php?mode=view&amp;bbs=<?=$_REQUEST['bbs']?>" target="_blank">Šm”F</a><br>
+<table border="1" cellspacing="7" cellpadding="3" width="95%" bgcolor="<?php echo $SETTING['BBS_MENU_COLOR']?>">
+	<tr>
+		<td>
+			<form action="edit.php" method="post">
+				<input type="hidden" name="bbs" value="<?php echo $_REQUEST['bbs']; ?>" />
+				<input type="hidden" name="file" value="headad" />
+				<input type="submit" value="headad.txtã‚’ç·¨é›†ã™ã‚‹" />
+			</form>
+		</td>
+	</tr>
+</table><br />
+æ²ç¤ºæ¿ã‚’è¤‡æ•°è¨­ç½®ã—ã¦ã„ã‚‹å ´åˆoption.txt,putad.txt,headad.txtã¯å…¨ã¦ã®æ²ç¤ºæ¿ã§åŒã˜ã‚‚ã®ãŒä½¿ç”¨ã•ã‚Œã¾ã™ã€‚<br />
+head.txtã®ã¿ãŒæ²ç¤ºæ¿ã”ã¨ã«å¤‰æ›´ã§ãã¾ã™ã€‚<br />
+<a class="item" href="edit.php?mode=view&amp;bbs=<?php echo $_REQUEST['bbs']?>" target="_blank">ç¢ºèª</a><br />
 </body></html>

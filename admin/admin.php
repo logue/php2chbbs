@@ -2,17 +2,19 @@
 require("passcheck.php");
 if (!isset($_GET['bbs'])) $_GET['bbs'] = '';
 ?>
+
+<!DOCTYPE html>
 <html>
 <head>
-<title>ŠÇ—l‚Ì•”‰®</title>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta charset="UTF-8" />
+<title>ç®¡ç†äººã®éƒ¨å±‹</title>
 </head>
 <frameset cols="170,*" border="1" frameborder="1" framespacing="0">
-  <frame src="menu.php?bbs=<?=$_GET['bbs']?>" name="menu" frameborder="0">
-  <frame src="main.php" name="main" frameborder="0">
+  <frame src="menu.php?bbs=<?=$_GET['bbs']?>" name="menu" frameborder="0" />
+  <frame src="main.php" name="main" frameborder="0" />
   <noframes>
     <body>
-    <p><b>ƒtƒŒ[ƒ€</b>‚ðƒTƒ|[ƒg‚µ‚½ƒuƒ‰ƒEƒU‚Å‚Ì—˜—p‚ð‚¨Š©‚ß‚µ‚Ü‚·B</p>
+    <p><b>ãƒ•ãƒ¬ãƒ¼ãƒ </b>ã‚’ã‚µãƒãƒ¼ãƒˆã—ãŸãƒ–ãƒ©ã‚¦ã‚¶ã§ã®åˆ©ç”¨ã‚’ãŠå‹§ã‚ã—ã¾ã™ã€‚</p>
     <a href="menu.php">menu.php</a>
     </body>
   </noframes>

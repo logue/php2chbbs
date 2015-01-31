@@ -191,30 +191,30 @@ if (isset($_FILES['file']) and $_FILES['file']['name'] and (UPLOAD or $upload)) 
 					$src_im = imagecreatefromjpeg($file_name);
 					$imageresize($dst_im,$src_im,0,0,0,0,$W,$H,$size[0],$size[1]);
 					imagejpeg($dst_im, $IMGPATH2.$_POST['key'].$imgnum.".jpg");
-					$img_ref .= '<img src="'.$a_path.'img2/'.$_POST['key'].$imgnum.'.jpg" width="'.$W.'" height="'.$H.'" align=left></a>';
+					$img_ref .= '<img src="'.$a_path.'img2/'.$_POST['key'].$imgnum.'.jpg" width="'.$W.'" height="'.$H.'" align="left" /></a>';
 				}
 				# pngの場合
 				elseif ($tail == ".png") {
 					$src_im = imagecreatefrompng($file_name);
 					$imageresize($dst_im,$src_im,0,0,0,0,$W,$H,$size[0],$size[1]);
 					imagejpeg($dst_im, $IMGPATH2.$_POST['key'].$imgnum.".jpg");
-					$img_ref .= '<img src="'.$a_path.'img2/'.$_POST['key'].$imgnum.'.jpg" width="'.$W.'" height="'.$H.'" align=left></a>';
+					$img_ref .= '<img src="'.$a_path.'img2/'.$_POST['key'].$imgnum.'.jpg" width="'.$W.'" height="'.$H.'" align="left" /></a>';
 				}
 				# gifがGDで読める場合
 				elseif ($tail == ".gif" and $gifread == "on") {
 					$src_im = imagecreatefromgif($file_name);
 					$imageresize($dst_im,$src_im,0,0,0,0,$W,$H,$size[0],$size[1]);
 					imagejpeg($dst_im, $IMGPATH2.$_POST['key'].$imgnum.".jpg");
-					$img_ref .= '<img src="'.$a_path.'img2/'.$_POST['key'].$imgnum.'.jpg" width="'.$W.'" height="'.$H.'" align=left></a>';
+					$img_ref .= '<img src="'.$a_path.'img2/'.$_POST['key'].$imgnum.'.jpg" width="'.$W.'" height="'.$H.'" align="left" /></a>';
 				}
 				# gifが読めない場合はサムネイルなし
-				else $img_ref .= '<img src="'.$a_path.'img/'.$_POST['key'].$imgnum.$tail.'" width="'.$W.'" height="'.$H.'" align=left></a>';
+				else $img_ref .= '<img src="'.$a_path.'img/'.$_POST['key'].$imgnum.$tail.'" width="'.$W.'" height="'.$H.'" align="left" /></a>';
 			}
 			# サムネイルを作成しない場合
-			else $img_ref .= '<img src="'.$a_path.'img/'.$_POST['key'].$imgnum.$tail.'" width="'.$W.'" height="'.$H.'" align=left></a>';
+			else $img_ref .= '<img src="'.$a_path.'img/'.$_POST['key'].$imgnum.$tail.'" width="'.$W.'" height="'.$H.'" align="left" /></a>';
 		}
 		# 投稿画像サイズが設定サイズより小さい場合はそのままのサイズで表示
-		else $img_ref .= '<img src="'.$a_path.'img/'.$_POST['key'].$imgnum.$tail.'" '.$size[3].' align=left></a>';
+		else $img_ref .= '<img src="'.$a_path.'img/'.$_POST['key'].$imgnum.$tail.'" '.$size[3].' align="left" /></a>';
 		$_POST['MESSAGE'] = $img_ref.$_POST['MESSAGE'].'<br clear=all>';
 	}
 	# 画像ファイル以外はエラー

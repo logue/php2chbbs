@@ -1,7 +1,7 @@
 <?php
 require 'passcheck.php';
 #====================================================
-#�@�e��o�`�s�g����
+#　各種ＰＡＴＨ生成
 #====================================================
 if (!isset($_GET['bbs'])) $_GET['bbs'] = '';
 if (!isset($_GET['mode'])) $_GET['mode'] = '';
@@ -13,11 +13,11 @@ $SUBFILE = $PATH . "subback.html";
 $IMODEFILE = $PATH."i/index.html";
 if ($_GET['bbs']) require $PATH.'config.php';
 #====================================================
-#�@�f���V�K�쐬
+#　掲示板新規作成
 #====================================================
 if ($_GET['mode'] == 'make') {
 /*
-	if (is_dir($PATH)) disperror("�d�q�q�n�q�I", "�������O�̃f�B���N�g�������݂��܂�");
+	if (is_dir($PATH)) disperror("ＥＲＲＯＲ！", "同じ名前のディレクトリが存在します");
 	mkdir($PATH, 0755);
 	mkdir($DATPATH, 0755);
 	mkdir($TEMPPATH, 0755);
@@ -43,13 +43,13 @@ if ($_GET['mode'] == 'make') {
 */
 }
 #====================================================
-#�@index.html����蒼��
+#　index.htmlを作り直す
 #====================================================
 elseif ($_GET['mode'] == 'remake') {
 	#====================================================
-	#�@�������̎擾�i�ݒ�t�@�C���j
+	#　初期情報の取得（設定ファイル）
 	#====================================================
-	#�ݒ�t�@�C����ǂ�
+	#設定ファイルを読む
 	$set_pass = $PATH . "SETTING.TXT";
 	if (is_file($set_pass)) {
 		$set_str = file($set_pass);
@@ -59,10 +59,10 @@ elseif ($_GET['mode'] == 'remake') {
 			$SETTING[$name] = $value;
 		}
 	}
-	else disperror("�d�q�q�n�q�I", "�d�q�q�n�q�F���[�U�[�ݒ肪�������Ă��܂��I");
-	if (!is_dir($PATH)) disperror("�d�q�q�n�q�I","����ȔȂ��ł��I");
+	else disperror("ＥＲＲＯＲ！", "ＥＲＲＯＲ：ユーザー設定が消失しています！");
+	if (!is_dir($PATH)) disperror("ＥＲＲＯＲ！","そんな板ないです！");
 	if (isset($_GET['check']) and $_GET['check'] == 'check') {
-		# �T�u�W�F�N�g�t�@�C����ǂݍ���
+		# サブジェクトファイルを読み込む
 		$PAGEFILE = array();
 		$subjectfile = $PATH."subject.txt";
 		$subr = @file($subjectfile);
@@ -73,7 +73,7 @@ elseif ($_GET['mode'] == 'remake') {
 				list ($file, $value) = explode("<>", $tmp);
 				if (!$file) break;
 				$filename = "$DATPATH/$file";
-				if (is_file($filename)){ # dat�����݂���ꍇ���Ԃɒǉ�
+				if (is_file($filename)){ # datが存在する場合順番に追加
 					array_push($PAGEFILE,$file);
 					$subbak .= $tmp."\n";
 					$SUBJECT[$file] = $value;
@@ -86,7 +86,7 @@ elseif ($_GET['mode'] == 'remake') {
 		$NOWTIME = time();
 		if (GD_VERSION) {
 			$enctype = 'multipart/form-data';
-			$file_form = '<input type=file name=file size=50><br>';
+			$file_form = '<input type="file" name="file" size="50" /><br>';
 		}
 		else {
 			$enctype = 'application/x-www-form-urlencoded';
@@ -101,45 +101,47 @@ elseif ($_GET['mode'] == 'remake') {
 	}
 	else {
 		?>
+<!DOCTYPE html>
 <html>
 <head>
-<title>index.html�쐬</title>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
+<meta charset="UTF-8" />
+<title>index.html作成</title>
+<link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 <body>
-<h1 class="title"><?=$SETTING['BBS_TITLE']?></h1>
-<h3>index.html�쐬</h3>
-<hr>
-<form action="<?=$_SERVER['PHP_SELF']?>" method="GET">
-<input type="hidden" name="mode" value="remake">
-<input type="hidden" name="bbs" value="<?=$_GET['bbs']?>">
-<input type="hidden" name="check" value="check">
-index.html����蒼���܂��B<br>
-��낵���ł����B<br>
-<br>
-<input type="submit" value="��蒼��">
+<h1 class="title"><?php echo $SETTING['BBS_TITLE']?></h1>
+<h3>index.html作成</h3>
+<hr />
+<form action="<?php echo $_SERVER['PHP_SELF']?>" method="GET">
+<input type="hidden" name="mode" value="remake" />
+<input type="hidden" name="bbs" value="<?php echo $_GET['bbs']?>" />
+<input type="hidden" name="check" value="check" />
+<p>index.htmlを作り直します。<br />
+よろしいですか。</p>
+<input type="submit" value="作り直す" />
 </form>
 </body></html>
-<?
+<?php
 		exit;
 	}
 }
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-<title>�f���쐬</title>
+<meta charset="UTF-8" />
+<title>掲示板作成</title>
 <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
 <link rel="stylesheet" href="main.css" type="text/css">
 </head>
 <body>
-<h3>�f���쐬</h3>
+<h3>掲示板作成</h3>
 <hr>
-<form action="<?=$_SERVER['PHP_SELF']?>" method="GET">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
 <input type="hidden" name="mode" value="make">
-�V�����f���̃f�B���N�g���������߂Ă��������B<br>
-�i�G���[���o����A�t�@�C�������Ȃ��Ƃ��́A�蓮�Ńt�@�C�����A�b�v���Ă��������B�j<br><br>
-<input type="text" name="bbs" size="10">
-<input type="submit" value="����">
+<p>新しい掲示板のディレクトリ名を決めてください。<br />
+（エラーが出たり、ファイルが作れないときは、手動でファイルをアップしてください。）</p>
+<input type="text" name="bbs" size="10" />
+<input type="submit" value="決定" />
 </form>
 </body></html>

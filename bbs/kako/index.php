@@ -4,9 +4,9 @@ function DispError($msg) {
 	exit;
 }
 #====================================================
-#�@�������̎擾�i�ݒ�t�@�C���j
+#　初期情報の取得（設定ファイル）
 #====================================================
-#�ݒ�t�@�C����ǂ�
+#設定ファイルを読む
 $set_pass = "../SETTING.TXT";
 if (is_file($set_pass)) {
 	$set_str = file($set_pass);
@@ -16,26 +16,29 @@ if (is_file($set_pass)) {
 		$SETTING[$name] = $value;
 	}
 }
-else DispError("�d�q�q�n�q�F���[�U�[�ݒ肪�������Ă��܂��I");
+else DispError("ＥＲＲＯＲ：ユーザー設定が消失しています！");
 
 $kakolog = file("kako.txt");
 @sort($kakolog);
 @reset($kakolog);
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-<title><?=$SETTING['BBS_TITLE']?>�@�ߋ����O�q��</title>
+<meta chaset="UTF-8" />
+<title><php echo $SETTING['BBS_TITLE']; ?>　過去ログ倉庫</title>
 </head>
 <body>
-<a href="..">���f���ɖ߂遡</a><p>
-���V�����f�[�^�`��(teri�̃^�C�v)�̃X���b�h
-<p>
+<p><a href="..">■掲示板に戻る■</a></p>
+<p>※新しいデータ形式(teriのタイプ)のスレッド</p>
+<ol>
 <?php
 if ($kakolog) {
 	foreach ($kakolog as $tmp) {
-		echo $tmp;
+		echo '<li>' . $tmp . '</li>' . "\n";
 	}
 }
 ?>
+</ol>
 </body>
 </html>

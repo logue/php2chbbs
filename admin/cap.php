@@ -1,6 +1,6 @@
 <?php
 #====================================================
-#�@�L���b�v
+#　キャップ
 #====================================================
 require("passcheck.php");
 #=============================================
@@ -14,18 +14,18 @@ if (get_magic_quotes_gpc()) {
 	$_POST['name'] = stripslashes($_POST['name']);
 	$_POST['password'] = stripslashes($_POST['password']);
 }
-#---------------�ǉ�
+#---------------追加
 if (isset($_POST['mode']) and $_POST['mode'] == "add") {
 	$fll = 1;
-	if (!$_POST['name']) disperror("�d�q�q�n�q�I","���O�����͂���Ă��܂���I");
-	if(!$_POST['password']) disperror("�d�q�q�n�q�I","�p�X�����͂���Ă��܂���I");
+	if (!$_POST['name']) disperror("ＥＲＲＯＲ！","名前が入力されていません！");
+	if(!$_POST['password']) disperror("ＥＲＲＯＲ！","パスが入力されていません！");
 	$time = time();
 	if ($list) {
 		foreach ($list as $tmp) {
 			$tmp = trim($tmp);
 			list($id2,$name2,$pass2) = explode("<>", $tmp);
-			if ($_POST['name'] == $name2) disperror("�d�q�q�n�q�I","���̖��O�͊��Ɏg�p����Ă��܂��I");
-			if (crypt($_POST['password'], $pass2) == $pass2) disperror("�d�q�q�n�q�I","���̃p�X�͊��Ɏg�p����Ă��܂��I");
+			if ($_POST['name'] == $name2) disperror("ＥＲＲＯＲ！","その名前は既に使用されています！");
+			if (crypt($_POST['password'], $pass2) == $pass2) disperror("ＥＲＲＯＲ！","そのパスは既に使用されています！");
 		}
 	}
 	$_POST['password'] = crypt($_POST['password']);
@@ -33,14 +33,14 @@ if (isset($_POST['mode']) and $_POST['mode'] == "add") {
 	fputs($fp, "$time<>$_POST[name]<>$_POST[password]<>$_POST[color]\n");
 	fclose($fp);
 }
-#---------------�ҏW
-elseif (isset($_POST['mode']) and $_POST['mode'] == "�ύX"){
+#---------------編集
+elseif (isset($_POST['mode']) and $_POST['mode'] == "変更"){
 	$fll = 1;
 	$caplist = '';
 	foreach ($list as $tmp){
 		list($id2,$name2,$pass2) = explode("<>", $tmp);
 		if ($_POST['id'] == $id2) {
-			if (crypt($_POST['passold'], $pass2) != $pass2) disperror("�d�q�q�n�q�I","�p�X���[�h���Ⴂ�܂��I");
+			if (crypt($_POST['passold'], $pass2) != $pass2) disperror("ＥＲＲＯＲ！","パスワードが違います！");
 			if ($_POST['passnew']) $pass2 = crypt($_POST['passnew']);
 			$tmp="$_POST[id]<>$_POST[name]<>$pass2<>$_POST[color]\n";
 		}
@@ -50,14 +50,14 @@ elseif (isset($_POST['mode']) and $_POST['mode'] == "�ύX"){
 	fputs($fp, $caplist);
 	fclose($fp);
 }
-#---------------�폜
-elseif (isset($_POST['mode']) and $_POST['mode'] == "�폜"){
+#---------------削除
+elseif (isset($_POST['mode']) and $_POST['mode'] == "削除"){
 	$fll = 1;
 	$caplist = '';
 	foreach ($list as $tmp){
 		list($id2,$name2,$pass2) = explode("<>", $tmp);
 		if($_POST['id'] == $id2){
-			if (crypt($_POST['passold'], $pass2) != $pass2) disperror("�d�q�q�n�q�I","�p�X���[�h���Ⴂ�܂��I");
+			if (crypt($_POST['passold'], $pass2) != $pass2) disperror("ＥＲＲＯＲ！","パスワードが違います！");
 			else continue;
 		}
 		$caplist .= $tmp;
@@ -66,73 +66,76 @@ elseif (isset($_POST['mode']) and $_POST['mode'] == "�폜"){
 	fputs($fp, $caplist);
 	fclose($fp);
 }
-#---------------����ȊO
+#---------------それ以外
 if($fll == 1){
-	header("Location: http://$_SERVER[HTTP_HOST]$_SERVER[PHP_SELF]");
+	header("Location: //$_SERVER[HTTP_HOST]$_SERVER[PHP_SELF]");
 	exit;
 }
-#########�L���b�v�Ǘ����j���[
+#########キャップ管理メニュー
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-<title>�L���b�v�Ǘ�</title>
-<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
-<link rel="stylesheet" href="main.css" type="text/css">
+<meta charset="UTF-8" />
+<title>キャップ管理</title>
+<link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 <body>
-<h3>�L���b�v�Ǘ�</h3>
-<hr>
-���e���Ƀ��[������#�ɑ����ăp�X���[�h����͂���ƁA�����œo�^�������O���L���b�v�}�[�N���t���ŕ\������܂��B<br>
-�p�X���[�h��abcd�������烁�[������#abcd�ƋL�����܂��B<br>
-sage#abcd�̂悤��sage�@�\�ƕ��p���o���܂��Bscript@s16.xrea.com#abcd�ƃ��[���A�h���X�������܂��B<br>
-���e���ɂ͖��O���͖��L���ł��o�^�����L���b�v�����\������܂����A���O���L�����ē��e�����<b>���O���L���b�v�� ��</b>�ƕ\������܂��B<br>
-�F��html�Ŏg����`�ŏ����Ă��������B#C06000�̂悤��#���L�����܂��Bred,green,blue�Ȃǂ̃u���E�U���Ή����Ă����ʓI�ȐF�����g���܂��B<br>
-<hr>
-<form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
-<input type="hidden" name="mode" value="add">
-�V�K�L���b�v�o�^<br>
-���O�F<input type="text" name="name">
-�p�X���[�h�F<input type="password" name="password">
-�F�F<input type="text" name="color">
-<input type="submit" value="�ǉ�">
+<h3>キャップ管理</h3>
+<hr />
+<p>投稿時にメール欄に#に続けてパスワードを入力すると、ここで登録した名前がキャップマーク★付きで表示されます。<br />
+パスワードがabcdだったらメール欄に#abcdと記入します。<br />
+sage#abcdのようにsage機能と併用も出来ます。script@example.com#abcdとメールアドレスも書けます。<br />
+投稿時には名前欄は無記入でも登録したキャップ名が表示されますが、名前を記入して投稿すると<b>名前＠キャップ名 ★</b>と表示されます。<br />
+色はhtmlで使える形で書いてください。#C06000のように#も記入します。red,green,blueなどのブラウザが対応している一般的な色名も使えます。</p>
+<hr />
+<form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
+<input type="hidden" name="mode" value="add" />
+	新規キャップ登録<br />
+	名前：<input type="text" name="name" />
+	パスワード：<input type="password" name="password" />
+	色：<input type="text" name="color" />
+	<input type="submit" value="追加" />
 </form>
-<hr>
-�L���b�v�ύX�폜<font size="-1">�i�o�^���̃p�X���[�h���K�v�ł��j</font><br>
-<table border=1 cellspacing=2 cellpadding=3>
-<tr><th>�L���b�vID</th><th>���O</th><th>�p�X���[�h�i�K�{�j</th><th>�F</th><th>�p�X���[�h�ύX</th><th>�@</th><th>�@</th></tr>
+<hr />
+キャップ変更削除<small>（登録時のパスワードが必要です）</small><br />
+<table border="1" cellspacing="2" cellpadding="3">
+	<thead>
+		<tr>
+			<th>キャップID</th>
+			<th>名前</th>
+			<th>パスワード（必須）</th>
+			<th>色</th>
+			<th>パスワード変更</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
 <?php
 if ($list) {
 	foreach ($list as $tmp) {
 		$tmp = chop($tmp);
 		list($id2,$name2,$pass2,$color) = explode("<>", $tmp);
-?><form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
-<tr><td><?=$id2?></td>
-<td>
-<input type="text" name="name" value="<?=$name2?>">
-</td>
-<td>
-<input type="password" name="passold" value="">
-<input type="hidden" name="id" value="<?=$id2?>">
-</td>
-<td>
-<input type="text" name="color" value="<?=$color?>">
-</td>
-<td>
-<input type="password" name="passnew" value="">
-</td>
-<td>
-<input type="submit" name="mode" value="�ύX">
-</td>
-<td>
-<input type="submit" name="mode" value="�폜">
-</td>
-</tr>
+		// このformタグの使い方は正しくない
+?><form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
+		<tr>
+			<td><?php echo $id2; ?></td>
+			<td><input type="text" name="name" value="<?php echo $name2; ?>"></td>
+			<td><input type="password" name="passold" value=""><input type="hidden" name="id" value="<?php echo $id2; ?>"></td>
+			<td><input type="text" name="color" value="<?php echo $color; ?>"></td>
+			<td><input type="password" name="passnew" value=""></td>
+			<td><input type="submit" name="mode" value="変更"></td>
+			<td><input type="submit" name="mode" value="削除"></td>
+		</tr>
 </form>
 <?php
 	}
 }
-?></table>
-<hr>
+?>
+	</tbody>
+</table>
+<hr />
 </body></html>
 <?php
 exit;
