@@ -4,7 +4,7 @@
   <input type="hidden" name="time" value="<TIME>" />
   <input type="submit" value="書き込む" name="submit" />
   名前： <input type="text" name="FROM" size="19" />
-  E-mail：<input type="text" name="mail" size="19" />
+  E-mail：<input type="text" name="mail" size="19" /><br />
   <textarea rows="5" cols="64" wrap="off" name="MESSAGE"></textarea><br />
   <FILE_FORM>
   <b>
