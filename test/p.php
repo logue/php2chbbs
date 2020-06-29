@@ -24,7 +24,7 @@ $mae = $st - $th_count;
 if ($mae <= 0) {$mae = 1;}
 $tugi = $st + $th_count;
 if ($tugi > $end + 1) {$tugi = $end + 1;}
-?><!DOCTYPE html><html><head><meta chaset="UTF-8" /><base href="<?php echo $url.'/test/r.php/'.$bbs?>" /><title><?php echo $bbs?> スレッド一覧</title></head><body><a href=../../p.php/<?php echo $bbs?>/<?php echo $mae?>>前</a> <a href=../../p.php/<?php echo $bbs?>/<?php echo $tugi?>>次</a><hr /><?php
+?><!DOCTYPE html><html><head><meta charset="UTF-8" /><base href="<?php echo $url.'/test/r.php/'.$bbs?>" /><title><?php echo $bbs?> スレッド一覧</title></head><body><a href=../../p.php/<?php echo $bbs?>/<?php echo $mae?>>前</a> <a href=../../p.php/<?php echo $bbs?>/<?php echo $tugi?>>次</a><hr /><?php
 for ($i = $st; $i < $tugi; $i++) {
 	list($id, $sub) = explode("<>", $th_titles[$i-1]);
 	$id = str_replace(".dat", "", $id);

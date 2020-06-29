@@ -25,7 +25,7 @@ $kakolog = file("kako.txt");
 <!DOCTYPE html>
 <html>
 <head>
-<meta chaset="UTF-8" />
+<meta charset="UTF-8" />
 <title><php echo $SETTING['BBS_TITLE']; ?>　過去ログ倉庫</title>
 </head>
 <body>
