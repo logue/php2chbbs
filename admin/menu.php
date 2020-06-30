@@ -19,7 +19,7 @@ else $func = '';
 ?>
 <html>
 <head>
-<meta chaset="UTF-8" />
+<meta charset="UTF-8" />
 <title>管理メニュー</title>
 <link rel="stylesheet" href="menu.css" type="text/css" />
 <script type="text/javascript">/* <![CDATA[ */

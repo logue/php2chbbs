@@ -1,4 +1,4 @@
-@chaset('UTF-8')
+@charset "UTF-8";
 .menu {font-size: 11pt; color: #333300; text-decoration: none}
 .title {font-size: 11pt; color: #CC33CC; text-decoration: none}
 .item {font-size: 10pt; color: #0000FF; text-decoration: none}

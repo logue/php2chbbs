@@ -591,7 +591,7 @@ function DispError($title, $topic = "") {
 <html>
 <!-- 2ch_X:cookie -->
 <head>
-<meta chaset="UTF-8" />
+<meta charset="UTF-8" />
 <title>■ 書き込み確認 ■</title>
 </head>
 <body bgcolor="#EEEEEE">
